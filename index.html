@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html ng-app class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app ="cpProjectApp"> <![endif]-->
+<!--[if IE 7]>         <html ng-app class="no-js lt-ie9 lt-ie8" ng-app ="cpProjectApp" > <![endif]-->
+<!--[if IE 8]>         <html ng-app class="no-js lt-ie9" ng-app ="cpProjectApp" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app ="cpProjectApp" > <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/common.css">
+        <link rel="stylesheet" href="css/main.css" >
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="WRAPPER-LAYER">
+
+
+            <div id="MAIN-LAYER">
+
+                <!-- 네비게이션 영역 -->
+                <div id="navigation-layer">
+
+                    <div id="nav-container" ng-controller="NavigationController as naviCtrl" class="clearfix">
+
+                        <div class="logo-motion-area mask">
+                            <div>
+                                <img src="./assets/ui/alectia_logo.png">
+                                <img src="./assets/ui/alectia_logo.png">
+                            </div>
+                        </div>
+
+                        <!--ajax 연동을 통한 네비 구성-->
+                        <nav id="navigations">
+                            <ul class="menu">
+                                <!--  메뉴 ( 템플릿 ) -->
+                                <li ng-repeat="naviData in naviList">
+                                    <a href="{{naviData.data}}" ng-click="onClick_MenuItem($event, naviData.data);">
+                                        <span>{{naviData.label}}</span>
+                                        <div class="motion-area mask">
+                                            <div></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
+
+
+                    </div>
+
+                    <div id="emblem-container">
+                        <div class="motion-area mask">
+                            <div>
+                                <img src="./assets/ui/cp_label.png" />
+                                <img src="./assets/ui/cp_label.png" />
+                            </div>
+                        </div>
+                       <img src="./assets/ui/transparent.gif" class="transparent-area" />
+                    </div>
+
+                </div>
+
+                <!--
+                  컨텐츠 영역
+                -->
+                <div id="content-layer">
+
+                    <!-- 플젝 리스트  추가 영역 -->
+                    <div id="project-container" ng-show="initialize" ng-controller="ProjectListController as projectCtrl">
+
+                        <project-renderer ng-repeat="project in projects" value="{{project.transform}}"  >
+                        </project-renderer>
+
+                    </div>
+
+                </div>
+
+                <div id="footer-layer" class="template">
+                    <div class="logo-motion-area mask">
+                        <div>
+                            <img src="./assets/ui/alectia_logo.png">
+                            <img src="./assets/ui/alectia_logo.png">
+                        </div>
+                    </div>
+                    <div class="copy-right">
+                        <span>2014 @ Copyrigh chaospace</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="LOADING-LAYER" ng-controller="ProgressViewController as progressCtrl" ng-show="loading">
+            <div class="loading-area">
+                <div class="loading"></div>
+                <div class="loading-text">loading</div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+        <div id="renderer-produce" class="project-renderer renderer-type1 mask template">
+            <div class="image-container">
+                <img src="./assets/ui/pic.jpg" />
+            </div>
+            <div>
+                <div class="label-container">
+
+                </div>
+
+                <div class="deco-container">
+                    <div class="deco-cover left"></div>
+                    <div class="deco-cover right"></div>
+                    <div class="deco-description">
+                        <div class="infomation">
+                            <ul></ul>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="transparent-area" src="assets/ui/transparent.gif" width="1" height="1">
+        </div>
+
+     -->
+
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/lib/responsive-img.js"></script>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/app.js"></script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>

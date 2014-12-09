@@ -1,0 +1,731 @@
+@charset "UTF-8";
+@import "partisal/media-queries";
+@import "partisal/vender_prefix";
+
+$mq-wideWidth   : 1130px;
+$mq-desktopWidth: 840px;
+$mq-tabletWidth : 550px;
+$mq-mobileWidth : 320px;
+
+$stageBGColor: rgb(40, 40, 40);
+$themeColor: rgb(31, 73, 179);
+$themeSubColor: rgb(27, 64, 159);
+$headerColor :rgb(49, 163, 68);
+$contentColor:rgb(156, 156, 156);
+$footerColor: rgb(31, 73, 179); /* rgb(46, 48, 50);*/
+
+$normalFontSize:14px;
+$titleFontSize:18px;
+
+$fontColor:#f2f2f2;
+$themeEngFont:'Titillium Web';
+$themeKorFont:'Nanum Gothic';
+
+@include keyframes( rotate-loading ) {
+  0%{  @include transform(rotate(0deg)); }
+  100%{ @include transform(rotate(360deg)); }
+}
+
+@include keyframes( loading-text-opacity ){
+  0%{opacity: 0}
+  50%{opacity: 1}
+  100%{opacity: 0}
+}
+
+
+
+@mixin setSize( $width, $height: $width ){
+  width: $width;
+  height: $height;
+}
+
+@mixin setFontStyle( $font, $size, $color:white ){
+  font-family: $font;
+  font-size: $size;
+  color: $color;
+}
+
+
+
+html, body {
+  color: $fontColor;
+  width: 100%;
+  height: 100%;
+  background-color: $stageBGColor;
+  font-family: $themeEngFont, $themeKorFont, verdana, sans-serif;
+  font-size: $normalFontSize;
+}
+
+a {
+  color: $fontColor;
+  text-decoration: none;
+}
+
+
+/* 마스크 효과를 위한 overflow hidden처리 */
+.mask{
+  overflow: hidden;
+}
+
+
+.template{
+  display: none;
+}
+
+.transparent-area{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: block;
+  pointer-events: none;
+  width: 100%; height: 100%;
+}
+
+
+
+/*
+  wrapper layer style
+*/
+div#WRAPPER-LAYER{
+  position: absolute;
+  @include setSize(100%);
+}
+
+
+/*
+  main layer style
+*/
+div#MAIN-LAYER{
+  margin: 0 auto;
+  position: relative;
+}
+
+
+/*
+상단 네비게이션 스타일
+*/
+div#navigation-layer{
+  position: relative;
+  width: 100%;
+  height:auto;
+  font-size:14px;
+  line-height:18px;
+  margin: 0px 0px 30px 0px;
+}
+
+div#nav-container {
+  background-color:$themeColor;
+  height:auto;
+  overflow:hidden;
+  margin-left: 290px;
+}
+
+
+nav#navigations {
+  position:relative;
+  float:left;
+  padding:5px 0px;
+  display:block;
+}
+
+ul.menu a {
+  display: block;
+  padding-bottom: 5px;
+}
+
+ul.menu a:hover .motion-area > div {
+  @include transform(translate3d(0px, 0px, 0px));
+}
+
+ul.menu .motion-area {
+  position: absolute;
+  @include setSize(30px, 2px);
+  @include transform(translate3d(-40px, -8px, 0px));
+}
+
+ul.menu .motion-area > div {
+  position: absolute;
+  @include setSize(30px, 2px);
+  @include transition(all, 0.1s, ease-in-out);
+  @include transform(translate3d(30px, 0px, 0px));
+  background: rgb(255, 255, 255);
+}
+
+%app-default-transition {
+  @include transition( all, 0.4s, ease-in-out );
+}
+
+%slide-image-layout {
+
+  img{
+    position: absolute;
+    pointer-events: none;
+    &:nth-child(1){
+      @include transform( translate3d(0px, 0px, 0px) );
+    }
+    &:nth-child(2){
+      @include transform( translate3d(60px, 0px, 0px) );
+    }
+  }
+
+}
+
+
+/* logo 기본 스타일 */
+%app-logo-default{
+  position: relative;
+  @include setSize(190px, 40px);
+
+  div {
+    position: absolute;
+    pointer-events:none;
+    @include setSize(190px, 40px);
+    @extend %app-default-transition;
+    @include transform( translate3d(0px, 0px, 0px) );
+  }
+
+  img {
+    position: absolute;
+    @include setSize(100%);
+
+    &:nth-child(1){
+      @include transform(translate3d(0px, 0px, 0px));
+    }
+
+    &:nth-child(2){
+      @include transform(translate3d(190px, 0px, 0px));
+    }
+
+  }
+
+  /* 로고 마우스 호버 스타일 */
+  &:hover div {
+    @include transform( translate3d(-190px, 0px, 0px) );
+  }
+
+}
+
+div#nav-container .logo-motion-area {
+  float: left;
+  margin: 20px 40px 18px 30px;
+  @extend %app-logo-default;
+}
+
+
+div#emblem-container {
+  position: absolute;
+  @include transform(translate3d(230px, -130px, 0px));
+  @include setSize(60px);
+  background: $themeSubColor;
+}
+
+div#emblem-container:hover .motion-area > div{
+  @include transform(translate3d(-58px, 11px, 0px));
+}
+
+div#emblem-container .motion-area {
+  @include setSize(60px);
+  display: inline-block;
+  margin: 0px 0px 0px 5px;
+
+}
+
+div#emblem-container .motion-area > div {
+  position: relative;
+  @include setSize(38px);
+  @include transform(translate3d(8px, 11px, 0px));
+  @include transition( all, 0.2s, ease-in-out );
+}
+
+
+
+div#emblem-container img {
+  position: absolute;
+  @include setSize(100%);
+  &:nth-child(1){
+    @include transform(translate3d(0px, 0px, 0px));
+  }
+  &:nth-child(2){
+    @include transform(translate3d(60px, 0px, 0px));
+  }
+}
+
+/*
+  프로젝트 컨테이너
+*/
+div#content-layer {
+  @include setSize(100%, auto);
+}
+
+
+div#page-container {
+  @include setSize(100%, auto);
+  position: relative;
+  margin-bottom: 30px;
+  background-color: white;
+}
+
+div#page-body-section {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 30px;
+  padding-right: 100px;
+
+  p {
+    color: $contentColor;
+  }
+}
+
+div.action-bar {
+
+  position: absolute;
+  pointer-events:none;
+  width: 260px;
+  z-index: 1;
+  color: rgb(156, 156, 156);
+
+  @include transition( all, 0.2s, ease-in-out);
+  @include transform(translate3d(130px, 0px, 0px));
+
+}
+
+
+div#link-button, div#back-button {
+  position: relative;
+  @include setSize(260px, 60px);
+  @include transform(translate3d(200px, 0px, 0px));
+  @include transition( all, 0.2s, ease-in-out);
+
+  a {
+    @include setSize(240px, 60px);
+    display: inline-block;
+    padding-left:20px;
+    line-height: 60px;
+  }
+
+  .motion-area {
+    position: absolute;
+    @include setSize(60px);
+    @extend %slide-image-layout;
+
+    div {
+      position:relative;
+      @include setSize(60px);
+      @include transition( all, 0.3s, ease-in-out, 0.2s);
+      @include transform( translate3d(0px, 0px, 0px) );
+    }
+
+    @extend %slide-image-layout;
+
+  }
+
+
+  &:hover{
+    @include transform(translate3d(0px, 0px, 0px));
+
+    .motion-area div{
+      @include transform( translate3d(-60px, 0px, 0px));
+    }
+  }
+
+}
+
+div.action-bar-label {
+  position: absolute;
+  cursor: pointer;
+  @include setSize(260px, 60px);
+  pointer-events:all;
+  padding-left: 60px;
+  background-color: #2352cc;
+}
+
+.page-transition {
+  @extend %app-default-transition;
+}
+
+/* 트랜지션 랜더러 스타일 */
+.renderer-transition{
+  @extend %app-default-transition;
+}
+
+
+
+
+/*
+  project-renderer style
+*/
+// 프로젝트 렌더러 플레이스 홀더 선언
+%proejct-renderer-base{
+
+  position: absolute;
+  background-color:$stageBGColor;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: flat;
+
+  @include setSize(260px, 340px);
+  @extend %proejct-renderer-base;
+
+  .image-container{
+    @extend %renderer-image-container;
+    @include setSize(100%);
+  }
+
+  .deco-container{
+    @extend %renderer-deco-container;
+    @include setSize(260px, 340px);
+  }
+
+  .deco-description{
+    width:200px;
+    line-height:20px;
+    @extend %renderer-deco-description;
+    @include setFontStyle($themeKorFont, 15px );
+    @include transform( translate3d(30px, 30px, 0px) );
+    @include transition( all, 0.4s, ease-in-out, 0.1s);
+  }
+
+  .label-container{
+    @extend %app-default-fontStyle;
+    position: absolute;
+    left: 30px;
+    bottom: 20px;
+    width:200px;
+    @extend %renderer-label-container;
+
+  }
+
+  .infomation{
+    top: 160px;
+    @extend %renderer-deco-infomation;
+
+    div {
+      position: absolute;
+      height: 2px;
+      width: 65px;
+      top: -2px;
+      background: rgb(255, 255, 255);
+
+      &:nth-child(2){
+        height: 1px; width: 125px; top: -2px; right: 0px;
+      }
+
+    }
+
+  }
+
+
+  &:hover .image-container img{
+    @include transform(scale(1.05, 1.05));
+    opacity:0.25;
+  }
+
+  &:hover .deco-description{
+    opacity:1;
+  }
+
+}
+
+%renderer-image-container{
+  position: absolute;
+  img{
+    opacity: 0.5;
+    @extend %app-default-transition;
+  }
+}
+
+%renderer-deco-container{
+  position:relative;
+  overflow: hidden;
+}
+
+%app-default-fontStyle{
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color:white;
+}
+
+%renderer-label-container{
+
+  border-top :1px solid rgba(233, 233, 233, 0.8);
+  z-index:1;
+
+  img{
+    position: relative;
+    width: 6.5px;
+    height: 9.5px;
+    margin: -10px 4px 0px 5px;
+  }
+
+}
+
+%renderer-deco-description{
+  position:absolute;
+  opacity:0;
+  @include transform( translate3d(30px, 30px, 0px) );
+  @include transition( all, 0.4s, ease-in-out, 0.1s);
+}
+
+%renderer-deco-infomation {
+  font-family: $themeEngFont;
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  padding-top: 10px;
+}
+
+
+
+.renderer-type1 {
+
+  @extend %proejct-renderer-base;
+
+  a{
+    width:100%;
+    height:100%;
+  }
+
+  .deco-cover {
+    position:absolute;
+    background-color: $themeColor;
+    @include setSize(260px, 450px);
+  }
+
+  .deco-cover.left {
+    pointer-events: none;
+    @include transform(translate3d(370px, -120px, 0px) rotate(-30deg));
+    @include transition(all, 0.3s, ease-in-out, 0.2s);
+  }
+
+  .deco-cover.right{
+    pointer-events : none;
+    @include transform( translate3d(-360px, 0px, 0px) rotate(-30deg));
+    @include transition( all, .3s, ease-in-out);
+    /*-80*/
+  }
+
+
+
+  &:hover .deco-cover.left{
+    @include transform(translate3d(150px, -120px, 0px) rotate(-30deg));
+  }
+
+  &:hover .deco-cover.right{
+    @include transform(translate3d(-80px, 0px, 0px) rotate(-30deg));
+  }
+
+
+
+}
+
+.renderer-type2{
+
+  @extend %proejct-renderer-base;
+
+  /* 미디어에 따른 사이즈 지정 */
+  @include min-screen( $mq-wideWidth ){
+
+    @include setSize(550px, 710px);
+
+    .deco-container{
+      @include setSize(550px, 710px);
+    }
+
+    .deco-description{
+      width:490px;
+      line-height:30px;
+      @include setFontStyle($themeKorFont, 25px );
+    }
+
+    .label-container{
+      width:490px;
+    }
+
+    .infomation{
+      top: 460px;
+      div {
+        width: 160px;
+        &:nth-child(2){
+          width: 300px;
+        }
+      }
+    }
+
+  }
+
+
+}
+
+
+
+
+/*
+  footer-layer style
+*/
+div#footer-layer{
+
+  background-color: $footerColor;
+  height: 120px;
+  position: relative;
+  margin-right: 290px;
+
+  .logo-motion-area{
+    position: absolute;
+    right: 20px;
+    bottom: 18px;
+    @extend %app-logo-default;
+  }
+
+}
+
+div.copy-right{
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+}
+
+
+/*
+  loading-layer style
+*/
+#LOADING-LAYER {
+  position:absolute;
+  pointer-events:all;
+  @include setSize(100%);
+  z-index:9999;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+div.loading-area {
+  @include setSize(100px, 100px);
+  position: relative;
+  top:50%;
+  left:50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+
+div.loading{
+  @include setSize(100px, 100px);
+  border-radius: 100%;
+  border: 3px solid transparent;
+  border-color: transparent $themeColor;
+  @include animation( rotate-loading 1.5s linear 0s infinite normal );
+  @include transform-origin(50% 50%);
+  @include transition( all, 0.5s, ease-in-out );
+}
+
+div.loading-text{
+  @include animation( loading-text-opacity 2s linear 0s infinite normal );
+  color: $fontColor;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 45px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 100px;
+}
+
+// 1130 px 이상
+@include min-screen( $mq-wideWidth ){
+  div#MAIN-LAYER{
+    width: $mq-wideWidth;
+  }
+
+  nav#navigations{
+    margin-left: 210px;
+  }
+
+  div.action-bar{
+    margin-left: 740px;
+  }
+
+}
+
+
+// 1130 px이하
+@include max-screen( $mq-wideWidth ) {
+  div#MAIN-LAYER{
+    width: $mq-desktopWidth;
+  }
+  div.action-bar{
+    margin-left: 450px;
+  }
+
+  nav#navigations{
+    margin-left:80px;
+  }
+
+
+  div#emblem-container{
+    @include transform(translate3d(230px, -130px, 0px));
+  }
+
+}
+
+// 840 px이하
+@include max-screen( $mq-desktopWidth ){
+  div#MAIN-LAYER{
+    width: $mq-tabletWidth;
+  }
+  div.action-bar{
+    margin-left: 160px;
+  }
+
+  nav#navigations{
+    margin-left: 50px;
+  }
+
+
+  div#emblem-container{
+    @include transform(translate3d(0px, -60px, 0px));
+  }
+
+  div#nav-container{
+    margin-left: 0px;
+  }
+
+  div#footer-layer{
+    margin-right: 0px;
+  }
+
+}
+
+// 550 px이하
+@include max-screen( $mq-tabletWidth ){
+  div#MAIN-LAYER{
+    width: $mq-mobileWidth;
+  }
+  nav#navigations{
+    margin-left: 20px;
+  }
+
+  div.action-bar{
+    margin-left: 0px;
+    @include transform(translate3d(60px, 0px, 0px));
+  }
+
+  div#link-button, div#back-button {
+    @include transform(translate3d(210px, 0px, 0px));
+  }
+
+  div#footer-layer .copy-right{
+    bottom: 70px;
+  }
+
+
+  div#emblem-container{
+    @include transform(translate3d(260px, -60px, 0px));
+  }
+
+  div#page-body-section{
+    padding-right: 60px;
+  }
+}

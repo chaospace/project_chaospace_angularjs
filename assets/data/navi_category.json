@@ -1,0 +1,20 @@
+{
+    "navigation":[
+        {
+            "label":"ActionScript",
+            "data" :"/assets/data/js_project.json"
+        },
+        {
+            "label":"JavaScript",
+            "data" :"/assets/data/js_project.json"
+        },
+        {
+            "label":"Android",
+            "data" :"/assets/data/and_project.json"
+        },
+        {
+            "label":"IPhone",
+            "data" :"/assets/data/iphone_project.json"
+        }
+    ]
+}
