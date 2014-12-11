@@ -150,8 +150,8 @@ app.controller( "ProjectListController",function( $element, $scope, appModel  ){
 
     // projectState상태 변경 감시
     appModel.onUpdateProjectState( $scope, function( newState ){
-        switch( newState ){
 
+        switch( newState ){
             case PROJECT_STATE.SHOW:
                 console.log("등장");
                 $scope.initialize = true;
@@ -164,7 +164,6 @@ app.controller( "ProjectListController",function( $element, $scope, appModel  ){
             case PROJECT_STATE.UPDATE:
                 console.log("resize-update");
                 break;
-
         }
 
     });
