@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html ng-app="CustomDirectiveApp">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>custom-directive</title>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript" ></script>
+</head>
+
+<body>
+
+    <project-list resizeable ng-transclude ng-show='renderComplete'>
+        <project-renderer ng-repeat="project in list"></project-renderer>
+    </project-list>
+
+    <script src="../js/lib/responsive-img.js"></script>
+    <script src="../js/lib/angular.js"></script>
+    <script>
+
+        var PROJECT_PATH    ="/project_chaospace_angularjs/";
+        var ASSET_PATH      =PROJECT_PATH+"assets/data/";
+        var PARTISAL_PATH   =ASSET_PATH+"partisal/";
+
+        var app = angular.module( "CustomDirectiveApp", [] );
+
+        app.controller( "ProjectListController", ['$scope', '$element', '$http', function( $scope, $element, $http ) {
+
+            $scope.message = "chaospace";
+            $scope.renderComplete=false;
+            console.log("aaa", ASSET_PATH+"js_project.json");
+            $http.get( ASSET_PATH+"js_project.json").success(function(data){
+                        console.log("data", data );
+                        $scope.list = data.project;
+                    }).error( function(error){
+                        console.log("error", error );
+                    });
+
+            $scope.updateDisplay =function(){
+                updateLayout();
+            }
+
+            var WIDE_W      = 1130;
+            var DESKTOP_W   = 840;
+            var TABLET_W    = 550;
+            var MOBILE_W    = 320;
+            var CONTAINER_W;
+            var LIST_UNIT;
+            var RENDERER_H  = 340;
+            var RENDERER_W  = 260;
+            var RENDERER_GAP = 30;
+             function getScreenWidth(){
+                var w = $scope.windowWidth;
+                if( w >= WIDE_W ){
+                    CONTAINER_W= WIDE_W;
+                } else if( w >= DESKTOP_W && w < WIDE_W ){
+                    CONTAINER_W= WIDE_W;
+                } else if( w >= TABLET_W && w < DESKTOP_W ) {
+                    CONTAINER_W= TABLET_W;
+                } else {
+                    CONTAINER_W= MOBILE_W;
+                }
+                LIST_UNIT=parseInt(CONTAINER_W/RENDERER_W);
+                return CONTAINER_W;
+            }
+
+            function updateLayout(){
+
+                var limitW = getScreenWidth();
+                var defaultX = (limitW == MOBILE_W ) ? 30 : 0;
+                var px       =defaultX;
+                var py       =0;
+                var row     = 0;
+                angular.forEach( $element.children(), function(renderer, index ){
+
+                    var area = $(renderer).width();
+                   console.log(area);
+                    row = parseInt(index/LIST_UNIT);
+                   // $(renderer).css('transform', "translate3d(" + px +"px, " + py +"px, 0px)" );
+                    _childCtrl[index].updatePosition( px, py );
+
+                    px+=(area+RENDERER_GAP);
+                    if( px >= CONTAINER_W ) {
+                        px = defaultX;
+                        py += (RENDERER_H+RENDERER_GAP);
+                    }
+                });
+
+                if( px != defaultX ) {
+                    py+=(RENDERER_H+RENDERER_GAP);
+                }
+
+                $element.css("height", py+"px");
+
+
+            }
+
+            function getItemDelayList(){
+                var maxRow= parseInt($scope.list.length/CONTAINER_W/LIST_UNIT);
+                var delays =[];
+                for( var i=0; i<maxRow; i++ ){
+                    delays.push( (50*i)+(100*maxRow)-100*i );
+                }
+                return delays;
+            }
+
+
+            var ctrl = this;
+            var _childCtrl  =[];
+            ctrl.onComplete=function(){
+                updateLayout();
+                $scope.message = "complete";
+                $scope.renderComplete = true;
+                $scope.$apply();
+            }
+
+            ctrl.registerChildController = function( childCtrl ){
+                console.log( "child", childCtrl );
+                _childCtrl.push(childCtrl);
+            }
+
+
+        }]);
+
+        app.directive( "resizeable", function($window){
+
+            return function( $scope ){
+
+                $scope.initializeWindowSize = function(){
+                    $scope.windowWidth = $window.innerWidth;
+                    $scope.windowHeight = $window.innerHeight;
+                    $scope.updateDisplay();
+                }
+
+                $scope.initializeWindowSize();
+
+                angular.element($window).bind( "resize", function(){
+                    console.log("resize-");
+                    $scope.initializeWindowSize();
+                    $scope.$apply();
+                });
+
+            };
+
+        });
+
+        app.directive( "projectList", function(){
+
+            return{
+
+                replace:true,
+                restrict:'EA',
+                template:'<div></div>',
+                transclude:true,
+                link:function( scope, iElement, iAttr ){
+                    console.log("iElement" );
+                },
+                controller:"ProjectListController"
+
+            }
+
+
+        });
+
+        app.directive( "projectRenderer", function( $compile, $http, $templateCache, $timeout ){
+
+            return {
+                restrict:"E",
+                replace:true,
+                require:['^projectList', 'projectRenderer'],
+                link:function( scope, iElement, iAttr, controllers ){
+                    console.log("controllers", controllers );
+
+                    var projectListCtrl = controllers[0];
+                    var rendererCtrl    = controllers[1];
+                    projectListCtrl.registerChildController( rendererCtrl );
+
+                    var tplURL = scope.project.template;
+                    $http.get( PARTISAL_PATH + tplURL, {cache:$templateCache})
+                            .success(function( html ){
+                                var templateHtml = $compile(html)(scope);
+                               iElement.replaceWith(templateHtml);
+                            })
+                            .error( function( error ){
+                                console.log("error", error );
+                            });
+
+                    if(scope.$last){
+
+                        $timeout( function() {
+                            $timeout( function() {
+                                scope.$emit(projectListCtrl.onComplete());
+                            },0);
+
+                        },0);
+
+                    }
+
+
+                },
+                controller:function( $scope, $sce ){
+
+                    $scope.transform =  "translate3d(0px, 0px, 0px)";
+                    console.log( "$scope", $scope );
+                    $scope.onClick_Renderer =function( strName ){
+                        console.log( "click", strName );
+                    };
+
+                    $scope.trustDangerousSnippet = function( info ){
+                        return $sce.trustAsHtml(info);
+                    };
+
+                    this.updatePosition =function( px, py ){
+
+                        $scope.transform =  "translate3d("+px+"px, "+py +"px, 0px)";
+                        console.log( "$project", $scope.project.title );
+
+                    }
+
+                }
+
+
+            }
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>
