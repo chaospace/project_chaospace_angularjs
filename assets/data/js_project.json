@@ -1,9 +1,13 @@
 {
     "project":[
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas API",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas API-1",
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "infomation"    :[
                 "Date : 2014.02.20",
                 "Keyword : html5, CanvasApi"
@@ -11,8 +15,12 @@
 
         },
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas Copy pixel",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas Copy pixel-2",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
@@ -20,8 +28,12 @@
             ]
         },
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas API",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas API-3",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date : 2014.02.20",
@@ -30,8 +42,12 @@
 
         },
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas Copy pixel",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas Copy pixel-4",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
@@ -39,8 +55,12 @@
             ]
         },
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas API",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas API-5",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date : 2014.02.20",
@@ -49,8 +69,13 @@
 
         },
         {
-            "template"          :"main_project_renderer.html",
-            "title"         :"Canvas Copy pixel",
+            "template"      :"main_project_renderer.html",
+            "title"         :"Canvas Copy pixel-6",
+            "image"         :{
+                "prefix"    :"/project_chaospace_angularjs/assets/data/project/images/",
+                "src"       :"pic.jpg",
+                "bigsrc"    :"project_big.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
@@ -58,8 +83,12 @@
             ]
         },
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas API",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas API-7",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date : 2014.02.20",
@@ -68,8 +97,12 @@
 
         },
         {
-            "template"          :"default_project_renderer.html",
-            "title"         :"Canvas Copy pixel",
+            "template"      :"default_project_renderer.html",
+            "title"         :"Canvas Copy pixel-8",
+            "image"         :{
+                "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
+                "src":"pic.jpg"
+            },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
                 "Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",

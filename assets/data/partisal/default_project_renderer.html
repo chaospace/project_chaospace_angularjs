@@ -1,7 +1,7 @@
-<div class="project-renderer renderer-type1 mask" value="{{project.transform}}">
-    <a href="#" onclick="excuteContent(this.href);">
+<div class="project-renderer renderer-type1 mask" ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }">
+    <a href="#" ng-click="onClick_Renderer(project.title)">
         <div class="image-container">
-            <img src="./assets/ui/pic.jpg" />
+            <img src="{{project.image.prefix+project.image.src}}" />
         </div>
         <div>
             <div class="label-container">{{project.title}}</div>
@@ -10,13 +10,17 @@
                 <div class="deco-cover right"></div>
                 <div class="deco-description">
                     <div class="infomation">
-                        <ul></ul>
+                        <ul>
+                            <li ng-repeat=" info in project.infomation" ng-bind-html="trustDangerousSnippet(info)">
+                                {{info}}
+                            </li>
+                        </ul>
                         <div></div>
                         <div></div>
                     </div>
                 </div>
             </div>
         </div>
-        <img class="transparent-area" src="./assets/ui/transparent.gif" width="1" height="1">
+        <!--<img class="transparent-area" src="./assets/ui/transparent.gif" width="1" height="1">-->
     </a>
 </div>
