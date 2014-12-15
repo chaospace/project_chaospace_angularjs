@@ -1,0 +1,89 @@
+<!doctype html>
+<html ng-app="HelloDirective">
+	<head>
+		<meta charset="utf-8" />
+		<title>AngularJS</title>
+	</head>
+	<body>
+		
+		<project-list ng-transclude>
+			<simple-prop render-complete="false"></simple-prop>
+		</project-list>
+		
+		<script src="../js/lib/angular.js"></script>
+		<script>
+			
+			
+			/**
+				angularjs의 핵심은 데이터 중심 변경처리!.
+			
+			
+				directive스터디
+				
+				-directive는 커스텀 컴포넌트 작성을 제공함.
+				 커스텀 속성과 바인딩을 잘 이용하면 좋을 듯.
+				 
+				 directive간 require옵션을 통해 체인관계를 만들 수 있음
+				 사용 옵션{
+					^	: 반드시 필요,
+					^?	: 필요하지만 없으면 무시
+				 }
+				 
+				 scope은 기본적으로 부모의 scope을 그대로 받아옴.
+				 scope:true 새로운 scope을 생성하고 부모scope을 상속
+				 격리된 커스텀 scope에 사용 할 수 있는 옵션
+				 {
+					
+					=:부모의 값과 바인딩하여 이용,
+					@:디렉티브의 속성 바인딩{{}}방식을 통해 부모 스콥에 접근
+					&:부모 scope에 전달처리 
+				 }
+				 
+				 
+				 
+			*/
+			var app  = angular.module("HelloDirective", []);
+			app.directive( "projectList", function(){
+				return{
+					restrict:"E",
+					replace:true,
+					template:"<div></div>",
+					transclude:true,
+					link:function(){
+						console.log("DDD");
+					}, 
+					controller:function( $scope ){
+						console.log("scope", $scope);
+					}
+				}
+			});
+			
+			app.directive( "simpleProp", function(){
+				return{
+					restrict:"E",
+					replace:true,
+					require:"^?projectList",
+					template:'<div>simple append message</div>',
+					link:function( scope, element, attr, projectListCtrl ) {
+						console.log("simpleProp", projectListCtrl );
+					}, 
+					controller:function( $scope ){
+						console.log("simpleprop-controller", $scope );
+					}
+				}
+			});
+			
+			app.directive("renderComplete", function(){
+				return {
+					restrict:"A",
+					link:function(scope, element, attr ){
+						console.log("attri", attr );
+						console.log( scope, element, attr.renderComplete);
+					}
+				}
+			});
+				
+		</script>
+		
+	</body>
+</html>

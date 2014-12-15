@@ -1,0 +1,93 @@
+<!doctype html>
+<html ng-app="AppDirective">
+	
+	<head>
+		<title>AngularJS</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="stylesheet" href="../css/normalize.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/main.css" >
+		<script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+		
+	</head>
+	
+	<body>
+		
+		
+		
+		<project-list ng-transclude renderer-complete='false' >
+			<project-renderer></project-renderer>
+		</project-list>
+		
+		
+		
+		<script src="../js/lib/angular.js"></script>
+		<script>
+			
+			var app = angular.module("AppDirective", []);
+			
+			app.controller("ProjectListController", ["$scope",function ProjectListCtrl( $scope, $http ){
+				
+				var ctrl = this;
+				var renderers = ctrl.renderers = $scope.renderers =[];
+				
+				$scope.message = "initController";
+				//console.log("sss", $scope);
+				ctrl.onCompleteCreateRender = function(){
+					console.log("complete");
+					$scope.message = "complete";
+				}
+		
+				
+				/*$http.get("../assets/data/js_project.js")
+				.success(function( data ){
+					console.log("success", data.project );
+				})
+				.error( function(){
+					console.log("error");
+				});*/
+				
+			}]);
+			
+			app.directive( "projectList", function(){
+				return {
+					restrict:"EA",
+					replace:true,
+					transclude:true,
+					template:'<div></div>',
+					link: function( scope, element, attr ){
+						console.log("projectList-link", attr.rendererComplete);
+					}, 
+					controller:'ProjectListController'
+				}
+			})
+			
+			
+			app.directive( "projectRenderer", function(){
+				return{
+					restrict:"E",
+					replace:true,
+					require: '^projectList',
+					template:'<div><span>{{message}}</span></div>',
+					link:function( scope, element, attr, ctrl){
+						console.log("link----------", attr, scope.$parent );
+						ctrl.onCompleteCreateRender();
+					},					
+					controller:function( $scope ){
+						console.log( "projectRenderer-controller", $scope );
+					}
+				}
+			});
+			
+			
+			
+		</script>
+	
+	</body>
+	
+</html>

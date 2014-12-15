@@ -140,7 +140,7 @@
 						}
 
 						if(image.src !== new_source){
-                            console.log("src", new_source );
+							console.log("new_source", new_source );
 							//change img src to basePath + response
 							image.setAttribute('src', new_source);
 

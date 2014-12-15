@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html ng-app="CustomDirectiveApp">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>custom-directive</title>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript" ></script>
+</head>
+
+<body>
+
+    <project-list resizeable ng-transclude ng-show='renderComplete'>
+        <project-renderer ng-repeat="project in list"></project-renderer>
+    </project-list>
+
+    <script src="../js/lib/responsive-img.js"></script>
+    <script src="../js/lib/angular.js"></script>
+    <script>
+
+		var PROJECT_PATH    ="/project_chaospace_angularjs/";
+		var ASSET_PATH      =PROJECT_PATH+"assets/data/";
+		var PARTISAL_PATH   =ASSET_PATH+"partisal/";
+		var WIDE_W      = 1130;
+		var DESKTOP_W   = 840;
+		var TABLET_W    = 550;
+		var MOBILE_W    = 320;
+			
+		var app = angular.module( "CustomDirectiveApp", [] );
+	
+		app.factory( "AppModel", function(  $http, $rootScope ){
+			
+			function appModel() {
+	
+				function checkSupport3d() {
+					if (!window.getComputedStyle) {
+						return false;
+					}
+
+					var el = document.createElement('p'), 
+						has3d,
+						transforms = {
+							'webkitTransform':'-webkit-transform',
+							'OTransform':'-o-transform',
+							'msTransform':'-ms-transform',
+							'MozTransform':'-moz-transform',
+							'transform':'transform'
+						};
+
+					// Add it to the body to get the computed style.
+					document.body.insertBefore(el, null);
+
+					for (var t in transforms) {
+						if (el.style[t] !== undefined) {
+							el.style[t] = "translate3d(1px,1px,1px)";
+							has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+						}
+					}
+
+					document.body.removeChild(el);
+					return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+					
+				};
+				
+				// 현재 선택 프로젝트 리스트
+				this.projectList  =[];	
+				this.support3d = checkSupport3d();
+				this.progress		=false;
+				
+				
+				this.getJsonData = function( path ){
+					return $http.get( path );
+				};
+				
+				this.updateProjectList = function( provider ){
+					this.projectList = provider;
+				};
+				
+				
+				this.getTransform = function( tx, ty ){
+					var transform ="";
+					if(this.support3d){
+						transform = "translate3d(" + tx + "px,"+ ty +"px, 0px)";
+					} else {
+						transform ="translate("+ tx + "px, "+ ty + "px)";
+					}
+					return transform;
+				}
+				
+				
+			};
+			
+			return new appModel();
+		});
+	
+        app.controller( "ProjectListController", ['$scope', '$element', '$http', function( $scope, $element, $http ) {
+
+		$scope.message 		= "chaospace";
+		$scope.renderComplete	= false;
+		$http.get( ASSET_PATH+"js_project.json").success(function(data){
+					$scope.list = data.project;
+				}).error( function(error){
+					console.log("error", error );
+				});
+
+		$scope.updateDisplay =function(){
+			if( checkUpdateDisplayMode() ){
+				updateRendererLayout();
+			}
+		}
+
+            
+		var CONTAINER_W;
+		var LIST_UNIT;
+		var RENDERER_H  = 340;
+		var RENDERER_W  = 260;
+		var RENDERER_GAP = 30;
+		
+		function checkUpdateDisplayMode(){
+			var w = $scope.windowWidth;
+			var listArea	=-1;
+			if( w > WIDE_W ){
+				listArea= WIDE_W;
+			} else if( w > DESKTOP_W && w < WIDE_W ){
+				listArea= DESKTOP_W;
+			} else if( w > TABLET_W && w < DESKTOP_W ) {
+				listArea= TABLET_W;
+			} else {
+				listArea= MOBILE_W;
+			}
+			if( listArea != CONTAINER_W ){
+				CONTAINER_W =listArea;
+				LIST_UNIT=parseInt(CONTAINER_W/RENDERER_W);
+				return true;
+			}
+			return false;
+		}
+
+		
+		function updateRendererLayout(){
+
+			var defaultX = (CONTAINER_W == MOBILE_W ) ? 30 : 0;
+			var px       =defaultX;
+			var py       =0;
+			var info;
+			angular.forEach( $element.children(), function(renderer, index ){
+
+				var ctrl = _childCtrl[index];
+				info = ctrl.getRendererSize( CONTAINER_W );
+				
+				if(!$scope.renderComplete){
+					_childCtrl[index].showStartTransition( px, py );
+				} else {
+					_childCtrl[index].updatePosition( px, py );
+				}
+				
+				px+=(info.w+RENDERER_GAP);
+				if( px >= CONTAINER_W ) {
+					px = defaultX;
+					py += (info.h+RENDERER_GAP);
+				}
+				
+			});
+
+			if( px != defaultX ) {
+				py+=(info.h+RENDERER_GAP);
+			}
+			
+			$element.css("height", py+"px");
+
+		}
+
+		var ctrl = this;
+		var _childCtrl  =[];
+		ctrl.onComplete_CreateRenderer=function(){
+			$scope.initializeWindowSize();
+			updateRendererLayout();
+			$scope.message = "complete";
+			$scope.renderComplete = true;
+			$scope.$apply();
+		}
+
+		ctrl.registerChildController = function( childCtrl ){
+			_childCtrl.push(childCtrl);
+		}
+
+
+        }]);
+
+        app.directive( "resizeable", function($window){
+
+            return function( $scope ){
+
+                $scope.initializeWindowSize = function(){
+                    $scope.windowWidth = $window.innerWidth;
+                    $scope.windowHeight = $window.innerHeight;
+                    $scope.updateDisplay();
+                }
+
+                $scope.initializeWindowSize();
+
+                angular.element($window).bind( "resize", function(){
+				$scope.initializeWindowSize();
+				console.log("resize-------" );
+				$scope.$apply();
+                });
+
+            };
+
+        });
+		
+		app.directive( "imageloaded", function(){
+			return {
+				restrict:"A",
+				link: function( scope, iElement, iAttrs ){
+					element.bind('load', function(){
+						scope.$apply( iAttrs.imageloaded );
+					});
+				}
+			}
+		});
+
+		app.directive( "projectList", function(){
+
+			return{
+
+				replace:true,
+				restrict:'EA',
+				template:'<div></div>',
+				transclude:true,
+				link:function( scope, iElement, iAttr ){
+				 // console.log("iElement" );
+				},
+				controller:"ProjectListController"
+
+			}
+
+
+		});
+
+		app.directive( "projectRenderer", function( $compile, $http, $templateCache, $timeout ){
+
+			return {
+				restrict:"E",
+				replace:true,
+				require:['^projectList', 'projectRenderer'],
+				link:function( scope, iElement, iAttr, controllers ){
+					
+					var projectListCtrl = controllers[0];
+					var rendererCtrl    = controllers[1];
+					projectListCtrl.registerChildController( rendererCtrl );
+
+					var tplURL = scope.project.template;
+					$http.get( PARTISAL_PATH + tplURL, {cache:$templateCache})
+						.success(function( html ){
+							var templateHtml = $compile(html)(scope);
+							iElement.replaceWith(templateHtml);
+						})
+						.error( function( error ){
+							console.log("error", error );
+						});
+
+					if(scope.$last){
+
+						$timeout( function() {
+							$timeout( function() {
+								scope.$emit(projectListCtrl.onComplete_CreateRenderer());	
+							});
+						});
+
+					}
+					
+					
+					
+					
+				},
+				
+				controller:function( $scope, $sce, $element, AppModel ){
+
+				
+					$scope.transform	=  AppModel.getTransform( 0, 0 );
+					$scope.class		='';
+					
+					$scope.trustDangerousSnippet = function( info ){
+						return $sce.trustAsHtml(info);
+					};
+					
+					/**
+					▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+						클릭 핸들러
+					▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+					*/
+					$scope.onClick_Renderer =function( strName ){
+						console.log( "click", strName );
+					};
+
+					
+					/**
+					▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+						현재 window영역에 따른 renderersize 반환 메서드 
+					▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+					*/
+					this.getRendererSize = function( screenWidth ){
+						var info = {w:260, h:340};
+						if($scope.project.template.indexOf( "main" ) > -1 ){
+							info	= ( screenWidth == WIDE_W ) ? {w:550, h:340} : info;
+						}
+						return info;
+					}
+					
+					
+					/**
+					▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+						리사이즈 처리 및 등장/퇴장 트렌지션 처리
+					▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+					*/
+					this.updatePosition =function( px, py ) {
+						$scope.transform =  AppModel.getTransform( px, py );
+					}
+					
+					this.showStartTransition =function( px, py ){
+						var scope =this;
+						this.updatePosition( -500, py );
+						$timeout(function(){
+							$scope.class='renderer-transition';
+							scope.updatePosition( px, py );
+						}, 0);
+						
+					}
+					
+					this.showHideTransition =function( px, py ){
+						
+					}
+					
+
+				}
+
+
+			}
+
+        });
+
+    </script>
+</body>
+
+</html>
