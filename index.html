@@ -80,7 +80,8 @@
                     <!-- 플젝 리스트  추가 영역 -->
                     <div id="project-container" ng-show="initialize" ng-controller="ProjectListController as projectCtrl">
 
-                        <project-renderer ng-repeat="project in projects" value="{{project.transform}}"  >
+                        <project-renderer ng-repeat="project in projects" 
+						value="{{project.transform}}">
                         </project-renderer>
 
                     </div>

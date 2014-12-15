@@ -18,7 +18,7 @@ var PROJECT_STATE = {
 };
 
 app.constant( "config", {
-    prefix:"/project_chaospace_angularjs"
+    prefix:"."
 });
 
 /**
