@@ -43,43 +43,48 @@ app.constant( "config", {
 app.factory("appModel",function ( config, $http, $rootScope ){
 
 
+    function checkSupport3d() {
+        if (!window.getComputedStyle) {
+            return false;
+        }
+
+        var el = document.createElement('p'),
+            has3d,
+            transforms = {
+                'webkitTransform':'-webkit-transform',
+                'OTransform':'-o-transform',
+                'msTransform':'-ms-transform',
+                'MozTransform':'-moz-transform',
+                'transform':'transform'
+            };
+
+        // Add it to the body to get the computed style.
+        document.body.insertBefore(el, null);
+
+        for (var t in transforms) {
+            if (el.style[t] !== undefined) {
+                el.style[t] = "translate3d(1px,1px,1px)";
+                has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+            }
+        }
+
+        document.body.removeChild(el);
+        return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+
+    };
+
 
     var AppModel = function(){
 
+
+
+
+        this.support3d      = checkSupport3d();
         this.projectPath    = "";
         this.naviDataPath   = "navi_category.json";
         this.isLoading      = false;
         this.projectState   = PROJECT_STATE.NONE;
 
-		function checkSupport3d() {
-			if (!window.getComputedStyle) {
-				return false;
-			}
-
-			var el = document.createElement('p'), 
-				has3d,
-				transforms = {
-					'webkitTransform':'-webkit-transform',
-					'OTransform':'-o-transform',
-					'msTransform':'-ms-transform',
-					'MozTransform':'-moz-transform',
-					'transform':'transform'
-				};
-
-			// Add it to the body to get the computed style.
-			document.body.insertBefore(el, null);
-
-			for (var t in transforms) {
-				if (el.style[t] !== undefined) {
-					el.style[t] = "translate3d(1px,1px,1px)";
-					has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
-				}
-			}
-
-			document.body.removeChild(el);
-			return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
-					
-		};
 				
 		this.getTransform = function( tx, ty ){
 			var transform ="";
@@ -189,7 +194,7 @@ app.controller( "NavigationController",function( $scope, appModel  ){
 
 
 // proejct-list-controller;
-app.controller( "ProjectListController",function( $element, $scope, $q, appModel  ){
+app.controller( "ProjectListController",function( $element, $scope, $q, $timeout, appModel  ){
 
     $scope.renderComplete	= false;
 	
@@ -260,21 +265,26 @@ app.controller( "ProjectListController",function( $element, $scope, $q, appModel
 
 	
 	// 리스트 사라지게 하기
-	function hideRendererLayout(){		
-		
+	function hideRendererLayout(){
 		var deferred = $q.defer();
 		setTimeout(function(){
 			deferred.resolve("complete");	
 		}, 50*_childCtrl.length );
-		
-		angular.forEach( $element.children(), function( renderer, index ){
-			var ctrl = _childCtrl[index];
+		angular.forEach( _childCtrl, function( ctrl ){
 			ctrl.showHideTransition();
 		});
-		
 		return deferred.promise;
 	}
 
+    function initializeProjectList(){
+        var deferred = $q.defer();
+        $timeout(function(){
+            $scope.projects =null;
+            _childCtrl      =[];
+            deferred.resolve();
+        });
+        return deferred.promise;
+    }
 	
 	
 	
@@ -297,17 +307,16 @@ app.controller( "ProjectListController",function( $element, $scope, $q, appModel
 
     // projectPath상태 변경 감시
     appModel.onUpdateProjectPathState( $scope, function( newState ){
+
         if( $scope.projects ) {
-			console.log( "이전 거는 제거", appModel.projectPath );
-			hideRendererLayout().then(function( result ){
-				console.log("result", result );
-				while( $scope.projects.length ){
-					$scope.projects.pop();
-				};
-				console.log("length", $scope.projects.length );
-				//$scope.projects = null;
-				//loadProjectList();
-			});
+			hideRendererLayout()
+                .then( function( result ){
+                    $scope.renderComplete = false;
+                    return initializeProjectList();
+                })
+                .then( function(){
+                    loadProjectList();
+                } );
 		} else {
 			loadProjectList();
 		}
@@ -411,17 +420,18 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 		replace:true,
 		require:['^projectList', 'projectRenderer'],
 		link:function( scope, iElement, iAttr, controllers ){
-			
+
 			var projectListCtrl = controllers[0];
 			var rendererCtrl    = controllers[1];
 			projectListCtrl.registerChildController( rendererCtrl );
 
 			var tplURL = scope.project.template;
-		
+            var templateElement;
+
 			$http.get( PARTISAL_PATH + tplURL, {cache:$templateCache})
 				.success(function( html ){
-					var templateHtml = $compile(html)(scope);
-					iElement = iElement.replaceWith(templateHtml);
+                    templateElement = $compile(html)(scope);
+					iElement.replaceWith(templateElement);
 				})
 				.error( function( error ){
 					console.log("error", error );
@@ -436,6 +446,17 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				});
 
 			}
+
+            /**
+             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+             destory
+             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+             */
+            scope.$on('$destroy', function(){
+                console.log("destory");
+                angular.element(templateElement).remove();
+                iElement.remove();
+            });
 			
 			
 		},
@@ -444,11 +465,15 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 
 			$scope.transform	= appModel.getTransform( 0, 0 );
 			$scope.class		= '';
-			
+
+
 			$scope.trustDangerousSnippet = function( info ){
 				return $sce.trustAsHtml(info);
 			};
-			
+
+
+
+
 			/**
 			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 				클릭 핸들러
