@@ -207,16 +207,16 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	*/
 	//var deferred	= $q.defer();
 	var DELAY_TIME	=0;
-	function getDeffered(){
-		return $q.defer();
-	}
+    var deferred = $q.defer();
+
 	
-	function promiseSuccess( deferred, results ){
-		return deferred.resolve( results );
+	function promiseSuccess( results ){
+		console.log("promiseSuccess", results );
+        deferred.resolve( results );
 	}
 	
 	function promiseReject( results ){
-		return  deferred.reject( results );
+		deferred.reject( results );
 	}
 	
 	function updatePromiseDelayTime( appendValue ){
@@ -225,6 +225,14 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	function initializeDeferred(){
 		DELAY_TIME	=0;
 	}
+
+
+    function appendPromise( message, delay ){
+        setTimeout( function(){
+            promiseSuccess(message);
+        }, delay );
+        return deferred.promise;
+    }
 	
 	
 	function updateRendererLayout(){
@@ -273,34 +281,32 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	
 	// 리스트 사라지게 하기
 	function clearProjectRenderer(){
-		var deferred	=getDeffered();
+		//var deferred	=getDeffered();
 		var delays = getDelays();
 		updatePromiseDelayTime( delays[0]+(50*delays.length) );
-		console.log("clearProjectRenderer-DELAY_TIME", DELAY_TIME );
-		
+		//console.log("clearProjectRenderer-DELAY_TIME", DELAY_TIME );
 		angular.forEach( _childCtrl, function( ctrl, index ){
 			ctrl.showHideTransition(delays[index]);
 		});
-		
+
 		setTimeout(function(){
-			console.log("clearProjectRenderer 완료");
-			promiseSuccess(deferred, "complete");
+			promiseSuccess("clearProjectRenderer-complete");
 		},  DELAY_TIME );
 
 		return deferred.promise;
+
+
 	}
 
     function initializeProjectList(){
 		
-		var deferred	=getDeffered();        
 		updatePromiseDelayTime( 10 );
 		console.log("initializeProjectList-DELAY_TIME", DELAY_TIME );
 		setTimeout( function(){
 			$scope.renderComplete = false;
 			$scope.projects =null;
 			_childCtrl      =[];
-			console.log("제거 후 초기화 시작");
-			promiseSuccess(deferred, "complete");
+			promiseSuccess("initializeProjectList-complete");
 		}, DELAY_TIME );
         
         return deferred.promise;
@@ -310,13 +316,13 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	var ctrl = this;
 	var _childCtrl  =[];
 	ctrl.registerChildController = function( childCtrl ){
-		console.log("컨트롤 등록");
 		_childCtrl.push(childCtrl);
 		
 	}
 		
     $scope.$on( REQUEST_PROEJCT_LIST_INITIALIZE, function(){
-         $scope.initializeWindowSize();
+        console.log("등장모션 시작");
+        $scope.initializeWindowSize();
 		updateRendererLayout();
 		$scope.renderComplete = true;
 		appModel.updateLoadState( false );
@@ -349,16 +355,8 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 				initializeDeferred();
 				
 				clearProjectRenderer()
-				 .then(
-					
-						initializeProjectList()
-					
-				)
-				.then( 
-					
-						loadProjectList()
-					
-				);
+                    .then(initializeProjectList())
+                    .then( loadProjectList() );
 			break;
 		
 			case PROJECT_STATE.SHOW:
@@ -379,18 +377,22 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 
 	
     function loadProjectList(){
-	
-		var deferred	=getDeffered();
-		appModel.updateLoadState( true );
-		appModel.loadData( appModel.projectPath )
-			.success( function(data ){
-				$scope.projects = data.project;
-				console.log("데이터 완료");
-			})
-			.error( function( error, code ){
-				appModel.updateLoadState( false );
-				promiseReject(error);
-			});
+
+        updatePromiseDelayTime(10);
+        setTimeout( function(){
+            appModel.updateLoadState( true );
+            appModel.loadData( appModel.projectPath )
+                .success( function(data ){
+                    $scope.projects = data.project;
+                    promiseSuccess("loadProjectList-complete");
+                })
+                .error( function( error, code ){
+                    appModel.updateLoadState( false );
+                    promiseReject(error);
+                });
+        }, DELAY_TIME );
+
+
 		return deferred.promise;
 		
     };

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="HelloPromise">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>promise-test</title>
+</head>
+<body>
+
+    <div ng-controller="PromiseController"></div>
+
+    <script src="../js/lib/angular.js"></script>
+    <script>
+
+        var app = angular.module("HelloPromise", []);
+
+        app.controller( "PromiseController", function( $scope, $q ){
+
+            var deferred = $q.defer();
+
+            function resolvePromise( info ){
+                console.log("resolvePromise", info );
+                deferred.resolve( info );
+            };
+
+            function rejectPromise( info ){
+                 deferred.reject( info );
+            };
+
+
+            function initData(){
+
+                setTimeout(function(){
+                    console.log("init-data");
+                    resolvePromise("initData");
+                }, 200);
+
+                return deferred.promise;
+            };
+
+            function clearData(){
+                setTimeout(function(){
+                    console.log("clear-data");
+                    resolvePromise("clearData");
+                }, 400);
+                return deferred.promise;
+            };
+
+            function startTransition(){
+                setTimeout(function(){
+                    console.log("transition-start");
+                    resolvePromise("startTransition");
+                }, 600);
+                return deferred.promise;
+            };
+
+
+
+            function startPromise(){
+
+                initData().then( clearData()).then( startTransition() );
+
+            };
+
+            startPromise();
+
+        });
+
+    </script>
+</body>
+</html>
