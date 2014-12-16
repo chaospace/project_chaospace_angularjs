@@ -20,17 +20,20 @@ var MOBILE_W    = 320;
 
 
 var CONTAINER_W;
+var LIST_UNIT;
 	
 var RENDERER_H  = 340;
 var RENDERER_W  = 260;
 var RENDERER_GAP = 30;
 
 var PROJECT_STATE = {
-    NONE:"NONE",
-    UPDATE:"UPDATE",
-    HIDE:"HIDE",
-    SHOW:"SHOW",
-    CHANGE:"CHANGE"
+	NONE:"NONE",
+	UPDATE:"UPDATE",
+	HIDE:"HIDE",
+	SHOW:"SHOW",
+	CHANGE:"CHANGE",
+	DETAIL:"DETAIL",
+	NORMAL:"NORMAL"
 };
 
 app.constant( "config", {
@@ -125,8 +128,9 @@ app.factory("appModel",function ( config, $http, $rootScope ){
         /* projectPath속성 업데이트 처리 */
         this.updateProjectPathState = function( newState ) {
             if(this.projectPath != newState ){
-                this.projectPath = newState;
-                this.broadcasProjectPathState( newState );
+				this.projectPath = newState;
+                //this.broadcasProjectPathState( newState );
+				this.broadcasProjectState( PROJECT_STATE.CHANGE );
             }
         };
 
@@ -137,8 +141,7 @@ app.factory("appModel",function ( config, $http, $rootScope ){
         };
 
         this.broadcasProjectPathState =function( newState ){
-			console.log( "변경", newState );
-            $rootScope.$broadcast( PROJECT_PATH_CHANGE, newState );
+			$rootScope.$broadcast( PROJECT_PATH_CHANGE, newState );
         };
 
 
@@ -162,33 +165,29 @@ app.factory("appModel",function ( config, $http, $rootScope ){
 
     };
 
-    return new AppModel();
+	var model = new AppModel();
+	//model.loadData( model.naviDataPath );
+    return model;
 
  });
 
 
 app.controller( "NavigationController",function( $scope, appModel  ){
 
-
     $scope.onClick_MenuItem =function( $event, data ){
         $event.preventDefault();
         appModel.updateProjectPathState( data );
     };
-		
 	
-		
-    appModel.updateLoadState( true );
-    function initControl(){
-        appModel.loadData(appModel.naviDataPath).success( function(data){
-            $scope.naviList = data.navigation;
-            appModel.updateLoadState( false );
-		   appModel.updateProjectPathState( $scope.naviList[0].data );
-        }).error(function( error, code ){
-            alert( error );
-        });
-    };
-
-    setTimeout( initControl,500 );
+	appModel.updateLoadState( true );	
+	appModel.loadData(appModel.naviDataPath).success( function(data){
+		$scope.naviList = data.navigation;
+		appModel.updateLoadState( false );
+		appModel.updateProjectPathState( $scope.naviList[0].data );
+	}).error(function( error, code ){
+		alert( error );
+	});
+	
 
 });
 
@@ -196,38 +195,37 @@ app.controller( "NavigationController",function( $scope, appModel  ){
 // proejct-list-controller;
 app.controller( "ProjectListController",function( $element, $scope, $q, $timeout, appModel  ){
 
-    $scope.renderComplete	= false;
-	
+	$scope.renderComplete	= false;
 	$scope.updateDisplay =function(){
-		if( checkUpdateDisplayMode() ){
-			updateRendererLayout();
-		}
+		updateRendererLayout();
 	}
-		
 	
-
-	var LIST_UNIT;
-	
-	function checkUpdateDisplayMode(){
-		var w = $scope.windowWidth;
-		var listArea	=-1;
-		if( w > WIDE_W ){
-			listArea= WIDE_W;
-		} else if( w > DESKTOP_W && w < WIDE_W ){
-			listArea= DESKTOP_W;
-		} else if( w > TABLET_W && w < DESKTOP_W ) {
-			listArea= TABLET_W;
-		} else {
-			listArea= MOBILE_W;
-		}
-		if( listArea != CONTAINER_W ){
-			CONTAINER_W =listArea;
-			LIST_UNIT=parseInt(CONTAINER_W/RENDERER_W);
-			return true;
-		}
-		return false;
+	/**
+	 ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+	 promise init
+	 ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+	*/
+	//var deferred	= $q.defer();
+	var DELAY_TIME	=0;
+	function getDeffered(){
+		return $q.defer();
 	}
-
+	
+	function promiseSuccess( deferred, results ){
+		return deferred.resolve( results );
+	}
+	
+	function promiseReject( results ){
+		return  deferred.reject( results );
+	}
+	
+	function updatePromiseDelayTime( appendValue ){
+		DELAY_TIME+=isNaN(appendValue) ? 0 : appendValue;
+	}
+	function initializeDeferred(){
+		DELAY_TIME	=0;
+	}
+	
 	
 	function updateRendererLayout(){
 			
@@ -236,13 +234,14 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 		var px       =defaultX;
 		var py       =0;
 		var info;
-		angular.forEach( $element.children(), function( renderer, index ){
+		var delays = getDelays();
+		
+		angular.forEach( _childCtrl, function( ctrl , index ){
 
-			var ctrl = _childCtrl[index];
 			info = ctrl.getRendererSize( CONTAINER_W );
-			
 			if(!$scope.renderComplete){
-				ctrl.showStartTransition( px, py );
+				ctrl.updatePosition( -500, py );
+				ctrl.showStartTransition( px, py, delays[index] );
 			} else {
 				ctrl.updatePosition( px, py );
 			}
@@ -258,65 +257,83 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 		if( px != defaultX ) {
 			py+=(info.h+RENDERER_GAP);
 		}
-		
 		$element.css("height", py+"px");
 	
 	}
 
+	function getDelays(){
+		var delays=[];
+		var delay = 100;
+		for( var i=0; i<_childCtrl.length; i++ ){
+			delays.push( (i*delay) );
+		}
+		delays = delays.reverse();
+		return delays;
+	}
 	
 	// 리스트 사라지게 하기
-	function hideRendererLayout(){
-		var deferred = $q.defer();
-		setTimeout(function(){
-			deferred.resolve("complete");	
-		}, 50*_childCtrl.length );
-		angular.forEach( _childCtrl, function( ctrl ){
-			ctrl.showHideTransition();
+	function clearProjectRenderer(){
+		var deferred	=getDeffered();
+		var delays = getDelays();
+		updatePromiseDelayTime( delays[0]+(50*delays.length) );
+		console.log("clearProjectRenderer-DELAY_TIME", DELAY_TIME );
+		
+		angular.forEach( _childCtrl, function( ctrl, index ){
+			ctrl.showHideTransition(delays[index]);
 		});
+		
+		setTimeout(function(){
+			console.log("clearProjectRenderer 완료");
+			promiseSuccess(deferred, "complete");
+		},  DELAY_TIME );
+
 		return deferred.promise;
 	}
 
     function initializeProjectList(){
-        var deferred = $q.defer();
-        $timeout(function(){
-            $scope.projects =null;
-            _childCtrl      =[];
-            deferred.resolve();
-        });
+		
+		var deferred	=getDeffered();        
+		updatePromiseDelayTime( 10 );
+		console.log("initializeProjectList-DELAY_TIME", DELAY_TIME );
+		setTimeout( function(){
+			$scope.renderComplete = false;
+			$scope.projects =null;
+			_childCtrl      =[];
+			console.log("제거 후 초기화 시작");
+			promiseSuccess(deferred, "complete");
+		}, DELAY_TIME );
+        
         return deferred.promise;
     }
 	
 	
-	
 	var ctrl = this;
 	var _childCtrl  =[];
-	
 	ctrl.registerChildController = function( childCtrl ){
+		console.log("컨트롤 등록");
 		_childCtrl.push(childCtrl);
+		
 	}
 		
     $scope.$on( REQUEST_PROEJCT_LIST_INITIALIZE, function(){
-        //console.log( "list", $element.children() );
-        appModel.updateLoadState( false );
-		$scope.initializeWindowSize();
+         $scope.initializeWindowSize();
 		updateRendererLayout();
 		$scope.renderComplete = true;
-		$scope.$apply();
-		
+		appModel.updateLoadState( false );
+		$scope.$apply();	
     });
 
     // projectPath상태 변경 감시
     appModel.onUpdateProjectPathState( $scope, function( newState ){
 
         if( $scope.projects ) {
-			hideRendererLayout()
-                .then( function( result ){
-                    $scope.renderComplete = false;
-                    return initializeProjectList();
-                })
-                .then( function(){
-                    loadProjectList();
-                } );
+			clearProjectRenderer()
+             .then( function(){
+				initializeProjectList()
+			})
+			.then( function(){
+				loadProjectList();
+			} );
 		} else {
 			loadProjectList();
 		}
@@ -325,36 +342,59 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
     // projectState상태 변경 감시
     appModel.onUpdateProjectState( $scope, function( newState ){
 
-        switch( newState ){
-            case PROJECT_STATE.SHOW:
-                console.log("등장");
-                $scope.initialize = true;
-                break;
+		switch( newState ){
+			case PROJECT_STATE.CHANGE:
+				
+				console.log("프로젝트 변경");
+				initializeDeferred();
+				
+				clearProjectRenderer()
+				 .then(
+					
+						initializeProjectList()
+					
+				)
+				.then( 
+					
+						loadProjectList()
+					
+				);
+			break;
+		
+			case PROJECT_STATE.SHOW:
+				console.log("등장");
+				$scope.initialize = true;
+				break;
 
-            case PROJECT_STATE.HIDE:
-                console.log("퇴장");
-                break;
-
-            case PROJECT_STATE.UPDATE:
-                console.log("resize-update");
-                break;
-        }
+			case PROJECT_STATE.HIDE:
+				console.log("퇴장");
+				break;
+		
+			case PROJECT_STATE.UPDATE:
+				console.log("resize-update");
+				break;
+		}
 
     });
 
+	
     function loadProjectList(){
-        appModel.updateLoadState( true );
-        appModel.loadData( appModel.projectPath)
-            .success( function(data ){
-                $scope.projects = data.project;
-            })
-            .error( function( error, code ){
-                appModel.updateLoadState( false );
-            });
+	
+		var deferred	=getDeffered();
+		appModel.updateLoadState( true );
+		appModel.loadData( appModel.projectPath )
+			.success( function(data ){
+				$scope.projects = data.project;
+				console.log("데이터 완료");
+			})
+			.error( function( error, code ){
+				appModel.updateLoadState( false );
+				promiseReject(error);
+			});
+		return deferred.promise;
+		
     };
-
-
-
+	
 
 });
 
@@ -377,7 +417,6 @@ app.directive( "imageloaded", function(){
 app.directive( "projectList", function(){
 
 	return{
-
 		replace:true,
 		restrict:'EA',
 		template:'<div id="project-container"></div>',
@@ -386,20 +425,43 @@ app.directive( "projectList", function(){
 		 // 
 		},
 		controller:"ProjectListController"
-
 	}
 
 
 });
 
 app.directive( "resizeable", function($window){
-
+	
 	return function( $scope ){
 
+		function checkUpdateDisplayMode(){
+			var w = $scope.windowWidth;
+			var listArea	=-1;
+			if( w > WIDE_W ){
+				listArea= WIDE_W;
+			} else if( w > DESKTOP_W && w < WIDE_W ){
+				listArea= DESKTOP_W;
+			} else if( w > TABLET_W && w < DESKTOP_W ) {
+				listArea= TABLET_W;
+			} else {
+				listArea= MOBILE_W;
+			}
+			if( listArea != CONTAINER_W ){
+				CONTAINER_W =listArea;
+				LIST_UNIT=parseInt(CONTAINER_W/RENDERER_W);
+				return true;
+			}
+			return false;
+		}
+	
 		$scope.initializeWindowSize = function(){
+			
 			$scope.windowWidth = $window.innerWidth;
 			$scope.windowHeight = $window.innerHeight;
-			$scope.updateDisplay();
+			if( checkUpdateDisplayMode()){
+				$scope.updateDisplay();
+			}
+			
 		}
 
 		$scope.initializeWindowSize();
@@ -419,15 +481,25 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 		restrict:"E",
 		replace:true,
 		require:['^projectList', 'projectRenderer'],
+		scope:{
+			project:'='
+		},
+		template:'<div ng-include="getTemplateUrl()"></div>',
+		/*
+		templateUrl:function( iElement, iAttrs ){
+			console.log("templateurl" );
+			return PARTISAL_PATH + "default_project_renderer.html";
+		},*/
 		link:function( scope, iElement, iAttr, controllers ){
 
 			var projectListCtrl = controllers[0];
 			var rendererCtrl    = controllers[1];
 			projectListCtrl.registerChildController( rendererCtrl );
-
+			
+			/*
 			var tplURL = scope.project.template;
-            var templateElement;
-
+			var templateElement;
+			
 			$http.get( PARTISAL_PATH + tplURL, {cache:$templateCache})
 				.success(function( html ){
                     templateElement = $compile(html)(scope);
@@ -436,8 +508,9 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				.error( function( error ){
 					console.log("error", error );
 				});
-
-			if(scope.$last){
+			*/
+			
+			if(scope.$parent.$last){
 
 				$timeout( function() {
 					$timeout( function() {
@@ -448,13 +521,13 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 			}
 
             /**
-             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              destory
-             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              */
             scope.$on('$destroy', function(){
                 console.log("destory");
-                angular.element(templateElement).remove();
+                //angular.element(templateElement).remove();
                 iElement.remove();
             });
 			
@@ -462,22 +535,18 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 		},
 		
 		controller:function( $scope, $sce, appModel ){
-
+			
 			$scope.transform	= appModel.getTransform( 0, 0 );
 			$scope.class		= '';
-
 
 			$scope.trustDangerousSnippet = function( info ){
 				return $sce.trustAsHtml(info);
 			};
 
-
-
-
 			/**
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 				클릭 핸들러
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 			*/
 			$scope.onClick_Renderer =function( strName ){
 				console.log( "click", strName );
@@ -494,16 +563,19 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				return path;
 			}
 			
+			$scope.getTemplateUrl	=function(){
+				return PARTISAL_PATH + $scope.project.template;
+			}
 			
 			
 			/**
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 				현재 window영역에 따른 renderersize 반환 메서드 
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 			*/
 			this.getRendererSize = function( screenWidth ){
 				var info = {w:RENDERER_W, h:RENDERER_H};
-				if($scope.project.template.indexOf( "main" ) > -1 ){
+				if($scope.project.type == "main" ){
 					info	= ( screenWidth == WIDE_W ) ? {w:(RENDERER_W*2)+RENDERER_GAP, h:RENDERER_H} : info;
 				}
 				return info;
@@ -511,36 +583,37 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 			
 			
 			/**
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 				리사이즈 처리 및 등장/퇴장 트렌지션 처리
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 			*/
 			var posx, posy;
 			this.updatePosition =function( px, py ) {
 				posx = px;
 				posy = py;
 				$scope.transform =  appModel.getTransform( px, py );
+				$scope.$apply();
 			}
 			
-			this.showStartTransition =function( px, py ){
+			this.showStartTransition =function( px, py, delay ){
+				
 				var scope =this;
-				this.updatePosition( -500, py );
-				$scope.$apply();
-				$timeout(function(){
+				$timeout( function(){
 					$scope.class='renderer-transition';
 					scope.updatePosition( px, py );
-				}, 0);
+				}, delay );
 				
 			}
 			
-			this.showHideTransition =function(){
+			this.showHideTransition =function( delay ){
 				var scope =this;
-				this.updatePosition( CONTAINER_W+500, posy );
+				$timeout( function(){
+					scope.updatePosition( CONTAINER_W+500, posy );
+				}, delay );
+				
+				
 			}
-			
-			
-			
-			
+
 		}
 
 	}
@@ -554,4 +627,3 @@ app.controller( "ProgressViewController", function( $scope, appModel ){
         $scope.loading = newState;
     });
 });
-

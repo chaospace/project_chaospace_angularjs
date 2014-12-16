@@ -21,7 +21,9 @@
 		
 		
 		<project-list ng-transclude renderer-complete='false' >
-			<project-renderer></project-renderer>
+			<project-renderer prop-a="{{project.name}}" ng-repeat="project in projects"></project-renderer>
+			
+			<button ng-click='spliceItem()'>click</button>
 		</project-list>
 		
 		
@@ -37,13 +39,26 @@
 				var renderers = ctrl.renderers = $scope.renderers =[];
 				
 				$scope.message = "initController";
+				
+				$scope.projects= [
+				{name:"a"},
+				{name:"b"},
+				{name:"c"},
+				{name:"d"},
+				{name:"e"}
+				];
+				
 				//console.log("sss", $scope);
 				ctrl.onCompleteCreateRender = function(){
 					console.log("complete");
 					$scope.message = "complete";
 				}
 		
-				
+				$scope.spliceItem = function(){
+					
+					$scope.projects.shift();
+					
+				};
 				/*$http.get("../assets/data/js_project.js")
 				.success(function( data ){
 					console.log("success", data.project );
@@ -73,10 +88,13 @@
 					restrict:"E",
 					replace:true,
 					require: '^projectList',
-					template:'<div><span>{{message}}</span></div>',
+					
+					templateUrl:function( element, attr ){
+						console.log( element, attr );
+					},
 					link:function( scope, element, attr, ctrl){
-						console.log("link----------", attr, scope.$parent );
-						ctrl.onCompleteCreateRender();
+						console.log("link----------", element );
+						//ctrl.onCompleteCreateRender();
 					},					
 					controller:function( $scope ){
 						console.log( "projectRenderer-controller", $scope );

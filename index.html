@@ -21,7 +21,7 @@
 		
 		<style>
 			ul, li{
-				margin:0; padding:0;
+				padding:0;
 				margin-left:10px;
 			}
 		</style>
@@ -88,7 +88,9 @@
 
 				<!-- 플젝 리스트  추가 영역 -->
 				<project-list resizeable ng-transclude ng-show='renderComplete'>
-					<project-renderer ng-repeat="project in projects"></project-renderer>
+					<div ng-repeat="project in projects">
+						<project-renderer project="project"></project-renderer>
+					</div>
 				</project-list>
 		
                 </div>
@@ -117,47 +119,35 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-        <div id="renderer-produce" class="project-renderer renderer-type1 mask template">
-            <div class="image-container">
-                <img src="./assets/ui/pic.jpg" />
-            </div>
-            <div>
-                <div class="label-container">
-
-                </div>
-
-                <div class="deco-container">
-                    <div class="deco-cover left"></div>
-                    <div class="deco-cover right"></div>
-                    <div class="deco-description">
-                        <div class="infomation">
-                            <ul></ul>
-                            <div></div>
-                            <div></div>
-                        </div>
+		
+	<!--	
+	<div class="project-renderer renderer-type1 mask" style='background-color:#1f49b3;'>
+    
+        <div>
+		   <div style='position:absolute; left:30px;top:30px;width:200px;'>
+		   테스트 메시지 입니다.
+		   테스트 메시지 입니다.
+		   테스트 메시지 입니다.
+		   테스트 메시지 입니다.
+		   </div>
+            <div class="label-container">AAA</div>
+            <div class="deco-container">
+                <div class="deco-cover left"></div>
+                <div class="deco-cover right"></div>
+                <div class="deco-description">
+				
+                    <div class="infomation">
+                        <ul>
+                        </ul>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
             </div>
-            <img class="transparent-area" src="assets/ui/transparent.gif" width="1" height="1">
         </div>
-
-     -->
+        <img class="transparent-area" src="{{project.image.prefix}}transparent.gif" width="1" height="1">
+		-->
+</div>
 
 
 

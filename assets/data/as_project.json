@@ -2,6 +2,7 @@
     "project":[
         {
             "template"      :"default_project_renderer.html",
+			"type"			:"default",
             "title"         :"Canvas API-1",
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "image"         :{
@@ -17,6 +18,7 @@
         {
             "template"      :"default_project_renderer.html",
             "title"         :"Canvas Copy pixel-2",
+			"type"			:"default",
             "image"         :{
                 "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
                 "src":"pic.jpg"
@@ -30,6 +32,7 @@
         {
             "template"      :"default_project_renderer.html",
             "title"         :"Canvas API-3",
+			"type"			:"default",
             "image"         :{
                 "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
                 "src":"pic.jpg"
@@ -44,6 +47,7 @@
         {
             "template"      :"default_project_renderer.html",
             "title"         :"Canvas Copy pixel-4",
+			"type"			:"default",
             "image"         :{
                 "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
                 "src":"pic.jpg"
@@ -57,6 +61,7 @@
         {
             "template"      :"default_project_renderer.html",
             "title"         :"Canvas API-5",
+			"type"			:"default",
             "image"         :{
                 "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
                 "src":"pic.jpg"
@@ -71,6 +76,7 @@
         {
             "template"      :"main_project_renderer.html",
             "title"         :"Canvas Copy pixel-6",
+			"type"			:"main",
             "image"         :{
                 "prefix"    :"/project_chaospace_angularjs/assets/data/project/images/",
                 "src"       :"pic.jpg",
@@ -85,6 +91,7 @@
         {
             "template"      :"default_project_renderer.html",
             "title"         :"Canvas API-7",
+			"type"			:"default",
             "image"         :{
                 "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
                 "src":"pic.jpg"
@@ -99,6 +106,7 @@
         {
             "template"      :"default_project_renderer.html",
             "title"         :"Canvas Copy pixel-8",
+			"type"			:"default",
             "image"         :{
                 "prefix":"/project_chaospace_angularjs/assets/data/project/images/",
                 "src":"pic.jpg"
