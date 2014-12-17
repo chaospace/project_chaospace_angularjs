@@ -347,21 +347,26 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 
     // projectState상태 변경 감시
     appModel.onUpdateProjectState( $scope, function( newState ){
-
+        initializeDeferred();
 		switch( newState ){
 			case PROJECT_STATE.CHANGE:
-				
-				console.log("프로젝트 변경");
-				initializeDeferred();
-				
+
 				clearProjectRenderer()
                     .then(initializeProjectList())
-                    .then( loadProjectList() );
+                    .then( loadProjectList() )
+                    .then( function(){
+                        console.log("last===");
+                        appModel.updateProjectState(PROJECT_STATE.NORMAL)
+                    } );
 			break;
-		
+
+            case PROJECT_STATE.NORMAL:
+                    console.log("노멀상태");
+                break;
+
 			case PROJECT_STATE.SHOW:
 				console.log("등장");
-				$scope.initialize = true;
+
 				break;
 
 			case PROJECT_STATE.HIDE:
@@ -379,6 +384,7 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
     function loadProjectList(){
 
         updatePromiseDelayTime(10);
+        console.log("loadProjectList-delay", DELAY_TIME );
         setTimeout( function(){
             appModel.updateLoadState( true );
             appModel.loadData( appModel.projectPath )
