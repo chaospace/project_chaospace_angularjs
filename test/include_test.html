@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="IncludeApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>IncludeApp-test</title>
+</head>
+<body>
+
+    <div ng-controller="IncludeController">
+		
+		<div>
+			<p>AAEEEE</p>
+			<div id="contents"></div>
+			<button ng-click="setTemplate()">seturl</button>
+		</div>
+		
+	</div>
+	
+	
+    <script src="../js/lib/angular.js"></script>
+    <script>
+
+        var app = angular.module("IncludeApp", []);
+        app.controller( "IncludeController", function( $scope, $element, $http, $q ){
+			
+			$scope.tempurl ="";
+			$scope.setTemplate=function(){
+				
+				$http.get("temp.html")
+				.success(function( data ){
+					var con = angular.element(  document.querySelector( "#contents" ));
+					con.append( data );
+				}).error(function( error ){
+				})
+				
+			}
+			
+        });
+
+    </script>
+</body>
+</html>

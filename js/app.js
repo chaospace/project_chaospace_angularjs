@@ -2,9 +2,9 @@
 /**
     홈페이지 angularjs적용 하기
 */
-var app = angular.module('cpProjectApp', []);
+var app = angular.module('cpProjectApp', ['ngRoute']);
 
-var REQUEST_PROEJCT_LIST_INITIALIZE ="REQUEST_PROEJCT_LIST_INITIALIZE";
+var REQUEST_PROJECT_LIST_INITIALIZE ="REQUEST_PROJECT_LIST_INITIALIZE";
 var PROJECT_PATH_CHANGE             ="PROJECT_PATH_CHANGE";
 var PROJECT_STATE_CHANGE            ="PROJECT_STATE_CHANGE";
 var APP_LOADING_CHANGE              ="APP_LOADING_CHANGE";
@@ -12,6 +12,7 @@ var APP_LOADING_CHANGE              ="APP_LOADING_CHANGE";
 var PROJECT_PATH    ="/project_chaospace_angularjs/";
 var ASSET_PATH      =PROJECT_PATH+"assets/data/";
 var PARTISAL_PATH   =ASSET_PATH+"partisal/";
+var DETAIL_PATH	  =ASSET_PATH+"project/";
 		
 var WIDE_W      = 1130;
 var DESKTOP_W   = 840;
@@ -39,6 +40,26 @@ var PROJECT_STATE = {
 app.constant( "config", {
     prefix:"."
 });
+
+
+app.config(['$routeProvider', function( $routeProvider ){
+	
+	console.log("route");
+	$routeProvider
+	.when('/index', {
+		templateUrl:'assets/data/project/blank.html',
+		controller:'ProjectDetailController'
+	}).
+	when('/detail/:project',{
+		templateUrl:'assets/data/project/project.html',
+		controller:'ProjectDetailController'
+	}).
+	otherwise({
+		redirectTo:'/index'
+	});
+
+}]);
+
 
 /**
     네비게이션 정보 프로바이더
@@ -191,6 +212,12 @@ app.controller( "NavigationController",function( $scope, appModel  ){
 });
 
 
+app.controller( "ProjectDetailController", function( $scope, $routeParams ){
+	//$scope.closeDetail
+	console.log("$routeParams", $routeParams);
+	
+});
+
 // proejct-list-controller;
 app.controller( "ProjectListController",function( $element, $scope, $q, $timeout, appModel  ){
 
@@ -320,10 +347,34 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 		_childCtrl.push(childCtrl);
 		
 	}
+	
+	/**
+		단순 contents로드가 아닌 router를 이용해야 할듯.
+	*/
+	ctrl.requestDetail	=function(){
+		console.log( "detail" );
+		/*appModel.loadData(  "project/project.html" )
+			.success(function(data){
+				var page = angular.element(  document.querySelector( "#page-container" ));
+				console.log("page", page.length );
+				if( page.length > 0 ){
+					page.remove();
+				} else {
+					var con = angular.element(  document.querySelector( "#content-layer" ));	
+					con.prepend(data);
+				}
+				
+				
+			}).error(function( error, code ){
+				console.log("error", error );
+			});*/
+	}
+	
 		
-    $scope.$on( REQUEST_PROEJCT_LIST_INITIALIZE, function(){
-        
-         $scope.initializeWindowSize();
+    $scope.$on( REQUEST_PROJECT_LIST_INITIALIZE, function(){
+		
+		console.log("REQUEST_PROJECT_LIST_INITIALIZE");
+		$scope.initializeWindowSize();
 		updateRendererLayout();
 		$scope.renderComplete = true;
 		appModel.updateLoadState( false );
@@ -356,16 +407,19 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 				initializeDeferred();
 				clearProjectRenderer()
                     .then( initializeProjectList() )
-                    .then( loadProjectList() );
+                    .then( loadProjectList() )
+				  .then( appModel.updateProjectState(PROJECT_STATE.NORMAL));
 			break;
-		
+			
+			case PROJECT_STATE.NORMAL:
+				console.log("노멀상태");
+			break;
+			
 			case PROJECT_STATE.SHOW:
-				console.log("등장");
-				$scope.initialize = true;
 				break;
 
-			case PROJECT_STATE.HIDE:
-				console.log("퇴장");
+			case PROJECT_STATE.DETAIL:
+				console.log("DETAIL-상태");
 				break;
 		
 			case PROJECT_STATE.UPDATE:
@@ -377,14 +431,14 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 
 	
     function loadProjectList(){
-
+		var deferred = getDeffered();
         updatePromiseDelayTime(10);
         setTimeout( function(){
             appModel.updateLoadState( true );
             appModel.loadData( appModel.projectPath )
                 .success( function(data ){
                     $scope.projects = data.project;
-                    promiseSuccess("loadProjectList-complete");
+                    promiseSuccess( deferred, "loadProjectList-complete");
                 })
                 .error( function( error, code ){
                     appModel.updateLoadState( false );
@@ -498,25 +552,21 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 			var rendererCtrl    = controllers[1];
 			projectListCtrl.registerChildController( rendererCtrl );
 			
-			/*
-			var tplURL = scope.project.template;
-			var templateElement;
-			
-			$http.get( PARTISAL_PATH + tplURL, {cache:$templateCache})
-				.success(function( html ){
-                    templateElement = $compile(html)(scope);
-					iElement.replaceWith(templateElement);
-				})
-				.error( function( error ){
-					console.log("error", error );
-				});
+			/**
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+				클릭 핸들러
+			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 			*/
+			scope.onClick_Renderer =function( strName ){
+				console.log( "click", strName );
+				projectListCtrl.requestDetail();
+			};
 			
 			if(scope.$parent.$last){
 
 				$timeout( function() {
 					$timeout( function() {
-						scope.$emit(REQUEST_PROEJCT_LIST_INITIALIZE);
+						scope.$emit(REQUEST_PROJECT_LIST_INITIALIZE);
 					});
 				});
 
@@ -529,7 +579,6 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
              */
             scope.$on('$destroy', function(){
                 console.log("destory");
-                //angular.element(templateElement).remove();
                 iElement.remove();
             });
 			
@@ -545,16 +594,6 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				return $sce.trustAsHtml(info);
 			};
 
-			/**
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-				클릭 핸들러
-			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-			*/
-			$scope.onClick_Renderer =function( strName ){
-				console.log( "click", strName );
-			};
-
-			
 			$scope.getResponseImageSrc = function(){
 				var path = $scope.project.image.prefix;
 				if( window.innerWidth > WIDE_W ){
@@ -612,7 +651,6 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				$timeout( function(){
 					scope.updatePosition( CONTAINER_W+500, posy );
 				}, delay );
-				
 				
 			}
 
