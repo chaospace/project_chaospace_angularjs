@@ -166,7 +166,6 @@ app.factory("appModel",function ( config, $http, $rootScope ){
     };
 
 	var model = new AppModel();
-	//model.loadData( model.naviDataPath );
     return model;
 
  });
@@ -207,15 +206,17 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	*/
 	//var deferred	= $q.defer();
 	var DELAY_TIME	=0;
-    var deferred = $q.defer();
-
+    //var deferred = $q.defer();
+	function getDeffered(){
+		return $q.defer();
+	}
 	
-	function promiseSuccess( results ){
+	function promiseSuccess( deferred, results ){
 		console.log("promiseSuccess", results );
         deferred.resolve( results );
 	}
 	
-	function promiseReject( results ){
+	function promiseReject( deferred, results ){
 		deferred.reject( results );
 	}
 	
@@ -248,7 +249,7 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 
 			info = ctrl.getRendererSize( CONTAINER_W );
 			if(!$scope.renderComplete){
-				ctrl.updatePosition( -500, py );
+				ctrl.updatePosition( -CONTAINER_W/1.2, py );
 				ctrl.showStartTransition( px, py, delays[index] );
 			} else {
 				ctrl.updatePosition( px, py );
@@ -273,7 +274,7 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 		var delays=[];
 		var delay = 100;
 		for( var i=0; i<_childCtrl.length; i++ ){
-			delays.push( (i*delay) );
+			delays.push( delay+(i*delay) );
 		}
 		delays = delays.reverse();
 		return delays;
@@ -281,16 +282,15 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	
 	// 리스트 사라지게 하기
 	function clearProjectRenderer(){
-		//var deferred	=getDeffered();
+		var deferred	=getDeffered();
 		var delays = getDelays();
 		updatePromiseDelayTime( delays[0]+(50*delays.length) );
-		//console.log("clearProjectRenderer-DELAY_TIME", DELAY_TIME );
 		angular.forEach( _childCtrl, function( ctrl, index ){
 			ctrl.showHideTransition(delays[index]);
 		});
 
 		setTimeout(function(){
-			promiseSuccess("clearProjectRenderer-complete");
+			promiseSuccess( deferred, "clearProjectRenderer-complete");
 		},  DELAY_TIME );
 
 		return deferred.promise;
@@ -300,13 +300,14 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 
     function initializeProjectList(){
 		
+		var deferred	=getDeffered();
 		updatePromiseDelayTime( 10 );
 		console.log("initializeProjectList-DELAY_TIME", DELAY_TIME );
 		setTimeout( function(){
 			$scope.renderComplete = false;
 			$scope.projects =null;
 			_childCtrl      =[];
-			promiseSuccess("initializeProjectList-complete");
+			promiseSuccess( deferred, "initializeProjectList-complete");
 		}, DELAY_TIME );
         
         return deferred.promise;
@@ -321,12 +322,13 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	}
 		
     $scope.$on( REQUEST_PROEJCT_LIST_INITIALIZE, function(){
-        console.log("등장모션 시작");
-        $scope.initializeWindowSize();
+        
+         $scope.initializeWindowSize();
 		updateRendererLayout();
 		$scope.renderComplete = true;
 		appModel.updateLoadState( false );
-		$scope.$apply();	
+		$scope.$apply();
+		
     });
 
     // projectPath상태 변경 감시
@@ -350,12 +352,10 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 
 		switch( newState ){
 			case PROJECT_STATE.CHANGE:
-				
 				console.log("프로젝트 변경");
 				initializeDeferred();
-				
 				clearProjectRenderer()
-                    .then(initializeProjectList())
+                    .then( initializeProjectList() )
                     .then( loadProjectList() );
 			break;
 		
