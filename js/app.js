@@ -352,8 +352,7 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
         initializeDeferred();
 		switch( newState ){
 			case PROJECT_STATE.CHANGE:
-<<<<<<< HEAD
-
+                console.log("프로젝트 변경");
 				clearProjectRenderer()
                     .then(initializeProjectList())
                     .then( loadProjectList() )
@@ -361,14 +360,6 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
                         console.log("last===");
                         appModel.updateProjectState(PROJECT_STATE.NORMAL)
                     } );
-=======
-				console.log("프로젝트 변경");
-				initializeDeferred();
-				clearProjectRenderer()
-                    .then( initializeProjectList() )
-                    .then( loadProjectList() );
->>>>>>> 97086f9621c53cb8a1ef6cce1f998f4445c60604
-			break;
 
             case PROJECT_STATE.NORMAL:
                     console.log("노멀상태");
