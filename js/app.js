@@ -2,7 +2,7 @@
 /**
     홈페이지 angularjs적용 하기
 */
-var app = angular.module('cpProjectApp', ['ngRoute']);
+var app = angular.module('cpProjectApp', ['ngRoute', 'ngAnimate']);
 
 var REQUEST_PROJECT_LIST_INITIALIZE ="REQUEST_PROJECT_LIST_INITIALIZE";
 var PROJECT_PATH_CHANGE             ="PROJECT_PATH_CHANGE";
@@ -60,6 +60,64 @@ app.config(['$routeProvider', function( $routeProvider ){
 
 }]);
 
+/*
+app.animation( '.project-renderer', function(){
+	
+	
+	function getElementCurrentTransform(el) {
+		var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
+
+		if(!results) return [0, 0, 0];
+		if(results[1] == '3d') return results.slice(2,5);
+
+		results.push(0);
+		return results.slice(5, 8);
+	}
+	
+	
+	var moveIn = function( element, className, done ){
+	
+	
+		var values	= getElementCurrentTransform( element );
+		console.log($(element).index() );
+		
+		var posx = values[0];
+		var posy = values[1];
+		var posz = values[2];
+		console.log( values );
+		//$(element).css('transform','translate3d('+-400+'px,'+ posy +'px, 0px)');
+		
+		return function( cancle ){
+			if( cancle ){
+				//element.stop();
+			}
+		}
+	}
+	
+	var moveOut = function( element,  className, done ){
+	
+		var values	= getElementCurrentTransform( element );
+		console.log("moveOut-values", values );	
+		for( var i=0; i<values.length; i++){
+			console.log( parseInt(values[i]) );
+		}
+		
+		return function( cancle ){
+			if( cancle ){
+				//element.stop();
+			}
+		}
+		
+	}
+	
+	return {
+		addClass:moveIn,
+		removeClass:moveOut
+	}
+
+	
+});
+*/
 
 /**
     네비게이션 정보 프로바이더
@@ -99,9 +157,6 @@ app.factory("appModel",function ( config, $http, $rootScope ){
 
 
     var AppModel = function(){
-
-
-
 
         this.support3d      = checkSupport3d();
         this.projectPath    = "";
@@ -190,6 +245,7 @@ app.factory("appModel",function ( config, $http, $rootScope ){
     return model;
 
  });
+ 
 
 
 app.controller( "NavigationController",function( $scope, appModel  ){
@@ -214,8 +270,12 @@ app.controller( "NavigationController",function( $scope, appModel  ){
 
 app.controller( "ProjectDetailController", function( $scope, $routeParams ){
 	//$scope.closeDetail
+	$scope.renderComplete = false;
 	console.log("$routeParams", $routeParams);
-	
+	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
+        console.log("succeess-chnage");
+		//$scope.renderComplete = true;
+    });
 });
 
 // proejct-list-controller;
@@ -226,14 +286,18 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 		updateRendererLayout();
 	}
 	
+	$scope.getPosition =function( index ){
+		console.log("내 위치는", index );
+	}
+			
+			
+	
 	/**
-	 ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+	▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 	 promise init
-	 ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+	▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 	*/
-	//var deferred	= $q.defer();
 	var DELAY_TIME	=0;
-    //var deferred = $q.defer();
 	function getDeffered(){
 		return $q.defer();
 	}
@@ -344,8 +408,8 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	var ctrl = this;
 	var _childCtrl  =[];
 	ctrl.registerChildController = function( childCtrl ){
-		_childCtrl.push(childCtrl);
-		
+		console.log("자식 컨트롤러 등록", childCtrl );
+		_childCtrl.push(childCtrl);	
 	}
 	
 	/**
@@ -353,21 +417,6 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 	*/
 	ctrl.requestDetail	=function(){
 		console.log( "detail" );
-		/*appModel.loadData(  "project/project.html" )
-			.success(function(data){
-				var page = angular.element(  document.querySelector( "#page-container" ));
-				console.log("page", page.length );
-				if( page.length > 0 ){
-					page.remove();
-				} else {
-					var con = angular.element(  document.querySelector( "#content-layer" ));	
-					con.prepend(data);
-				}
-				
-				
-			}).error(function( error, code ){
-				console.log("error", error );
-			});*/
 	}
 	
 		
@@ -376,6 +425,7 @@ app.controller( "ProjectListController",function( $element, $scope, $q, $timeout
 		console.log("REQUEST_PROJECT_LIST_INITIALIZE");
 		$scope.initializeWindowSize();
 		updateRendererLayout();
+		
 		$scope.renderComplete = true;
 		appModel.updateLoadState( false );
 		$scope.$apply();
@@ -537,20 +587,27 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 		restrict:"E",
 		replace:true,
 		require:['^projectList', 'projectRenderer'],
-		scope:{
-			project:'='
-		},
+		/*scope:{
+			project:'=',
+			position:'&'
+		},*/
 		template:'<div ng-include="getTemplateUrl()"></div>',
+		
 		/*
 		templateUrl:function( iElement, iAttrs ){
 			console.log("templateurl" );
 			return PARTISAL_PATH + "default_project_renderer.html";
 		},*/
+		
 		link:function( scope, iElement, iAttr, controllers ){
 
 			var projectListCtrl = controllers[0];
 			var rendererCtrl    = controllers[1];
 			projectListCtrl.registerChildController( rendererCtrl );
+			
+			
+			
+			
 			
 			/**
 			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
@@ -562,7 +619,7 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				projectListCtrl.requestDetail();
 			};
 			
-			if(scope.$parent.$last){
+			if(scope.$last){
 
 				$timeout( function() {
 					$timeout( function() {
@@ -585,7 +642,7 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 			
 		},
 		
-		controller:function( $scope, $sce, appModel ){
+		controller:function( $scope, $element, $sce, appModel , $animate){
 			
 			$scope.transform	= appModel.getTransform( 0, 0 );
 			$scope.class		= '';
@@ -608,7 +665,6 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				return PARTISAL_PATH + $scope.project.template;
 			}
 			
-			
 			/**
 			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
 				현재 window영역에 따른 renderersize 반환 메서드 
@@ -621,7 +677,6 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				}
 				return info;
 			}
-			
 			
 			/**
 			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
@@ -637,12 +692,34 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 			}
 			
 			this.showStartTransition =function( px, py, delay ){
-				
 				var scope =this;
+				//console.log("$animate", $animate );
+				/*$animate.addClass( $element, 'on', {
+					from:{
+						'-webkit-transform': 'translate3d(' + -500 + 'px,0,0)',
+						'-moz-transform': 'translate3d(' + -500 + 'px,0,0)',
+						'-ms-transform': 'translate3d(' + -500 + 'px,0,0)',
+						'-o-transform': 'translate3d(' + -500 + 'px,0,0)',
+						'transform': 'translate3d(' + -500 + 'px,0,0)'
+					},
+					to:{
+						
+						'-webkit-transform': 'translate3d(' + px + 'px,0,0)',
+						'-moz-transform': 'translate3d(' + px + 'px,0,0)',
+						'-ms-transform': 'translate3d(' + px + 'px,0,0)',
+						'-o-transform': 'translate3d(' + px + 'px,0,0)',
+						'transform': 'translate3d(' + px + 'px,0,0)'
+						
+					}
+					
+				} );*/
+				/*
 				$timeout( function(){
 					$scope.class='renderer-transition';
 					scope.updatePosition( px, py );
 				}, delay );
+				*/
+				
 				
 			}
 			
@@ -651,7 +728,6 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 				$timeout( function(){
 					scope.updatePosition( CONTAINER_W+500, posy );
 				}, delay );
-				
 			}
 
 		}
@@ -659,6 +735,7 @@ app.directive( "projectRenderer", function( $compile, $http, $templateCache, $ti
 	}
 
 });
+
 
 // loading-progress-controller
 app.controller( "ProgressViewController", function( $scope, appModel ){

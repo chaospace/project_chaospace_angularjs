@@ -25,25 +25,6 @@
 				margin-left:10px;
 			}
 			
-			#page-container.ng-enter,
-			#page-container.ng-move,
-			#page-container.ng-leave {
-			  -webkit-transition: 0.5s linear all;
-			  -moz-transition: 0.5s linear all;
-			  -o-transition: 0.5s linear all;
-			  transition: 0.5s linear all;
-			}
-			
-			
-			#page-container.ng-enter,
-			#page-container.ng-move {
-				transform:translate3d(-100%, 0px, 0px);
-			}
-			
-			#page-container.ng-leave{
-				transform:translate3d(100%, 0px, 0px);
-			}
-			
 
 		</style>
 		
@@ -107,15 +88,14 @@
                 -->
                 <div id="content-layer">
 				
-				<div ng-view style='border:1px solid black;' >
+				<div ng-view ng-show="renderComplete" >
 				</div>
-				<!--<div ng-include src="/project_chaospace_angularjs/assets/data/project/project.html"></div>-->
 				
 				<!-- 플젝 리스트  추가 영역 -->
 				<project-list resizeable ng-transclude ng-show='renderComplete'>
-					<div ng-repeat="project in projects">
-						<project-renderer project="project"></project-renderer>
-					</div>
+				
+					<project-renderer ng-repeat="project in projects"></project-renderer>
+				
 				</project-list>
 		
                 </div>
@@ -179,7 +159,7 @@
        <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>-->
         <script src="js/plugins.js"></script>
-        <script src="js/lib/responsive-img.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="js/lib/angular.min.js"></script>
 		<script src="js/lib/angular-route.js"></script>
 		<script src="js/lib/angular-animate.js"></script>
