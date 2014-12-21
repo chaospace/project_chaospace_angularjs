@@ -38,8 +38,8 @@ var cpProjectApp = angular.module('cpProjectApp',[
     'ngRoute',
     'cpProjectServices',
     'cpProjectDirectives',
-    'cpProjectControllers',
-    'cpProjectAnimations'
+    'cpProjectControllers'
+    ,'cpProjectAnimations'
 ]);
 
 
@@ -62,68 +62,4 @@ cpProjectApp.config(['$routeProvider', function( $routeProvider ){
 	});
 
 }]);
-
-/*
-app.animation( '.project-renderer', function(){
-	
-	
-	function getElementCurrentTransform(el) {
-		var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
-
-		if(!results) return [0, 0, 0];
-		if(results[1] == '3d') return results.slice(2,5);
-
-		results.push(0);
-		return results.slice(5, 8);
-	}
-	
-	
-	var moveIn = function( element, className, done ){
-	
-	
-		var values	= getElementCurrentTransform( element );
-		console.log($(element).index() );
-		
-		var posx = values[0];
-		var posy = values[1];
-		var posz = values[2];
-		console.log( values );
-		//$(element).css('transform','translate3d('+-400+'px,'+ posy +'px, 0px)');
-		
-		return function( cancle ){
-			if( cancle ){
-				//element.stop();
-			}
-		}
-	}
-	
-	var moveOut = function( element,  className, done ){
-	
-		var values	= getElementCurrentTransform( element );
-		console.log("moveOut-values", values );	
-		for( var i=0; i<values.length; i++){
-			console.log( parseInt(values[i]) );
-		}
-		
-		return function( cancle ){
-			if( cancle ){
-				//element.stop();
-			}
-		}
-		
-	}
-	
-	return {
-		addClass:moveIn,
-		removeClass:moveOut
-	}
-
-	
-});
-*/
-
-
-// proejct-list-controller;
-//app.controller( "ProjectListController",);
-
 

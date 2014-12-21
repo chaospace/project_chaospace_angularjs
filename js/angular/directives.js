@@ -22,10 +22,12 @@ cpProjectDirectives.directive( "projectList", function(){
         transclude:true,
         link:function( scope, iElement, iAttr ){
             //
+
         },
         controller:function( $element, $scope, $q, $timeout, appModel  ){
 
             $scope.renderComplete	= false;
+            $scope.projects =[];
             $scope.updateDisplay =function(){
                 updateRendererLayout();
             };
@@ -34,6 +36,10 @@ cpProjectDirectives.directive( "projectList", function(){
                 console.log("내 위치는", index );
             };
 
+            $scope.popItem = function(){
+                $scope.projects.pop();
+                console.log("remove" , $scope.projects.length );
+            };
 
 
             /**
@@ -83,12 +89,7 @@ cpProjectDirectives.directive( "projectList", function(){
                 angular.forEach( _childCtrl, function( ctrl , index ){
 
                     info = ctrl.getRendererSize( CONTAINER_W );
-                    if(!$scope.renderComplete){
-                        ctrl.updatePosition( -CONTAINER_W/1.2, py );
-                        ctrl.showStartTransition( px, py, delays[index] );
-                    } else {
-                        ctrl.updatePosition( px, py );
-                    }
+                    ctrl.updatePosition( px, py );
 
                     px+=(info.w+RENDERER_GAP);
                     if( px >= CONTAINER_W ) {
@@ -120,10 +121,12 @@ cpProjectDirectives.directive( "projectList", function(){
                 var deferred	=getDeffered();
                 var delays = getDelays();
                 updatePromiseDelayTime( delays[0]+(50*delays.length) );
-                angular.forEach( _childCtrl, function( ctrl, index ){
-                    ctrl.showHideTransition(delays[index]);
-                });
+                /*
+                angular.forEach(  $scope.projects, function( project, index ){
+                    $scope.projects.splice(0, 1);
+                })*/
 
+                console.log("project", $scope.projects);
                 setTimeout(function(){
                     promiseSuccess( deferred, "clearProjectRenderer-complete");
                 },  DELAY_TIME );
@@ -140,7 +143,6 @@ cpProjectDirectives.directive( "projectList", function(){
                 console.log("initializeProjectList-DELAY_TIME", DELAY_TIME );
                 setTimeout( function(){
                     $scope.renderComplete = false;
-                    $scope.projects =null;
                     _childCtrl      =[];
                     promiseSuccess( deferred, "initializeProjectList-complete");
                 }, DELAY_TIME );
@@ -165,7 +167,6 @@ cpProjectDirectives.directive( "projectList", function(){
                 $scope.renderComplete = true;
                 updateRendererLayout();
                 appModel.updateLoadState( false );
-                //$scope.$apply();
 
             });
 
@@ -220,7 +221,7 @@ cpProjectDirectives.directive( "projectList", function(){
             function loadProjectList(){
                 var deferred = getDeffered();
                 updatePromiseDelayTime(10);
-                setTimeout( function(){
+                $timeout( function(){
                     appModel.updateLoadState( true );
                     appModel.loadData( appModel.projectPath )
                         .success( function(data ){
@@ -296,17 +297,8 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
         restrict:"E",
         replace:true,
         require:['^projectList', 'projectRenderer'],
-        /*scope:{
-         project:'=',
-         position:'&'
-         },*/
-        template:'<div ng-include="getTemplateUrl()"></div>',
 
-        /*
-         templateUrl:function( iElement, iAttrs ){
-         console.log("templateurl" );
-         return PARTISAL_PATH + "default_project_renderer.html";
-         },*/
+        template:'<div ng-include="getTemplateUrl()"></div>',
 
         link:function( scope, iElement, iAttr, controllers ){
 
@@ -338,16 +330,18 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              destory
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-             */
+
             scope.$on('$destroy', function(){
                 console.log("destory");
-                iElement.remove();
-            });
+                //iElement.remove();
+            }); */
 
 
         },
 
         controller:function( $scope, $element, $sce, appModel , $animate){
+
+            var _rendererCtrl = this;
 
             $scope.transform	= appModel.getTransform( 0, 0 );
             //$scope.class		= '';
@@ -373,18 +367,16 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 
 
             $scope.updateTransform =function( px, py ){
-                console.log("update-transform", appModel, px, py  );
-                $scope.transform = appModel.getTransform(px, py);
+                _rendererCtrl.updatePosition( px, py );
                 $scope.$apply();
             };
-
 
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              현재 window영역에 따른 renderersize 반환 메서드
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              */
-            this.getRendererSize = function( screenWidth ){
+            _rendererCtrl.getRendererSize = function( screenWidth ){
                 var info = {w:RENDERER_W, h:RENDERER_H};
                 if($scope.project.type == "main" ){
                     info	= ( screenWidth == WIDE_W ) ? {w:(RENDERER_W*2)+RENDERER_GAP, h:RENDERER_H} : info;
@@ -398,31 +390,11 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              */
             var posx, posy;
-            this.updatePosition =function( px, py ) {
+            _rendererCtrl.updatePosition =function( px, py ) {
                 posx = px;
                 posy = py;
                 $scope.transform =  appModel.getTransform( px, py );
-            };
-
-            this.showStartTransition =function( px, py, delay ){
-                var scope =this;
-                /*
-                 $timeout( function(){
-
-                 scope.updatePosition( px, py );
-                 }, delay );
-                 */
-                this.updatePosition( px, py );
-
-
-            };
-
-            this.showHideTransition =function( delay ){
-                var scope =this;
-                this.updatePosition( CONTAINER_W+500, posy );
-                /*$timeout( function(){
-                    scope.updatePosition( CONTAINER_W+500, posy );
-                }, delay );*/
+                console.log("px", px, "py", py );
             };
 
         }

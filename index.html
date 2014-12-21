@@ -25,10 +25,6 @@
 				margin-left:10px;
 			}
 
-			.project-repeat{
-
-            }
-
 		</style>
 		
     </head>
@@ -96,16 +92,15 @@
 				
 				<!-- 플젝 리스트  추가 영역 -->
 				<project-list resizeable ng-transclude ng-show='renderComplete'>
-				
+                    <button ng-click="popItem()">pop</button>
 					<project-renderer
-                            ng-class="class" ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }"
-                            class="project-repeat"
+                            ng-class="class"
+                            ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }"
                             ng-repeat="project in projects">
 
                     </project-renderer>
 				
 				</project-list>
-		
                 </div>
 
                 <div id="footer-layer">
