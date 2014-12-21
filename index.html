@@ -24,7 +24,10 @@
 				padding:0;
 				margin-left:10px;
 			}
-			
+
+			.project-repeat{
+
+            }
 
 		</style>
 		
@@ -94,7 +97,12 @@
 				<!-- 플젝 리스트  추가 영역 -->
 				<project-list resizeable ng-transclude ng-show='renderComplete'>
 				
-					<project-renderer ng-repeat="project in projects"></project-renderer>
+					<project-renderer
+                            ng-class="class" ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }"
+                            class="project-repeat"
+                            ng-repeat="project in projects">
+
+                    </project-renderer>
 				
 				</project-list>
 		
@@ -160,9 +168,13 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>-->
         <script src="js/plugins.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/angular.js"></script>
 		<script src="js/lib/angular-route.js"></script>
 		<script src="js/lib/angular-animate.js"></script>
+        <script src="js/angular/controllers.js"></script>
+        <script src="js/angular/directives.js"></script>
+        <script src="js/angular/services.js"></script>
+        <script src="js/angular/animations.js"></script>
         <script src="js/app.js"></script>
 		
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
