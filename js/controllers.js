@@ -37,8 +37,11 @@ cpProjectAppControllers.controller( "ProjectDetailController", function( $scope,
 
 // loading-progress-controller
 cpProjectAppControllers.controller( "ProgressViewController", function( $scope, appModel ){
+    
+	console.log("progress", appModel );
     $scope.loading = appModel.isLoading;
     appModel.onUpdateLoadState( $scope, function( newState ){
         $scope.loading = newState;
     });
+	
 });

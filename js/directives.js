@@ -24,10 +24,8 @@ cpProjectAppDirectives.directive( "projectList", function(){
 		restrict:'EA',
 		template:'<div id="project-container"></div>',
 		transclude:true,
-		link:function( scope, iElement, iAttr ){
-		 // 
-		},
-		controller:function( $element, $scope, $q, $timeout, appModel  ){
+		
+		controller:function( $element, $scope, $q, $timeout, appModel, $animate  ){
 
 			$scope.renderComplete	= false;
 			$scope.updateDisplay =function(){
@@ -37,8 +35,6 @@ cpProjectAppDirectives.directive( "projectList", function(){
 			$scope.getPosition =function( index ){
 				console.log("내 위치는", index );
 			}
-					
-					
 			
 			/**
 			▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
@@ -66,14 +62,12 @@ cpProjectAppDirectives.directive( "projectList", function(){
 				DELAY_TIME	=0;
 			}
 
-
 			function appendPromise( message, delay ){
 				setTimeout( function(){
 					promiseSuccess(message);
 				}, delay );
 				return deferred.promise;
 			}
-			
 			
 			function updateRendererLayout(){
 					
@@ -134,7 +128,6 @@ cpProjectAppDirectives.directive( "projectList", function(){
 
 				return deferred.promise;
 
-
 			}
 
 			function initializeProjectList(){
@@ -170,11 +163,10 @@ cpProjectAppDirectives.directive( "projectList", function(){
 				
 			$scope.$on( REQUEST_PROJECT_LIST_INITIALIZE, function(){
 				
+				$scope.renderComplete = true;
 				console.log("REQUEST_PROJECT_LIST_INITIALIZE");
 				$scope.initializeWindowSize();
 				updateRendererLayout();
-				
-				$scope.renderComplete = true;
 				appModel.updateLoadState( false );
 				$scope.$apply();
 				
@@ -305,17 +297,9 @@ cpProjectAppDirectives.directive( "projectRenderer", function( $compile, $http, 
 		restrict:"E",
 		replace:true,
 		require:['^projectList', 'projectRenderer'],
-		/*scope:{
-			project:'=',
-			position:'&'
-		},*/
+		
 		template:'<div ng-include="getTemplateUrl()"></div>',
 		
-		/*
-		templateUrl:function( iElement, iAttrs ){
-			console.log("templateurl" );
-			return PARTISAL_PATH + "default_project_renderer.html";
-		},*/
 		
 		link:function( scope, iElement, iAttr, controllers ){
 
@@ -338,13 +322,9 @@ cpProjectAppDirectives.directive( "projectRenderer", function( $compile, $http, 
 			};
 			
 			if(scope.$last){
-
 				$timeout( function() {
-					$timeout( function() {
-						scope.$emit(REQUEST_PROJECT_LIST_INITIALIZE);
-					});
+					scope.$emit(REQUEST_PROJECT_LIST_INITIALIZE);
 				});
-
 			}
 
             /**
@@ -411,14 +391,13 @@ cpProjectAppDirectives.directive( "projectRenderer", function( $compile, $http, 
 			
 			this.showStartTransition =function( px, py, delay ){
 				var scope =this;
+				//scope.updatePosition( px, py );
 				/*
 				$timeout( function(){
 					$scope.class='renderer-transition';
 					scope.updatePosition( px, py );
 				}, delay );
 				*/
-				
-				
 			}
 			
 			this.showHideTransition =function( delay ){

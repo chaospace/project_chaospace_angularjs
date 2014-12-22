@@ -4,10 +4,11 @@
 */
 var cpProjectApp = angular.module('cpProjectApp', 
 	['ngRoute', 
-	'ngAnimate',
+	'cpProjectAnimation',
 	'cpProjectAppDirectives',
 	'cpProjectAppControllers',
-	'cpProjectAppServices'
+	'cpProjectAppServices',
+	
 ]);
 
 	
