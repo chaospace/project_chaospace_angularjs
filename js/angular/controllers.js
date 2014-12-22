@@ -21,12 +21,9 @@ cpProjectControllers.controller( "NavigationController",function( $scope, appMod
 
 
 cpProjectControllers.controller( "ProjectDetailController", function( $scope, $routeParams ){
-    //$scope.closeDetail
-    $scope.renderComplete = false;
     console.log("$routeParams", $routeParams);
     $scope.$on("$routeChangeSuccess", function (scope, next, current) {
         console.log("succeess-chnage");
-        //$scope.renderComplete = true;
     });
 });
 

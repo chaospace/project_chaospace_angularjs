@@ -1,6 +1,6 @@
-var cpProjectAnimations = angular.module( 'cpProjectAnimations', ['ngAnimate'] );
+var cpProjectAnimations = angular.module( 'cpProjectAnimations', ['ngAnimate', 'cpProjectServices'] );
 
-cpProjectAnimations.animation( '.renderer-transition', function(){
+cpProjectAnimations.animation( '.p-item', function( appModel ){
 
     function getElementCurrentTransform(el) {
         var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
@@ -9,44 +9,70 @@ cpProjectAnimations.animation( '.renderer-transition', function(){
         results.push(0);
         return results.slice(5, 8);
     }
+	
+	function convertTransformToArray( transformObj ){
+		var strTransform = transformObj.substring( transformObj.indexOf("(")+1,  transformObj.lastIndexOf(")"));
+		var values = strTransform.split(",");
+		return values;
+	}
+		
+	function animationStart( element, done ){
+		var originTransform	=element.scope().transform;
+		element.scope().setTransitionTarget(element);
+		var index 			=element.scope().$parent.$index;
+		if( appModel.support3d ){
+			TweenMax.set(element, {x:-CONTAINER_W/1.2, y:originTransform.y, z:0});
+			TweenMax.to(element, 0.5, {delay:.1*index, x:originTransform.x, y:originTransform.y, z:0, onComplete:done, ease:Expo.easeOut});
+		} else {
+			TweenMax.set(element, {x:-CONTAINER_W/1.2, y:originTransform.y});
+			TweenMax.to(element, 0.5, {delay:.1*index, x:originTransform.x, y:originTransform.y, onComplete:done, ease:Expo.easeOut});
+		}
+		
+	}
 
-    function moveIn( element, done ){
-        var originTransform = getElementCurrentTransform( element[0]);
-        element.scope().updateTransform(-CONTAINER_W/1.2, originTransform[1] );
-        console.log("moveIn");
-        setTimeout( function(){
-            element.scope().updateTransform( parseInt(originTransform[0]), parseInt(originTransform[1]) );
-        }, 500 );
-        return function(cancelled){
-            if( cancelled ){
-                console.log("moveIn-cancelled");
-            } else {
-                console.log("moveIn-done");
-                done();
-            }
-
-        }
-
-    };
-
-    function moveOut( element, done ){
-        console.log("moveOut");
-        var originTransform = getElementCurrentTransform( element[0] );
-        element.scope().updateTransform( 1000, parseInt(originTransform[1]) );
-        return function(cancelled){
-            if( cancelled ){
-                console.log("moveOut-cancelled");
-            } else {
-                console.log("moveOut-done");
-                done();
-            }
-
-        }
+    function animationHide( element, done ){
+         var index 			=element.scope().$parent.$index;
+		var originTransform	=element.scope().transform;
+		
+		if( appModel.support3d ){
+			TweenMax.to(element, 0.5, {delay:.1*index, x:CONTAINER_W*1.5, y:originTransform.y, z:0, onComplete:done, ease:Expo.easeOut});
+		} else {
+			TweenMax.to(element, 0.5, {delay:.1*index, x:CONTAINER_W*1.2, y:originTransform.y, onComplete:done, ease:Expo.easeOut});
+		}
     };
 
     return{
-        enter: moveIn,
-        leave:moveOut
+		enter:animationStart
+        ,leave:animationHide
     }
 
+});
+
+
+cpProjectAnimations.animation( '.ng-view-transition', function( appModel ){
+		
+	function animationStart( element, done ){
+		
+		if( appModel.support3d ){
+			TweenMax.set(element, {x:-CONTAINER_W/1.5, y:0, z:0});
+			TweenMax.to(element, 0.5, {x:0, y:0, z:0, onComplete:done, ease:Expo.easeOut});
+		} else {
+			TweenMax.set(element, {x:-CONTAINER_W/1.5, y:0});
+			TweenMax.to(element, 0.5, {x:0, y:0, onComplete:done, ease:Expo.easeOut});
+		}
+	}
+
+    function animationHide( element, done ){
+         
+		if( appModel.support3d ){
+			TweenMax.to(element, 0.5, {x:CONTAINER_W*1.5, y:0, z:0, onComplete:done, ease:Expo.easeOut});
+		} else {
+			TweenMax.to(element, 0.5, {x:CONTAINER_W*1.2, y:0, onComplete:done, ease:Expo.easeOut});
+		}
+    };
+	return{
+		enter:animationStart
+        ,leave:animationHide
+	}
+	
 });

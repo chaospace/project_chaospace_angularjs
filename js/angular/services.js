@@ -48,9 +48,9 @@ cpProjectServices.factory("appModel",function (  $http, $rootScope ){
         this.getTransform = function( tx, ty ){
             var transform ="";
             if(this.support3d){
-                transform = "translate3d(" + tx + "px,"+ ty +"px, 0px)";
+                transform = 'translate3d(' + tx + 'px, '+ ty +'px, 0px )';
             } else {
-                transform ="translate("+ tx + "px, "+ ty + "px)";
+                transform ='translate( '+ tx + 'px, '+ ty + 'px )';
             }
             return transform;
         }

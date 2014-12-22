@@ -29,7 +29,9 @@ cpProjectDirectives.directive( "projectList", function(){
             $scope.renderComplete	= false;
             $scope.projects =[];
             $scope.updateDisplay =function(){
-                updateRendererLayout();
+			$timeout( function(){
+				updateRendererLayout();
+			});
             };
 
             $scope.getPosition =function( index ){
@@ -90,20 +92,23 @@ cpProjectDirectives.directive( "projectList", function(){
 
                     info = ctrl.getRendererSize( CONTAINER_W );
                     ctrl.updatePosition( px, py );
-
                     px+=(info.w+RENDERER_GAP);
+
                     if( px >= CONTAINER_W ) {
                         px = defaultX;
                         py += (info.h+RENDERER_GAP);
+					 console.log("py", py );
                     }
 
                 });
 
-                if( px != defaultX ) {
-                    py+=(info.h+RENDERER_GAP);
-                }
-                $element.css("height", py+"px");
-
+              console.log("info", info, "py", py );
+			if( px != defaultX ) {
+				py+=(info.h+RENDERER_GAP);
+				console.log("after-height", py );  
+			}
+			$element.css("height", py+"px");
+				
             }
 
             function getDelays(){
@@ -121,10 +126,10 @@ cpProjectDirectives.directive( "projectList", function(){
                 var deferred	=getDeffered();
                 var delays = getDelays();
                 updatePromiseDelayTime( delays[0]+(50*delays.length) );
-                /*
-                angular.forEach(  $scope.projects, function( project, index ){
-                    $scope.projects.splice(0, 1);
-                })*/
+                
+			  
+                $scope.projects= [];
+				
 
                 console.log("project", $scope.projects);
                 setTimeout(function(){
@@ -307,30 +312,20 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
             projectListCtrl.registerChildController( rendererCtrl );
 
 
-
-
-
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-             클릭 핸들러
+             마지막 리스트 일 경우 부모에 레이아웃 요청
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              */
-            scope.onClick_Renderer =function( strName ){
-                console.log( "click", strName );
-                projectListCtrl.requestDetail();
-            };
-
             if(scope.$last){
-                //$timeout(function(){
-                    scope.$emit(REQUEST_PROJECT_LIST_INITIALIZE);
-                //});
+				scope.$emit(REQUEST_PROJECT_LIST_INITIALIZE);
             }
 
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              destory
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-
+			
             scope.$on('$destroy', function(){
                 console.log("destory");
                 //iElement.remove();
@@ -339,37 +334,34 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 
         },
 
-        controller:function( $scope, $element, $sce, appModel , $animate){
+        controller:function( $scope, $sce, appModel , $timeout ){
 
-            var _rendererCtrl = this;
+			var _rendererCtrl = this;
+			$scope.transform	= {x:0,y:0, z:0};
+            
+			$scope.trustDangerousSnippet = function( info ){
+				return $sce.trustAsHtml(info);
+			};
 
-            $scope.transform	= appModel.getTransform( 0, 0 );
-            //$scope.class		= '';
-            $scope.class='renderer-transition';
+			$scope.getResponseImageSrc = function(){
+				var path = $scope.project.image.prefix;
+				if( window.innerWidth > WIDE_W ){
+					path += $scope.project.image.bigsrc;
+				} else {
+					path += $scope.project.image.src;
+				}
+				return path;
+			};
 
-            $scope.trustDangerousSnippet = function( info ){
-                return $sce.trustAsHtml(info);
-            };
-
-            $scope.getResponseImageSrc = function(){
-                var path = $scope.project.image.prefix;
-                if( window.innerWidth > WIDE_W ){
-                    path += $scope.project.image.bigsrc;
-                } else {
-                    path += $scope.project.image.src;
-                }
-                return path;
-            };
-
-            $scope.getTemplateUrl	=function(){
-                return PARTISAL_PATH + $scope.project.template;
-            };
-
-
-            $scope.updateTransform =function( px, py ){
-                _rendererCtrl.updatePosition( px, py );
-                $scope.$apply();
-            };
+			$scope.getTemplateUrl	=function(){
+				return PARTISAL_PATH + $scope.project.template;
+			};
+			
+			$scope.setTransitionTarget =function( element ){
+				if(target != element){
+					target = element;
+				}
+			};
 
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
@@ -389,12 +381,13 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
              리사이즈 처리 및 등장/퇴장 트렌지션 처리
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              */
-            var posx, posy;
+			var target	=null;
             _rendererCtrl.updatePosition =function( px, py ) {
-                posx = px;
-                posy = py;
-                $scope.transform =  appModel.getTransform( px, py );
-                console.log("px", px, "py", py );
+				$scope.transform.x = px;
+				$scope.transform.y = py;
+				if(target){
+					TweenMax.to(target, .5, {x:px, y:py, z:0});
+				}
             };
 
         }

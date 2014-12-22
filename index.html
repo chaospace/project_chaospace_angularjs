@@ -24,7 +24,7 @@
 				padding:0;
 				margin-left:10px;
 			}
-
+			
 		</style>
 		
     </head>
@@ -87,17 +87,19 @@
                 -->
                 <div id="content-layer">
 				
-				<div ng-view ng-show="renderComplete" >
+				<div ng-view class="ng-view-transition" >
 				</div>
 				
-				<!-- 플젝 리스트  추가 영역 -->
+				<!-- 플젝 리스트  추가 영역
+ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }"
+				-->
 				<project-list resizeable ng-transclude ng-show='renderComplete'>
-                    <button ng-click="popItem()">pop</button>
+                    <!--<button ng-click="popItem()">pop</button>-->
+					
 					<project-renderer
-                            ng-class="class"
-                            ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }"
+						 class='p-item'
                             ng-repeat="project in projects">
-
+							
                     </project-renderer>
 				
 				</project-list>
@@ -159,10 +161,10 @@
 
 
 
-       <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/lib/TweenMax.js"></script>
         <script src="js/lib/angular.js"></script>
 		<script src="js/lib/angular-route.js"></script>
 		<script src="js/lib/angular-animate.js"></script>
