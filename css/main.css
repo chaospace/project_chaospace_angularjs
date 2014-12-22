@@ -212,13 +212,14 @@
     opacity: 0;
   }
 }
-html, body {
+body {
   color: #f2f2f2;
   width: 100%;
   height: 100%;
   background-color: #282828;
   font-family: "Titillium Web", "Nanum Gothic", verdana, sans-serif;
   font-size: 14px;
+  min-width: 320px;
 }
 
 a {
@@ -333,7 +334,7 @@ ul.menu .motion-area > div {
   background: white;
 }
 
-div#nav-container .logo-motion-area div, div#footer-layer .logo-motion-area div, .page-transition, .renderer-transition, .renderer-type1 .image-container img, .renderer-type2 .image-container img {
+div#nav-container .logo-motion-area div, div#footer-layer .logo-motion-area div, .renderer-type1 .image-container img, .renderer-type2 .image-container img {
   -webkit-transition: all 0.4s ease-in-out 0;
   -khtml-transition: all 0.4s ease-in-out 0;
   -moz-transition: all 0.4s ease-in-out 0;
@@ -443,7 +444,7 @@ div#emblem-container .motion-area {
   width: 60px;
   height: 60px;
   display: inline-block;
-  margin: 0px 0px 0px 5px;
+  margin: 0;
 }
 
 div#emblem-container .motion-area > div {
@@ -607,15 +608,18 @@ div.action-bar-label {
   background-color: #2352cc;
 }
 
-/* 트랜지션 랜더러 스타일 */
 /*
   project-renderer style
 */
+div.renderer-transition {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: flat;
+}
+
 .renderer-type1, .renderer-type2 {
   position: absolute;
   background-color: #282828;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform-style: flat;
   width: 260px;
   height: 340px;
 }
@@ -988,7 +992,7 @@ div.loading-text {
   }
 
   nav#navigations {
-    margin-left: 20px;
+    margin-left: 30px;
   }
 
   div.action-bar {

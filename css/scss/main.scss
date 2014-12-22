@@ -47,13 +47,14 @@ $themeKorFont:'Nanum Gothic';
 
 
 
-html, body {
+body {
   color: $fontColor;
-  width: 100%;
-  height: 100%;
+
+  @include setSize(100%);
   background-color: $stageBGColor;
   font-family: $themeEngFont, $themeKorFont, verdana, sans-serif;
   font-size: $normalFontSize;
+  min-width: 320px;
 }
 
 a {
@@ -226,7 +227,7 @@ div#emblem-container:hover .motion-area > div{
 div#emblem-container .motion-area {
   @include setSize(60px);
   display: inline-block;
-  margin: 0px 0px 0px 5px;
+  margin: 0;
 
 }
 
@@ -341,31 +342,26 @@ div.action-bar-label {
   background-color: #2352cc;
 }
 
-.page-transition {
-  @extend %app-default-transition;
-}
-
-/* 트랜지션 랜더러 스타일 */
-.renderer-transition{
-  @extend %app-default-transition;
-}
-
 
 
 
 /*
   project-renderer style
 */
+div.renderer-transition{
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: flat;
+}
+
 // 프로젝트 렌더러 플레이스 홀더 선언
-%proejct-renderer-base{
+%project-renderer-base {
 
   position: absolute;
   background-color:$stageBGColor;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform-style: flat;
 
   @include setSize(260px, 340px);
-  @extend %proejct-renderer-base;
+
 
   .image-container{
     @extend %renderer-image-container;
@@ -483,7 +479,7 @@ div.action-bar-label {
 
 .renderer-type1 {
 
-  @extend %proejct-renderer-base;
+  @extend %project-renderer-base;
 
   a{
     width:100%;
@@ -525,7 +521,7 @@ div.action-bar-label {
 
 .renderer-type2{
 
-  @extend %proejct-renderer-base;
+  @extend %project-renderer-base;
 
   /* 미디어에 따른 사이즈 지정 */
   @include min-screen( $mq-wideWidth ){
@@ -635,6 +631,7 @@ div.loading-text{
 
 // 1130 px 이상
 @include min-screen( $mq-wideWidth ){
+
   div#MAIN-LAYER{
     width: $mq-wideWidth;
   }
@@ -652,6 +649,7 @@ div.loading-text{
 
 // 1130 px이하
 @include max-screen( $mq-wideWidth ) {
+
   div#MAIN-LAYER{
     width: $mq-desktopWidth;
   }
@@ -704,7 +702,7 @@ div.loading-text{
     width: $mq-mobileWidth;
   }
   nav#navigations{
-    margin-left: 20px;
+    margin-left: 30px;
   }
 
   div.action-bar{

@@ -1,6 +1,6 @@
 var cpProjectAnimations = angular.module( 'cpProjectAnimations', ['ngAnimate', 'cpProjectServices'] );
 
-cpProjectAnimations.animation( '.p-item', function( appModel ){
+cpProjectAnimations.animation( '.renderer-transition', function( appModel ){
 
     function getElementCurrentTransform(el) {
         var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)

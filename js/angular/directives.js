@@ -82,7 +82,7 @@ cpProjectDirectives.directive( "projectList", function(){
             function updateRendererLayout(){
 
                 //promise를 위한 deffer참조
-                var defaultX = (CONTAINER_W == MOBILE_W ) ? 30 : 0;
+                var defaultX =(CONTAINER_W == MOBILE_W) ? 30 : 0;
                 var px       =defaultX;
                 var py       =0;
                 var info;

@@ -1,32 +1,20 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html ng-app class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app ="cpProjectApp"> <![endif]-->
-<!--[if IE 7]>         <html ng-app class="no-js lt-ie9 lt-ie8" ng-app ="cpProjectApp" > <![endif]-->
-<!--[if IE 8]>         <html ng-app class="no-js lt-ie9" ng-app ="cpProjectApp" > <![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app ="cpProjectApp"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app ="cpProjectApp" > <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" ng-app ="cpProjectApp" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" ng-app ="cpProjectApp" > <!--<![endif]-->
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>CP-PROJECT_ANGULARJS</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/common.css">
-        <link rel="stylesheet" href="css/main.css" >
-	   <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
-		
+        <link rel="stylesheet" href="css/main.css">
+	    <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-		
-		<style>
-			ul, li{
-				padding:0;
-				margin-left:10px;
-			}
-			
-		</style>
-		
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -90,16 +78,10 @@
 				<div ng-view class="ng-view-transition" >
 				</div>
 				
-				<!-- 플젝 리스트  추가 영역
-ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transform': transform }"
-				-->
+				<!-- 플젝 리스트  추가 영역-->
 				<project-list resizeable ng-transclude ng-show='renderComplete'>
-                    <!--<button ng-click="popItem()">pop</button>-->
-					
-					<project-renderer
-						 class='p-item'
-                            ng-repeat="project in projects">
-							
+                    <project-renderer
+						 class='renderer-transition' ng-repeat="project in projects">
                     </project-renderer>
 				
 				</project-list>
@@ -127,38 +109,6 @@ ng-style="{'transform': transform, '-webkit-transform': transform, '-ms-transfor
                 <div class="loading-text">loading</div>
             </div>
         </div>
-
-
-		
-	<!--	
-	<div class="project-renderer renderer-type1 mask" style='background-color:#1f49b3;'>
-    
-        <div>
-		   <div style='position:absolute; left:30px;top:30px;width:200px;'>
-		   테스트 메시지 입니다.
-		   테스트 메시지 입니다.
-		   테스트 메시지 입니다.
-		   테스트 메시지 입니다.
-		   </div>
-            <div class="label-container">AAA</div>
-            <div class="deco-container">
-                <div class="deco-cover left"></div>
-                <div class="deco-cover right"></div>
-                <div class="deco-description">
-				
-                    <div class="infomation">
-                        <ul>
-                        </ul>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <img class="transparent-area" src="{{project.image.prefix}}transparent.gif" width="1" height="1">
-		-->
-</div>
-
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
