@@ -1,9 +1,8 @@
+var cpProjectServices = angular.module("cpProjectServices", [] );
 /**
-    네비게이션 정보 프로바이더
+ 네비게이션 정보 프로바이더
  */
-var cpProjectAppServices = angular.module( "cpProjectAppServices", [] );
-
-cpProjectAppServices.factory("appModel", function (  $http, $rootScope ){
+cpProjectServices.factory("appModel",function (  $http, $rootScope ){
 
 
     function checkSupport3d() {
@@ -45,17 +44,17 @@ cpProjectAppServices.factory("appModel", function (  $http, $rootScope ){
         this.isLoading      = false;
         this.projectState   = PROJECT_STATE.NONE;
 
-				
-		this.getTransform = function( tx, ty ){
-			var transform ="";
-			if(this.support3d){
-				transform = "translate3d(" + tx + "px,"+ ty +"px, 0px)";
-			} else {
-				transform ="translate("+ tx + "px, "+ ty + "px)";
-			}
-			return transform;
-		}
-				
+
+        this.getTransform = function( tx, ty ){
+            var transform ="";
+            if(this.support3d){
+                transform = "translate3d(" + tx + "px,"+ ty +"px, 0px)";
+            } else {
+                transform ="translate("+ tx + "px, "+ ty + "px)";
+            }
+            return transform;
+        }
+
 
         /* path값에 따른 데이터 로드 처리 */
         this.loadData = function( path ){
@@ -73,7 +72,7 @@ cpProjectAppServices.factory("appModel", function (  $http, $rootScope ){
 
         this.onUpdateLoadState = function( $scope, callback ){
             $scope.$on( APP_LOADING_CHANGE , function(event, data ){
-               callback( data );
+                callback( data );
             });
         };
 
@@ -85,9 +84,9 @@ cpProjectAppServices.factory("appModel", function (  $http, $rootScope ){
         /* projectPath속성 업데이트 처리 */
         this.updateProjectPathState = function( newState ) {
             if(this.projectPath != newState ){
-				this.projectPath = newState;
+                this.projectPath = newState;
                 //this.broadcasProjectPathState( newState );
-				this.broadcasProjectState( PROJECT_STATE.CHANGE );
+                this.broadcasProjectState( PROJECT_STATE.CHANGE );
             }
         };
 
@@ -98,7 +97,7 @@ cpProjectAppServices.factory("appModel", function (  $http, $rootScope ){
         };
 
         this.broadcasProjectPathState =function( newState ){
-			$rootScope.$broadcast( PROJECT_PATH_CHANGE, newState );
+            $rootScope.$broadcast( PROJECT_PATH_CHANGE, newState );
         };
 
 
@@ -122,7 +121,8 @@ cpProjectAppServices.factory("appModel", function (  $http, $rootScope ){
 
     };
 
-	var model = new AppModel();
+    var model = new AppModel();
     return model;
 
- });
+});
+

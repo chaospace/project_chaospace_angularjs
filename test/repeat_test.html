@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="repeatApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <script type="text/ng-template" id="sample.html">
+            <span>{{vo.title}}</span>
+
+    </script>
+    <div ng-controller="RepeatListCtrl">
+        <my-repeat ng-repeat="vo in lists">
+        </my-repeat>
+        <button ng-click="popItem()">remove</button>
+    </div>
+
+
+
+
+    <script src="../js/lib/angular.js"></script>
+    <script>
+
+        var repeatApp = angular.module("repeatApp", []);
+        repeatApp.controller( 'RepeatListCtrl', function( $scope ){
+            $scope.lists = [
+                {
+                    title:'a'
+                },
+                {
+                    title:'b'
+                },
+                {
+                    title:'c'
+                },
+                {
+                    title:'d'
+                },
+                {
+                    title:'e'
+                }
+
+            ];
+
+
+            $scope.popItem = function(){
+                $scope.lists.pop();
+            }
+
+        });
+
+        repeatApp.directive( "myRepeat", function(){
+
+            return{
+                restrict:"E",
+                replace:true,
+                template:'<div ng-include="getTemplateUrl()"></div>',
+                controller:function( $scope ){
+                       $scope.getTemplateUrl = function(){
+                           return "sample.html";
+                       }
+                }
+
+            }
+
+        })
+
+    </script>
+
+</body>
+</html>

@@ -1,74 +1,52 @@
-var cpProjectAnimation = angular.module( "cpProjectAnimation", ['ngAnimate'] );
+var cpProjectAnimations = angular.module( 'cpProjectAnimations', ['ngAnimate'] );
 
-console.log("cpProjectAnimation", cpProjectAnimation );
+cpProjectAnimations.animation( '.renderer-transition', function(){
 
-cpProjectAnimation.animation( ".project-item", function(){
+    function getElementCurrentTransform(el) {
+        var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
+        if(!results) return [0, 0, 0];
+        if(results[1] == '3d') return results.slice(2,5);
+        results.push(0);
+        return results.slice(5, 8);
+    }
 
-	function getElementTransformValue( el ){
-	
-		var transform = window.getComputedStyle(el, null).getPropertyValue('-webkit-transform');
-		var results = transform.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/);
+    function moveIn( element, done ){
+        var originTransform = getElementCurrentTransform( element[0]);
+        element.scope().updateTransform(-CONTAINER_W/1.2, originTransform[1] );
+        console.log("moveIn");
+        setTimeout( function(){
+            element.scope().updateTransform( parseInt(originTransform[0]), parseInt(originTransform[1]) );
+        }, 500 );
+        return function(cancelled){
+            if( cancelled ){
+                console.log("moveIn-cancelled");
+            } else {
+                console.log("moveIn-done");
+                done();
+            }
 
-		if(!results) return [0, 0, 0];
-		if(results[1] == '3d') return results.slice(2,5);
+        }
 
-		results.push(0);
-		return results.slice(5, 8); // returns the [X,Y,Z,1] values
-	
-	}
-	
-	
-	
-	return {
-	
-		enter:function( element, done ){
-			var values = getElementTransformValue( element[0] );
-			angular.element( element ).scope().transform = 'translate3d(-400px,' + values[1] +'px, 0px)';
-			//angular.element( element ).scope().$apply();
-			console.log("enter");
-			angular.element( element ).scope().transform = 'translate3d('+ values[0] + 'px,' + values[1] +'px, 0px)';
-		},
-		
-		leave:function( element, done ){
-			var values = getElementTransformValue( element[0] );
-			angular.element( element ).scope().transform = 'translate3d('+ values[0] + 'px,' + values[1] +'px, 0px)';
-			//angular.element( element ).scope().$apply();
-			console.log("start");
-		}
-	
-	}
+    };
 
+    function moveOut( element, done ){
+        console.log("moveOut");
+        var originTransform = getElementCurrentTransform( element[0] );
+        element.scope().updateTransform( 1000, parseInt(originTransform[1]) );
+        return function(cancelled){
+            if( cancelled ){
+                console.log("moveOut-cancelled");
+            } else {
+                console.log("moveOut-done");
+                done();
+            }
 
+        }
+    };
 
-});
-/*
-cpProjectAnimation.animation( "moveOut", function(){
-
-	function getElementTransformValue( el ){
-	
-		var transform = window.getComputedStyle(el, null).getPropertyValue('-webkit-transform');
-		var results = transform.match(/matrix(?:(3d)\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))(?:, (-{0,1}\d+)), -{0,1}\d+\)|\(-{0,1}\d+(?:, -{0,1}\d+)*(?:, (-{0,1}\d+))(?:, (-{0,1}\d+))\))/);
-
-		if(!results) return [0, 0, 0];
-		if(results[1] == '3d') return results.slice(2,5);
-
-		results.push(0);
-		return results.slice(5, 8); // returns the [X,Y,Z,1] values
-	
-	}
-	
-	
-	
-	return {
-
-		start:function( element, done ){
-			
-			console.log("out-start");
-		}
-	
-	}
-
-
+    return{
+        enter: moveIn,
+        leave:moveOut
+    }
 
 });
-*/
