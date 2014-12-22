@@ -321,17 +321,7 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 				scope.$emit(REQUEST_PROJECT_LIST_INITIALIZE);
             }
 
-            /**
-             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-             destory
-             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-			
-            scope.$on('$destroy', function(){
-                console.log("destory");
-                //iElement.remove();
-            }); */
-
-
+            
         },
 
         controller:function( $scope, $sce, appModel , $timeout ){
@@ -362,7 +352,15 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 					target = element;
 				}
 			};
-
+/**
+             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+             destory
+             ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
+			*/
+			$scope.$on('$destroy', function(){
+				_rendererCtrl = null;
+				target = null;
+			}); 
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              현재 window영역에 따른 renderersize 반환 메서드
