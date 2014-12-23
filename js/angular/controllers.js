@@ -20,11 +20,21 @@ cpProjectControllers.controller( "NavigationController",function( $scope, appMod
 });
 
 
-cpProjectControllers.controller( "ProjectDetailController", function( $scope, $routeParams ){
-    console.log("$routeParams", $routeParams);
-    $scope.$on("$routeChangeSuccess", function (scope, next, current) {
+cpProjectControllers.controller( "ProjectDetailController", function( $scope, $routeParams, Project ){
+    
+	console.log("$routeParams", $routeParams);
+	
+	if( $routeParams.projectId != null ){
+		Project.get({project:$routeParams.projectId}, function( project ){
+			console.log("detail", project );
+		});
+	}
+	
+    
+	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
         console.log("succeess-chnage");
     });
+	
 });
 
 

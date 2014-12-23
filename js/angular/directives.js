@@ -279,6 +279,26 @@ cpProjectDirectives.directive( "resizeable", function($window){
 
 });
 
+
+cpProjectDirectives.directive( "responseimage", function($window){
+
+	return {
+	
+		link:function( scope, iElement, iAttrs ){
+			/*scope.getResponseImageSrc = function(){
+				var path = iAttrs.prefix;
+				if( window.innerWidth > WIDE_W ){
+					path += iAttrs.bigsrc;
+				} else {
+					path += iAttrs.src;
+				}
+				return path;
+			};*/
+		}	
+	}
+	
+});
+
 cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $templateCache, $timeout ){
 
     return {

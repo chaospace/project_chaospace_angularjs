@@ -76,14 +76,11 @@
                   컨텐츠 영역
                 -->
                 <div id="content-layer">
-				<div ng-view class="ng-view-transition" >
-				</div>
+				<div ng-view class="ng-view-transition"></div>
 				<!-- 플젝 리스트  추가 영역-->
 				<project-list resizeable ng-transclude>
-				  <project-renderer
-						 class='renderer-transition' ng-repeat="project in projects">
-                    </project-renderer>
-				
+					<project-renderer class='renderer-transition' ng-repeat="project in projects">
+					</project-renderer>				
 				</project-list>
                 </div>
 
@@ -115,6 +112,7 @@
 		<script src="js/lib/angular.js"></script>
 		<script src="js/lib/angular-route.js"></script>
 		<script src="js/lib/angular-animate.js"></script>
+		<script src="js/lib/angular-resource.js"></script>
         <script src="js/angular/controllers.js"></script>
         <script src="js/angular/directives.js"></script>
         <script src="js/angular/services.js"></script>

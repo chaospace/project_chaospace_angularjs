@@ -1,0 +1,53 @@
+<div id="page-container" ng-animate class="page-transition">
+    <!-- 닫기 버튼 -->
+    <div class="action-bar mask">
+
+        <div id="back-button">
+            <div class="action-bar-label">
+                <a href="#/index"><span>Back</span></a>
+            </div>
+
+            <div class="motion-area mask">
+                <div>
+                    <img style="width: 6px; height: 9px; margin-top: 25.5px; margin-left:27px;" src="./assets/ui/cta_arrow_white_left.png">
+                    <img style="width: 6px; height: 9px; margin-top: 25.5px; margin-left:27px;" src="./assets/ui/cta_arrow_white_left.png">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="link-button">
+            <div class="action-bar-label">
+                <a href="http://naver.com" target="_blank"><span>Luanch</span></a>
+            </div>
+            <div class="motion-area mask">
+                <div>
+                    <img style="width: 16px; height: 16px; margin-top: 22px; margin-left:22px;" src="./assets/ui/link_icon.png">
+                    <img style="width: 16px; height: 16px; margin-top: 22px; margin-left:22px;" src="./assets/ui/link_icon.png">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="page-body-section">
+
+        <h1 style="font-style: normal; 
+			font-variant: normal; font-weight: 500; 
+			font-stretch: normal; font-size: 40px; 
+			line-height: 50px; font-family: 
+			akzidenz-grotesk-next, Arial, Verdana, 
+			sans-serif; margin: 5px 0px 85px; width: 100%;">{{project.title}}</h1>
+        <h3 style="font-style: normal; font-variant: normal; font-weight: 300; font-stretch: normal; font-size: 20px; line-height: 23px; font-family: akzidenz-grotesk-next, Arial, Verdana, sans-serif;">{{project.subtitle}}</h3>
+        <div style="width: 870px; height: 400px; margin: 35px 0px 40px -32px; overflow: hidden; opacity: 1;">
+            <img src="http://www.alectia.com/wp-content/uploads/2014/07/energi_farma_fabrik_3dScanningModellering_900px.jpg"
+                 style="width: 900px; height: 400px; margin-left: -15px; margin-top: 0px;">
+        </div>
+
+        <p ng-repeat="desc in project.descrition">{{desc}}</p>
+      
+    </div>
+
+</div>

@@ -5,8 +5,8 @@ var APP_LOADING_CHANGE              ="APP_LOADING_CHANGE";
 
 var PROJECT_PATH    ="/project_chaospace_angularjs/";
 var ASSET_PATH      =PROJECT_PATH+"assets/data/";
-var PARTISAL_PATH   =ASSET_PATH+"partisal/";
-var DETAIL_PATH	  =ASSET_PATH+"project/";
+var PARTISAL_PATH   =PROJECT_PATH+"partisal/";
+var DETAIL_PATH	  =PROJECT_PATH+"projects/";
 
 var WIDE_W      = 1130;
 var DESKTOP_W   = 840;
@@ -42,16 +42,16 @@ var cpApp = angular.module('cpProjectApp',[
 cpApp.config(['$routeProvider', function( $routeProvider ){
 	
 	$routeProvider
-	.when('/index', {
-		templateUrl:'assets/data/project/blank.html',
+	.when('/projects', {
+		templateUrl:'/project_chaospace_angularjs/projects/blank.html',
 		controller:'ProjectDetailController'
 	}).
-	when('/detail/:project',{
-		templateUrl:'assets/data/project/project.html',
+	when('/projects/:projectId',{
+		templateUrl:'/project_chaospace_angularjs/projects/project.html',
 		controller:'ProjectDetailController'
 	}).
 	otherwise({
-		redirectTo:'/index'
+		redirectTo:'/projects'
 	});
 
 }]);
