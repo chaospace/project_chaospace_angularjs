@@ -23,9 +23,6 @@ var RENDERER_GAP = 30;
 
 var PROJECT_STATE = {
     NONE:"NONE",
-    UPDATE:"UPDATE",
-    HIDE:"HIDE",
-    SHOW:"SHOW",
     CHANGE:"CHANGE",
     DETAIL:"DETAIL",
     NORMAL:"NORMAL"
@@ -34,7 +31,7 @@ var PROJECT_STATE = {
 /**
     홈페이지 angularjs적용 하기
 */
-var cpProjectApp = angular.module('cpProjectApp',[
+var cpApp = angular.module('cpProjectApp',[
     'ngRoute',
     'cpProjectServices',
     'cpProjectDirectives',
@@ -42,12 +39,8 @@ var cpProjectApp = angular.module('cpProjectApp',[
     ,'cpProjectAnimations'
 ]);
 
-
-
-cpProjectApp.config(['$routeProvider', function( $routeProvider ){
+cpApp.config(['$routeProvider', function( $routeProvider ){
 	
-	console.log("route");
-
 	$routeProvider
 	.when('/index', {
 		templateUrl:'assets/data/project/blank.html',
@@ -62,4 +55,3 @@ cpProjectApp.config(['$routeProvider', function( $routeProvider ){
 	});
 
 }]);
-

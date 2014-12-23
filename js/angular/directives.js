@@ -20,13 +20,9 @@ cpProjectDirectives.directive( "projectList", function(){
         restrict:'EA',
         template:'<div id="project-container"></div>',
         transclude:true,
-        link:function( scope, iElement, iAttr ){
-            //
-
-        },
+        
         controller:function( $element, $scope, $q, $timeout, appModel  ){
 
-            $scope.renderComplete	= false;
             $scope.projects =[];
             $scope.updateDisplay =function(){
 			$timeout( function(){
@@ -97,18 +93,14 @@ cpProjectDirectives.directive( "projectList", function(){
                     if( px >= CONTAINER_W ) {
                         px = defaultX;
                         py += (info.h+RENDERER_GAP);
-					 console.log("py", py );
                     }
 
                 });
 
-              console.log("info", info, "py", py );
 			if( px != defaultX ) {
 				py+=(info.h+RENDERER_GAP);
-				console.log("after-height", py );  
 			}
 			$element.css("height", py+"px");
-				
             }
 
             function getDelays(){
@@ -126,12 +118,7 @@ cpProjectDirectives.directive( "projectList", function(){
                 var deferred	=getDeffered();
                 var delays = getDelays();
                 updatePromiseDelayTime( delays[0]+(50*delays.length) );
-                
-			  
                 $scope.projects= [];
-				
-
-                console.log("project", $scope.projects);
                 setTimeout(function(){
                     promiseSuccess( deferred, "clearProjectRenderer-complete");
                 },  DELAY_TIME );
@@ -147,7 +134,6 @@ cpProjectDirectives.directive( "projectList", function(){
                 updatePromiseDelayTime( 10 );
                 console.log("initializeProjectList-DELAY_TIME", DELAY_TIME );
                 setTimeout( function(){
-                    $scope.renderComplete = false;
                     _childCtrl      =[];
                     promiseSuccess( deferred, "initializeProjectList-complete");
                 }, DELAY_TIME );
@@ -169,130 +155,127 @@ cpProjectDirectives.directive( "projectList", function(){
 
                 console.log("REQUEST_PROJECT_LIST_INITIALIZE");
                 $scope.initializeWindowSize();
-                $scope.renderComplete = true;
                 updateRendererLayout();
-                appModel.updateLoadState( false );
+                setStateNormal();
 
             });
 
-            // projectPath상태 변경 감시
-            appModel.onUpdateProjectPathState( $scope, function( newState ){
-
-                if( $scope.projects ) {
-                    clearProjectRenderer()
-                        .then( function(){
-                            initializeProjectList()
-                        })
-                        .then( function(){
-                            loadProjectList();
-                        } );
-                } else {
-                    loadProjectList();
-                }
-            });
+     
 
             // projectState상태 변경 감시
             appModel.onUpdateProjectState( $scope, function( newState ){
-
+				
+				
+				console.log("상태 변경", newState );
                 switch( newState ){
                     case PROJECT_STATE.CHANGE:
-                        console.log("프로젝트 변경");
+					appModel.updateLoadState( true );	
                         initializeDeferred();
                         clearProjectRenderer()
                             .then( initializeProjectList() )
-                            .then( loadProjectList() )
-                            .then( appModel.updateProjectState(PROJECT_STATE.NORMAL));
+                            .then( loadProjectList() );
                         break;
 
                     case PROJECT_STATE.NORMAL:
                         console.log("노멀상태");
-                        break;
-
-                    case PROJECT_STATE.SHOW:
+					 appModel.updateLoadState( false );
                         break;
 
                     case PROJECT_STATE.DETAIL:
                         console.log("DETAIL-상태");
                         break;
 
-                    case PROJECT_STATE.UPDATE:
-                        console.log("resize-update");
+                    case PROJECT_STATE.NONE:
+                        console.log("NONE");
                         break;
                 }
 
             });
 
+			
+			function setStateNormal(){
+				appModel.updateProjectState(PROJECT_STATE.NORMAL);
+			}
 
-            function loadProjectList(){
-                var deferred = getDeffered();
-                updatePromiseDelayTime(10);
-                $timeout( function(){
-                    appModel.updateLoadState( true );
-                    appModel.loadData( appModel.projectPath )
-                        .success( function(data ){
-                            $scope.projects = data.project;
-                            promiseSuccess( deferred, "loadProjectList-complete");
-                        })
-                        .error( function( error, code ){
-                            appModel.updateLoadState( false );
-                            promiseReject(error);
-                        });
-                }, DELAY_TIME );
+			function loadProjectList(){
+				var deferred = getDeffered();
+				updatePromiseDelayTime(10);
+				
+				$timeout( function(){
+					appModel.loadData( appModel.projectPath )
+						.success( function(data ){
+							$scope.projects = data.project;
+							promiseSuccess( deferred, "loadProjectList-complete");
+						})
+						.error( function( error, code ){
+							appModel.updateLoadState( false );
+							promiseReject(error);
+						});
+				}, DELAY_TIME );
+				
+				return deferred.promise;
+				
+			};
 
 
-                return deferred.promise;
-
-            };
-
-
-        }
+         }
     }
 
 
 });
 
 cpProjectDirectives.directive( "resizeable", function($window){
+		
+	return {
+		
+		
+		link:function( scope, iElement, iAttrs ){
+			
+			function checkUpdateDisplayMode(){
+			
+				var w = scope.windowWidth;
+				
+				var listArea	=-1;
+				if( w > WIDE_W ){
+					listArea= WIDE_W;
+				} else if( w > DESKTOP_W && w < WIDE_W ){
+					listArea= DESKTOP_W;
+				} else if( w > TABLET_W && w < DESKTOP_W ) {
+					listArea= TABLET_W;
+				} else {
+					listArea= MOBILE_W;
+				}
+				if( listArea != CONTAINER_W ){
+					CONTAINER_W =listArea;
+					LIST_UNIT=parseInt(CONTAINER_W/RENDERER_W);
+					return true;
+				}
+				return false;
+			}
+			
+			
+			scope.initializeWindowSize = function(){
+				scope.windowWidth = $window.innerWidth;
+				scope.windowHeight = $window.innerHeight;
+				if( checkUpdateDisplayMode()){
+					scope.updateDisplay();
+				}
+			}
 
-    return function( $scope ){
-
-        function checkUpdateDisplayMode(){
-            var w = $scope.windowWidth;
-            var listArea	=-1;
-            if( w > WIDE_W ){
-                listArea= WIDE_W;
-            } else if( w > DESKTOP_W && w < WIDE_W ){
-                listArea= DESKTOP_W;
-            } else if( w > TABLET_W && w < DESKTOP_W ) {
-                listArea= TABLET_W;
-            } else {
-                listArea= MOBILE_W;
-            }
-            if( listArea != CONTAINER_W ){
-                CONTAINER_W =listArea;
-                LIST_UNIT=parseInt(CONTAINER_W/RENDERER_W);
-                return true;
-            }
-            return false;
-        }
-
-        $scope.initializeWindowSize = function(){
-
-            $scope.windowWidth = $window.innerWidth;
-            $scope.windowHeight = $window.innerHeight;
-            if( checkUpdateDisplayMode()){
-                $scope.updateDisplay();
-            }
-
-        }
-
-        $scope.initializeWindowSize();
-
-        angular.element($window).bind( "resize", function(){
-            $scope.initializeWindowSize();
-            $scope.$apply();
-        });
-
-    };
+			scope.initializeWindowSize();
+		   
+			var t;
+			angular.element($window).bind( "resize", function(){			 
+				clearTimeout(t);
+				t = setTimeout(function(){
+					scope.initializeWindowSize();
+				}, 200);
+			});
+		
+			
+		}
+	
+	}
 
 });
 
@@ -310,8 +293,6 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
             var projectListCtrl = controllers[0];
             var rendererCtrl    = controllers[1];
             projectListCtrl.registerChildController( rendererCtrl );
-
-
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              마지막 리스트 일 경우 부모에 레이아웃 요청
@@ -376,16 +357,26 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
-             리사이즈 처리 및 등장/퇴장 트렌지션 처리
+				리사이즈 처리 및 등장/퇴장 트렌지션 처리
+				모바일 환경에서 orientation-change시 
+				transition을 사용하면 
+				화면 사이즈 갱신에 문제가 있어 set으로 설정
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              */
 			var target	=null;
             _rendererCtrl.updatePosition =function( px, py ) {
 				$scope.transform.x = px;
 				$scope.transform.y = py;
+				
 				if(target){
-					TweenMax.to(target, .5, {x:px, y:py, z:0});
+				
+					if(appModel.mobilecheck()){
+						TweenMax.set(target, {x:px, y:py, z:0});
+					} else {
+						TweenMax.to(target, .3, {x:px, y:py, z:0});
+					}
 				}
+				
             };
 
         }
