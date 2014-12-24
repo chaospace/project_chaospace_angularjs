@@ -43,11 +43,11 @@ cpApp.config(['$routeProvider', function( $routeProvider ){
 	
 	$routeProvider
 	.when('/projects', {
-		templateUrl:'/project_chaospace_angularjs/projects/blank.html',
+		templateUrl:'projects/blank.html',
 		controller:'ProjectDetailController'
 	}).
 	when('/projects/:projectId',{
-		templateUrl:'/project_chaospace_angularjs/projects/project.html',
+		templateUrl:'projects/project.html',
 		controller:'ProjectDetailController'
 	}).
 	otherwise({

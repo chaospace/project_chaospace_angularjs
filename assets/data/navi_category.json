@@ -1,20 +1,24 @@
 {
     "navigation":[
         {
+            "label":"All",
+            "data" :""
+        },
+		{
             "label":"ActionScript",
-            "data" :"as_project.json"
+            "data" :"as"
         },
         {
             "label":"JavaScript",
-            "data" :"js_project.json"
+            "data" :"js"
         },
         {
             "label":"Android",
-            "data" :"and_project.json"
+            "data" :"and"
         },
         {
             "label":"IPhone",
-            "data" :"ios_project.json"
+            "data" :"ios"
         }
     ]
 }

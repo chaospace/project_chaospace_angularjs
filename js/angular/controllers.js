@@ -3,9 +3,12 @@ var cpProjectControllers =angular.module('cpProjectControllers', ['cpProjectServ
 cpProjectControllers.controller( "NavigationController",function( $scope, appModel  ){
 
     $scope.onClick_MenuItem =function( $event, data ){
-        $event.preventDefault();
-        appModel.updateProjectPathState( data );
+	    appModel.updateProjectPathState( data );
     };
+	
+	$scope.goHome	=function(){
+		location.href = "#main";
+	}
 
     appModel.updateLoadState( true );
     appModel.loadData(appModel.naviDataPath).success( function(data){
@@ -20,16 +23,24 @@ cpProjectControllers.controller( "NavigationController",function( $scope, appMod
 });
 
 
-cpProjectControllers.controller( "ProjectDetailController", function( $scope, $routeParams, Project ){
+cpProjectControllers.controller( "ProjectDetailController", function( $scope, $sce, $routeParams, Project ){
     
-	console.log("$routeParams", $routeParams);
+	console.log("$routeParams", $routeParams);	
 	
 	if( $routeParams.projectId != null ){
-		Project.get({project:$routeParams.projectId}, function( project ){
+		Project.get({projectId:$routeParams.projectId}, function( project ){
 			console.log("detail", project );
+			$scope.project = project;
 		});
 	}
 	
+	
+	
+	$scope.trustDangerousSnippet = function( info ){
+		console.log("info", info );
+		return $sce.trustAsHtml(info);
+	};
+			
     
 	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
         console.log("succeess-chnage");

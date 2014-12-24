@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app ="resourceApp">
+<head lang="en">
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+	<div ng-controller="ACtrl">AA</div>
+
+    <script src="../js/lib/angular.js"></script>
+	<script src="../js/lib/angular-resource.js"></script>
+    <script>
+        
+		var resourceApp = angular.module("resourceApp", ['ngResource']);
+		
+		resourceApp.factory( "Project", function( $resource ){
+			
+			var Project = function(){
+				
+				var res = $resource('../projects/projects.json');
+				
+				this.all = function(){
+					var items = res.query();
+					console.log(items);
+				}
+			
+			}
+			
+			
+			return new Project;
+			
+		});
+		
+		
+		resourceApp.controller( 'ACtrl', function(Project){
+			
+			console.log("project", Project.all() );
+			
+		});
+		
+		
+		
+    </script>
+</body>
+</html>

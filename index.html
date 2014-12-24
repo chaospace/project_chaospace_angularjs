@@ -14,18 +14,25 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/main.css">
-	    
+	    <style>
+		.page-transition{
+			-webkit-transition: all 0.5s;
+			-khtml-transition: all 0.5s;
+			-moz-transition: all 0.5s;
+			-ms-transition: all 0.5s;
+			-o-transition: all 0.5s;
+			transition: all 0.5s;
+		}
+		</style>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+		
 		<!-- Add your site or application content here -->
-
 		 <div id="WRAPPER-LAYER">
-
 
             <div id="MAIN-LAYER">
 
@@ -34,10 +41,10 @@
 
                     <div id="nav-container" ng-controller="NavigationController as naviCtrl" class="clearfix">
 
-                        <div class="logo-motion-area mask">
+                        <div class="logo-motion-area mask" ng-click="goHome()">
                             <div>
-                                <img src="./assets/ui/alectia_logo.png">
-                                <img src="./assets/ui/alectia_logo.png">
+                                <img src="assets/ui/alectia_logo.png">
+                                <img src="assets/ui/alectia_logo.png">
                             </div>
                         </div>
 
@@ -46,7 +53,7 @@
                             <ul class="menu">
                                 <!--  메뉴 ( 템플릿 ) -->
                                 <li ng-repeat="naviData in naviList">
-                                    <a href="{{naviData.data}}" ng-click="onClick_MenuItem($event, naviData.data);">
+                                    <a href="#main" ng-click="onClick_MenuItem($event, naviData.data);">
                                         <span>{{naviData.label}}</span>
                                         <div class="motion-area mask">
                                             <div></div>
@@ -62,10 +69,10 @@
 
                     <div id="emblem-container">
                         <div class="motion-area mask">
-						<img src="./assets/ui/transparent.gif" class="transparent-area">
+						<img src="assets/ui/transparent.gif" class="transparent-area">
                             <div>
-                                <img src="./assets/ui/cp_label.png">
-                                <img src="./assets/ui/cp_label.png">
+                                <img src="assets/ui/cp_label.png">
+                                <img src="assets/ui/cp_label.png">
                             </div>
                         </div>
                     </div>
@@ -79,7 +86,7 @@
 				<div ng-view class="ng-view-transition"></div>
 				<!-- 플젝 리스트  추가 영역-->
 				<project-list resizeable ng-transclude>
-					<project-renderer class='renderer-transition' ng-repeat="project in projects">
+					<project-renderer class='renderer-transition' ng-repeat="project in projects | filter:{ category: category}">
 					</project-renderer>				
 				</project-list>
                 </div>
@@ -87,8 +94,8 @@
                 <div id="footer-layer">
                     <div class="logo-motion-area mask">
                         <div>
-                            <img src="./assets/ui/alectia_logo.png">
-                            <img src="./assets/ui/alectia_logo.png">
+                            <img src="assets/ui/alectia_logo.png">
+                            <img src="assets/ui/alectia_logo.png">
                         </div>
                     </div>
                     <div class="copy-right">

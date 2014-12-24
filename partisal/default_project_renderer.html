@@ -1,7 +1,7 @@
 <div class="renderer-type1 mask" >
     <a href="#/projects/{{project.title}}">
         <div class="image-container">
-            <img src="{{project.image.prefix}}{{project.image.src}}" />
+            <img ng-src="{{project.image.src}}" />
         </div>
         <div>
             <div class="label-container">{{project.title}}</div>
@@ -13,7 +13,6 @@
                     <div class="infomation">
                         <ul>
                             <li ng-repeat=" info in project.infomation" ng-bind-html="trustDangerousSnippet(info)">
-                                {{info}}
                             </li>
                         </ul>
                         <div></div>
@@ -22,6 +21,6 @@
                 </div>
             </div>
         </div>
-        <img class="transparent-area" src="{{project.image.prefix}}transparent.gif" width="1" height="1">
+        <img class="transparent-area" src='projects/images/transparent.gif' width="1" height="1">
     </a>
 </div>

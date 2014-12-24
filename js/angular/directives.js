@@ -21,9 +21,10 @@ cpProjectDirectives.directive( "projectList", function(){
         template:'<div id="project-container"></div>',
         transclude:true,
         
-        controller:function( $element, $scope, $q, $timeout, appModel  ){
+        controller:function( $element, $scope, $q, $timeout, appModel, Project  ){
 
             $scope.projects =[];
+		   $scope.category ="";
             $scope.updateDisplay =function(){
 			$timeout( function(){
 				updateRendererLayout();
@@ -117,8 +118,9 @@ cpProjectDirectives.directive( "projectList", function(){
             function clearProjectRenderer(){
                 var deferred	=getDeffered();
                 var delays = getDelays();
-                updatePromiseDelayTime( delays[0]+(50*delays.length) );
-                $scope.projects= [];
+                updatePromiseDelayTime( delays[0]+(60*delays.length) );
+                //$scope.projects= [];
+			  removeProejctItem();
                 setTimeout(function(){
                     promiseSuccess( deferred, "clearProjectRenderer-complete");
                 },  DELAY_TIME );
@@ -165,20 +167,21 @@ cpProjectDirectives.directive( "projectList", function(){
             // projectState상태 변경 감시
             appModel.onUpdateProjectState( $scope, function( newState ){
 				
-				
-				console.log("상태 변경", newState );
                 switch( newState ){
                     case PROJECT_STATE.CHANGE:
-					appModel.updateLoadState( true );	
+					 
+					  appModel.updateLoadState( true );	
                         initializeDeferred();
                         clearProjectRenderer()
                             .then( initializeProjectList() )
                             .then( loadProjectList() );
+						
                         break;
 
                     case PROJECT_STATE.NORMAL:
-                        console.log("노멀상태");
+                        console.log("노멀상태", appModel.projectPath);
 					 appModel.updateLoadState( false );
+					 
                         break;
 
                     case PROJECT_STATE.DETAIL:
@@ -196,25 +199,40 @@ cpProjectDirectives.directive( "projectList", function(){
 			function setStateNormal(){
 				appModel.updateProjectState(PROJECT_STATE.NORMAL);
 			}
+			
+			function appendProejctItem( projects ){
+				for( var i=0; i<projects.length; i++ ){
+					$timeout( function(){
+						$scope.projects.push( projects.shift() );
+					}, 100 * i );
+				}
+			}
+			
+			function removeProejctItem(){
+				
+				for( var i=0; i<$scope.projects.length; i++ ){
+					$timeout( function(){
+						$scope.projects.pop();
+					}, 100 * i );
+				}
+			}
+			
 
 			function loadProjectList(){
+				//$scope.category = appModel.projectPath;
 				var deferred = getDeffered();
 				updatePromiseDelayTime(10);
-				
-				$timeout( function(){
-					appModel.loadData( appModel.projectPath )
-						.success( function(data ){
-							$scope.projects = data.project;
-							promiseSuccess( deferred, "loadProjectList-complete");
-						})
-						.error( function( error, code ){
-							appModel.updateLoadState( false );
-							promiseReject(error);
-						});
+				setTimeout( function(){
+						
+					Project.query().$promise.then( function( data ){
+						console.log("data", data );
+						appendProejctItem( data );	
+						promiseSuccess( deferred, "loadProjectList-complete");
+					});
+					
 				}, DELAY_TIME );
 				
 				return deferred.promise;
-				
 			};
 
 
@@ -280,25 +298,6 @@ cpProjectDirectives.directive( "resizeable", function($window){
 });
 
 
-cpProjectDirectives.directive( "responseimage", function($window){
-
-	return {
-	
-		link:function( scope, iElement, iAttrs ){
-			/*scope.getResponseImageSrc = function(){
-				var path = iAttrs.prefix;
-				if( window.innerWidth > WIDE_W ){
-					path += iAttrs.bigsrc;
-				} else {
-					path += iAttrs.src;
-				}
-				return path;
-			};*/
-		}	
-	}
-	
-});
-
 cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $templateCache, $timeout ){
 
     return {
@@ -335,11 +334,11 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 			};
 
 			$scope.getResponseImageSrc = function(){
-				var path = $scope.project.image.prefix;
+				var path = "";
 				if( window.innerWidth > WIDE_W ){
-					path += $scope.project.image.bigsrc;
+					path = $scope.project.image.bigsrc;
 				} else {
-					path += $scope.project.image.src;
+					path = $scope.project.image.src;
 				}
 				return path;
 			};
@@ -370,7 +369,11 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
             _rendererCtrl.getRendererSize = function( screenWidth ){
                 var info = {w:RENDERER_W, h:RENDERER_H};
                 if($scope.project.type == "main" ){
-                    info	= ( screenWidth == WIDE_W ) ? {w:(RENDERER_W*2)+RENDERER_GAP, h:RENDERER_H} : info;
+					if( $scope.$last ){
+						info	= ( screenWidth == WIDE_W ) ? {w:(RENDERER_W*2)+RENDERER_GAP, h:(RENDERER_H*2)+RENDERER_GAP} : info;
+					} else {
+						info	= ( screenWidth == WIDE_W ) ? {w:(RENDERER_W*2)+RENDERER_GAP, h:RENDERER_H} : info;
+					}
                 }
                 return info;
             }

@@ -39,7 +39,7 @@ cpProjectServices.factory("appModel",function (  $http, $rootScope ){
     var AppModel = function(){
 
         this.support3d      = checkSupport3d();
-        this.projectPath    = "";
+        this.projectPath    = "none";
         this.naviDataPath   = "navi_category.json";
         this.isLoading      = false;
         this.projectState   = PROJECT_STATE.NONE;
@@ -125,15 +125,11 @@ cpProjectServices.factory("appModel",function (  $http, $rootScope ){
 
 cpProjectServices.factory( "Project", function( $resource ){
 	
-	return $resource('/project_chaospce_angularjs/projects/projects:projectId.json', {}, {
+	return $resource('projects/:projectId.json', {}, {
 		query: {
 			method:'GET', 
 			params:{projectId:'projects'}, 
-			isArray:true,
-			transformResponse : function  (data, headers) {
-				console.log("data", data );
-			}
-		
+			isArray:true
 		}
 	});
 });

@@ -3,11 +3,10 @@
         {
             "template"      :"default_project_renderer.html",
 			"type"			:"default",
-            "title"         :"Canvas API-1",
+            "title"         :"CanvasAPI-1",
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src":"projects/images/pic.jpg"
             },
             "infomation"    :[
                 "Date : 2014.02.20",
@@ -20,8 +19,7 @@
             "title"         :"Canvas Copy pixel-2",
 			"type"			:"default",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src":"projects/images/pic.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
@@ -34,8 +32,7 @@
             "title"         :"Canvas API-3",
 			"type"			:"default",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src":"projects/images/pic.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
@@ -49,8 +46,7 @@
             "title"         :"Canvas Copy pixel-4",
 			"type"			:"default",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src":"projects/images/pic.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
@@ -63,8 +59,7 @@
             "title"         :"Canvas API-5",
 			"type"			:"default",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src":"projects/images/pic.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
@@ -78,9 +73,8 @@
             "title"         :"Canvas Copy pixel-6",
 			"type"			:"main",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src"       :"pic.jpg",
-                "bigsrc"    :"project_big.jpg"
+                "src"		:"projects/images/main.jpg",
+                "bigsrc"    :"projects/images/main_big.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
@@ -93,8 +87,7 @@
             "title"         :"Canvas API-7",
 			"type"			:"default",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src"		:"projects/images/pic.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
@@ -108,8 +101,7 @@
             "title"         :"Canvas Copy pixel-8",
 			"type"			:"default",
             "image"         :{
-                "prefix":"/project_chaospace_angularjs/projects/images/",
-                "src":"pic.jpg"
+                "src"		:"projects/images/pic.jpg"
             },
             "description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
             "infomation"    :[
