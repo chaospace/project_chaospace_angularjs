@@ -1,9 +1,9 @@
 {
     
-	"title":"3D laser scanning and modelling of industrial HVAC systems",
-	"subtitle":"Change your perspective.  The Samsung Transform\u2122 is an Android powered device that delivers the truly customizable experience you want your phone to provide.  Enjoy a new and easy way to personalize your device for business or for entertainment, showcasing your own favorite theme and more through the new open software platform and the ability to download individual \u2018Sprint ID Service Packs\u2019 that combine and deliver multiple content items and applications specifically for the features you want.  Combine this with the 3.5\u201d touch display, QWERTY keyboard, high-speed processor, and both a front and rear facing camera to bring your unique mobile experience to life.",
+	"title":"Canvas를 이용한 TileMap 만들기",
+	"subtitle":"Canvas의 drawImage를 이용해 정해진 타일에 bitmap을 그려 맵을 구축. 보이는 영역보다 +1행렬씩 타일을 가지고 드래그 시 마다 동적으로 추가 삭제 하며 보여준다.",
     "descrition":[
-		"<b>Accurate project design and resource efficiency<br></b>One of our largest pharmaceutical customers has initiated a project involving the reconstruction and replacement of the refrigeration plant, ventilation systems, BMS and electrical supplies at a 10,000 m<sup>2</sup> factory.",
+		"<b>최초 생각정리</b><br>뷰 영역에 정해진 사이즈의 타일을 이용해 채우기고 각 타일에 해당하는 좌표를 좌측 상단에 표시하여 넘버링하기.",
 		"As part of the project, the old ventilation systems will be lifted out of the 5 technical rooms in the factory and replaced with fewer and larger plants on the roof. Simultaneously, the solution will provide the customer with modern, energy-efficient equipment and free more space in the technical rooms.",
 		"At the same time a new refrigeration plant will be established, a number of old building services on the roof will be demolished, and pipes and cables will be run from the new plants down to the technical rooms. One of the challenges is to stay clear of existing refrigeration systems, piping and roof light installations, etc.",
 		"Due to the complexity of the project, traditional measurement and data registration methods would have been highly time-consuming. The use of 3D laser scanning and modelling has helped to ensure a quick and smooth process. A detailed mapping of existing and future building services has facilitated the planning and coordination processes significantly, resulting in reduced costs in terms of time and money.",

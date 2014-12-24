@@ -3,8 +3,8 @@
 		"template"      :"default_project_renderer.html",
 		"type"			:"default",
 		"category"		:"js",
-		"title"         :"CanvasAPI-1",
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"title"         :"CanvasTileMap",
+		"description"   :"Canvas를 이용한 타일 맵.<br>무한 드래그가 살짝 고비였지만 안되는 수학으로 극복!",
 		"image"         :{
 			"src":"projects/images/pic.jpg"
 		},
@@ -15,13 +15,13 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Canvas Copy pixel-2",
+		"title"         :"AngularJS",
 		"type"			:"default",
 		"category"		:"js",
 		"image"         :{
-			"src":"projects/images/pic.jpg"
+			"src":"projects/images/angular.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"AngularJS를 이용한 사이트.<br>초반 학습시간은 길지만<br>고비를 넘기면 신세계!",
 		"infomation"    :[
 			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
 			"Keyword : html5, CanvasApi"
@@ -29,13 +29,13 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Canvas API-3",
+		"title"         :"CanvasDraw",
 		"type"			:"default",
 		"category"		:"js",
 		"image"         :{
-			"src":"projects/images/pic.jpg"
+			"src":"projects/images/canvasDraw.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"Canvas를 이용한 드로잉.<br>flash시절 많이 했었는데...",
 		"infomation"    :[
 			"Date : 2014.02.20",
 			"Keyword : html5, CanvasApi"
