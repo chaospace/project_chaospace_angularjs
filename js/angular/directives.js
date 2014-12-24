@@ -21,9 +21,13 @@ cpProjectDirectives.directive( "projectList", function(){
         template:'<div id="project-container"></div>',
         transclude:true,
         
-        controller:function( $element, $scope, $q, $timeout, appModel, Project  ){
+        controller:function( $element, $scope, $q, $timeout, appModel, Project, $filter ){
 
+		
+			
+		
             $scope.projects =[];
+		   
 		   $scope.category ="";
             $scope.updateDisplay =function(){
 			$timeout( function(){
@@ -39,7 +43,8 @@ cpProjectDirectives.directive( "projectList", function(){
                 $scope.projects.pop();
                 console.log("remove" , $scope.projects.length );
             };
-
+			
+			
 
             /**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
@@ -107,7 +112,7 @@ cpProjectDirectives.directive( "projectList", function(){
             function getDelays(){
                 var delays=[];
                 var delay = 100;
-                for( var i=0; i<_childCtrl.length; i++ ){
+                for( var i=0; i<$scope.projects.length; i++ ){
                     delays.push( delay+(i*delay) );
                 }
                 delays = delays.reverse();
@@ -119,8 +124,7 @@ cpProjectDirectives.directive( "projectList", function(){
                 var deferred	=getDeffered();
                 var delays = getDelays();
                 updatePromiseDelayTime( delays[0]+(60*delays.length) );
-                //$scope.projects= [];
-			  removeProejctItem();
+                removeProejctItem();
                 setTimeout(function(){
                     promiseSuccess( deferred, "clearProjectRenderer-complete");
                 },  DELAY_TIME );
@@ -168,7 +172,7 @@ cpProjectDirectives.directive( "projectList", function(){
             appModel.onUpdateProjectState( $scope, function( newState ){
 				
                 switch( newState ){
-                    case PROJECT_STATE.CHANGE:
+                    case PROJECT_STATE.INIT:
 					 
 					  appModel.updateLoadState( true );	
                         initializeDeferred();
@@ -177,15 +181,15 @@ cpProjectDirectives.directive( "projectList", function(){
                             .then( loadProjectList() );
 						
                         break;
-
+				  
                     case PROJECT_STATE.NORMAL:
-                        console.log("노멀상태", appModel.projectPath);
-					 appModel.updateLoadState( false );
-					 
+                         appModel.updateLoadState( false );
                         break;
 
-                    case PROJECT_STATE.DETAIL:
-                        console.log("DETAIL-상태");
+                    case PROJECT_STATE.CHANGE:
+						$scope.category = appModel.projectCategory;
+						//console.log("$scope.category", $scope.category  );
+						appModel.updateProjectState(PROJECT_STATE.INIT);
                         break;
 
                     case PROJECT_STATE.NONE:
@@ -219,22 +223,23 @@ cpProjectDirectives.directive( "projectList", function(){
 			
 
 			function loadProjectList(){
-				//$scope.category = appModel.projectPath;
 				var deferred = getDeffered();
 				updatePromiseDelayTime(10);
 				setTimeout( function(){
 						
 					Project.query().$promise.then( function( data ){
-						console.log("data", data );
-						appendProejctItem( data );	
+						var rData =$filter('filter')( data, $scope.category);
+						console.log("rData", rData.length, $scope.category );
+						//console.log("$scope.category", $scope.category);
+						appendProejctItem( rData );
 						promiseSuccess( deferred, "loadProjectList-complete");
 					});
 					
 				}, DELAY_TIME );
-				
 				return deferred.promise;
 			};
-
+		
+			appModel.updateProjectState(PROJECT_STATE.INIT);
 
          }
     }

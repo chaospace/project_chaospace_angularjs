@@ -39,7 +39,7 @@ cpProjectServices.factory("appModel",function (  $http, $rootScope ){
     var AppModel = function(){
 
         this.support3d      = checkSupport3d();
-        this.projectPath    = "none";
+        this.projectCategory= "all";
         this.naviDataPath   = "navi_category.json";
         this.isLoading      = false;
         this.projectState   = PROJECT_STATE.NONE;
@@ -79,12 +79,12 @@ cpProjectServices.factory("appModel",function (  $http, $rootScope ){
         this.broadcastLoadState =function( newState ){
             $rootScope.$broadcast( APP_LOADING_CHANGE, newState );
         };
-
+		
 
         /* projectPath속성 업데이트 처리 */
-        this.updateProjectPathState = function( newState ) {
-            if(this.projectPath != newState ){
-                this.projectPath = newState;
+        this.updateProjectCategoryState = function( newState ) {
+            if(this.projectCategory != newState ){
+                this.projectCategory = newState;
                 this.updateProjectState( PROJECT_STATE.CHANGE );
             }
         };

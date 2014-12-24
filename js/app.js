@@ -22,7 +22,7 @@ var RENDERER_W  = 260;
 var RENDERER_GAP = 30;
 
 var PROJECT_STATE = {
-    NONE:"NONE",
+    INIT:"INIT",
     CHANGE:"CHANGE",
     DETAIL:"DETAIL",
     NORMAL:"NORMAL"

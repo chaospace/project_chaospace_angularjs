@@ -32,19 +32,36 @@ cpProjectAnimations.animation( '.renderer-transition', function( appModel ){
 	}
 
     function animationHide( element, done ){
-         var index 			=element.scope().$parent.$index;
-		var originTransform	=element.scope().transform;
-		
+         var originTransform	=element.scope().transform;
+		console.log( "hide", originTransform );
 		if( appModel.support3d ){
 			TweenMax.to(element, 0.5, {x:CONTAINER_W*1.5, y:originTransform.y, z:0, onComplete:done, ease:Expo.easeOut});
 		} else {
 			TweenMax.to(element, 0.5, { x:CONTAINER_W*1.2, y:originTransform.y, onComplete:done, ease:Expo.easeOut});
 		}
     };
+	
+	function showAnimation( element, done ){
+	
+	};
+	
+	function hideAnimation( element, done ){
+		
+	};
 
     return{
 		enter:animationStart
         ,leave:animationHide
+		/*,beforeAddClass:function( element, className, done ){
+			if( className == 'ng-hide'){
+				TweenMax.to( element, 0.3, {autoAlpha:0, onComplete:done});
+			}
+		}
+		,removeClass:function( element, className, done ){
+			if( className == 'ng-hide'){
+				TweenMax.to( element, 0.3, {autoAlpha:1, onComplete:done});
+			}
+		}*/
     }
 
 });

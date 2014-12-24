@@ -12,7 +12,8 @@
 				<p ng-bind-html="trustDangerousSnippet(project.description)"></p>
                     <div class="infomation">
                         <ul class="description-list">
-                            <li ng-repeat=" info in project.infomation" ng-bind-html="trustDangerousSnippet(info)"></li>
+                            <li ng-repeat="info in project.infomation" 
+							ng-bind-html="trustDangerousSnippet(info)"></li>
                         </ul>
                         <div></div>
                         <div></div>

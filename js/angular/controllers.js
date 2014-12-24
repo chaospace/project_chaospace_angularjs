@@ -3,7 +3,8 @@ var cpProjectControllers =angular.module('cpProjectControllers', ['cpProjectServ
 cpProjectControllers.controller( "NavigationController",function( $scope, appModel  ){
 
     $scope.onClick_MenuItem =function( $event, data ){
-	    appModel.updateProjectPathState( data );
+		console.log("data", data );
+	    appModel.updateProjectCategoryState( data );
     };
 	
 	$scope.goHome	=function(){
@@ -14,7 +15,7 @@ cpProjectControllers.controller( "NavigationController",function( $scope, appMod
     appModel.loadData(appModel.naviDataPath).success( function(data){
         $scope.naviList = data.navigation;
         appModel.updateLoadState( false );
-        appModel.updateProjectPathState( $scope.naviList[0].data );
+        //appModel.updateProjectCategoryState( $scope.naviList[0].data );
     }).error(function( error, code ){
         alert( error );
     });

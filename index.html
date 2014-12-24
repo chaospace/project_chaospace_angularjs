@@ -93,7 +93,7 @@
 				<div ng-view class="ng-view-transition"></div>
 				<!-- 플젝 리스트  추가 영역-->
 				<project-list resizeable ng-transclude>
-					<project-renderer class='renderer-transition' ng-repeat="project in projects | filter:{ category: category}">
+					<project-renderer class='renderer-transition' ng-repeat="project in projects">
 					</project-renderer>				
 				</project-list>
                 </div>

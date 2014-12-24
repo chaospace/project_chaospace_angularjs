@@ -46,7 +46,7 @@
 		"template"      :"default_project_renderer.html",
 		"title"         :"Canvas Copy pixel-4",
 		"type"			:"default",
-		"category"		:"as",
+		"category"		:"acs",
 		"image"         :{
 			"src":"projects/images/pic.jpg"
 		},
@@ -75,7 +75,7 @@
 		"template"      :"main_project_renderer.html",
 		"title"         :"Canvas Copy pixel-6",
 		"type"			:"main",
-		"category"		:"js",
+		"category"		:"and",
 		"image"         :{
 			"src"		:"projects/images/main_pic.jpg",
 			"bigsrc"    :"projects/images/main_big.jpg"
@@ -105,7 +105,7 @@
 		"template"      :"default_project_renderer.html",
 		"title"         :"Canvas Copy pixel-8",
 		"type"			:"default",
-		"category"		:"as",
+		"category"		:"acs",
 		"image"         :{
 			"src"		:"projects/images/pic.jpg"
 		},
