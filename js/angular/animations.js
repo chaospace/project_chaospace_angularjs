@@ -2,7 +2,7 @@ var cpProjectAnimations = angular.module( 'cpProjectAnimations', ['ngAnimate', '
 
 cpProjectAnimations.animation( '.renderer-transition', function( appModel ){
 
-    function getElementCurrentTransform(el) {
+    /*function getElementCurrentTransform(el) {
         var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
         if(!results) return [0, 0, 0];
         if(results[1] == '3d') return results.slice(2,5);
@@ -14,7 +14,7 @@ cpProjectAnimations.animation( '.renderer-transition', function( appModel ){
 		var strTransform = transformObj.substring( transformObj.indexOf("(")+1,  transformObj.lastIndexOf(")"));
 		var values = strTransform.split(",");
 		return values;
-	}
+	}*/
 		
 	function animationStart( element, done ){
 		var originTransform	=element.scope().transform;
@@ -33,35 +33,16 @@ cpProjectAnimations.animation( '.renderer-transition', function( appModel ){
 
     function animationHide( element, done ){
          var originTransform	=element.scope().transform;
-		console.log( "hide", originTransform );
 		if( appModel.support3d ){
 			TweenMax.to(element, 0.5, {x:CONTAINER_W*1.5, y:originTransform.y, z:0, onComplete:done, ease:Expo.easeOut});
 		} else {
 			TweenMax.to(element, 0.5, { x:CONTAINER_W*1.2, y:originTransform.y, onComplete:done, ease:Expo.easeOut});
 		}
     };
-	
-	function showAnimation( element, done ){
-	
-	};
-	
-	function hideAnimation( element, done ){
-		
-	};
 
     return{
 		enter:animationStart
         ,leave:animationHide
-		/*,beforeAddClass:function( element, className, done ){
-			if( className == 'ng-hide'){
-				TweenMax.to( element, 0.3, {autoAlpha:0, onComplete:done});
-			}
-		}
-		,removeClass:function( element, className, done ){
-			if( className == 'ng-hide'){
-				TweenMax.to( element, 0.3, {autoAlpha:1, onComplete:done});
-			}
-		}*/
     }
 
 });

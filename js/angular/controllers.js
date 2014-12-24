@@ -20,14 +20,10 @@ cpProjectControllers.controller( "NavigationController",function( $scope, appMod
         alert( error );
     });
 
-
 });
-
 
 cpProjectControllers.controller( "ProjectDetailController", function( $scope, $sce, $routeParams, Project ){
     
-	console.log("$routeParams", $routeParams);	
-	
 	if( $routeParams.projectId != null ){
 		Project.get({projectId:$routeParams.projectId}, function( project ){
 			console.log("detail", project );
@@ -35,23 +31,16 @@ cpProjectControllers.controller( "ProjectDetailController", function( $scope, $s
 		});
 	}
 	
-	
-	
 	$scope.trustDangerousSnippet = function( info ){
 		console.log("info", info );
 		return $sce.trustAsHtml(info);
-	};
-			
+	};	
     
 	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
         console.log("succeess-chnage");
     });
 	
 });
-
-
-
-
 
 // loading-progress-controller
 cpProjectControllers.controller( "ProgressViewController", function( $scope, appModel ){

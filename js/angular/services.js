@@ -4,7 +4,6 @@ var cpProjectServices = angular.module("cpProjectServices", ['ngResource'] );
  */
 cpProjectServices.factory("appModel",function (  $http, $rootScope ){
 
-
     function checkSupport3d() {
         if (!window.getComputedStyle) {
             return false;
