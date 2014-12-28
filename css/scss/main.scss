@@ -11,7 +11,7 @@ $stageBGColor: rgb(40, 40, 40);
 $themeColor: rgb(31, 73, 179);
 $themeSubColor: rgb(27, 64, 159);
 $headerColor :rgb(49, 163, 68);
-$contentColor:rgb(156, 156, 156);
+$contentColor: rgb(145, 145, 145);
 $footerColor: rgb(31, 73, 179); /* rgb(46, 48, 50);*/
 
 $normalFontSize:14px;
@@ -80,6 +80,11 @@ a {
   display: block;
   pointer-events: none;
   width: 100%; height: 100%;
+}
+
+
+%app-default-transition {
+  @include transition( all, 0.4s, ease-in-out );
 }
 
 
@@ -152,9 +157,7 @@ ul.menu .motion-area > div {
   background: rgb(255, 255, 255);
 }
 
-%app-default-transition {
-  @include transition( all, 0.4s, ease-in-out );
-}
+
 
 %slide-image-layout {
 
@@ -267,17 +270,30 @@ div#page-container {
 }
 
 div#page-body-section {
-  width: 100%;
+  width: $mq-desktopWidth;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 30px;
   padding-right: 100px;
-
-  p {
-    color: $contentColor;
-  }
+  color:$contentColor;
 }
+
+div#page-body-section .main-image{
+  width: 825px;
+  height: 400px;
+  margin: 35px 0px 40px -15px;
+  overflow: hidden;
+}
+
+div#page-body-section .main-image > img{
+  width: 900px; height: 400px; margin-top:0;
+}
+
+div#page-body-section .page-image{
+  width:100%; height:auto;
+}
+
 
 div.action-bar {
 
@@ -666,6 +682,8 @@ div.loading-text{
     @include transform(translate3d(230px, -130px, 0px));
   }
 
+
+
 }
 
 // 840 px이하
@@ -694,6 +712,24 @@ div.loading-text{
     margin-right: 0px;
   }
 
+  div#page-body-section {
+    width:$mq-tabletWidth;
+  }
+
+  div#page-body-section ul{
+    padding-left: 20px;
+  }
+  div#page-body-section .main-image{
+    width: 535px;
+    height: 270px;
+  }
+
+  div#page-body-section .main-image > img{
+    width: 608px; height: 270px;
+  }
+
+
+
 }
 
 // 550 px이하
@@ -701,6 +737,11 @@ div.loading-text{
   div#MAIN-LAYER{
     width: $mq-mobileWidth;
   }
+
+  div#page-body-section {
+    width:$mq-mobileWidth;
+  }
+
   nav#navigations{
     margin-left: 30px;
   }
@@ -726,4 +767,14 @@ div.loading-text{
   div#page-body-section{
     padding-right: 60px;
   }
+
+  div#page-body-section .main-image{
+    width: 305px;
+    height: 140px;
+  }
+
+  div#page-body-section .main-image > img{
+    width: 315px; height: 140px;
+  }
+
 }

@@ -1,0 +1,30 @@
+{
+    
+	"title":"Canvas를 이용한 TileMap",
+	"subtitle":"Canvas의 drawImage를 이용 타일영역에 bitmap을 그려 맵을 구축.<br>뷰 영역보다 가로, 세로 +1 타일영역을 가지고 드래그 방향에 따라 타일의 위치를 제어하며 보여준다.",
+    "images":{
+        "main":{
+            "src":"projects/images/tileMap/p_tilemap_main_900px.jpg"
+        }
+    },
+	"luanch":"http://chaospace.cafe24.com/html5/tile/tile_map.html",
+    "step":[
+		"뷰 영역을 정하고 정해진 사이즈의 타일로 채우기",
+        "타일 좌측 상단에 넘버링을 넣어 위치 파악하기 ",
+        "타일 넘버링 값에 해당하는 이미지 그리기",
+        "타일 드래그 시 영역에 따라 타일 재배치 하기",
+        "타일 재배치 시 알파효과 적용하기"
+	],
+    "descriptions":[
+        "actionscript를 한 영향인지 인터렉티브한 컨텐츠 제작 시 as코드를 이용해 먼저 구현하며 생각을 정리하는 경우가 많다. 구현 핵심 이슈는 역시 이동에 따른 타일 재배치 부분인데, 순차적인 해결을 위해 '가로' 한 방향만 고민해 보았다.",
+        "<em><img class='page-image' alt='드래그 시 방향에 따른 타일 재배치 원리1' src='projects/images/tileMap/p_step1.jpg' width='500' height='217'>진행에 따른 타일 이동처리 원리</em>",
+        "적용 후 테스트를 해보니 나쁘지 않은 결과를 보였고( 테스트 단계에서는 문제해결에 집중하므로 러프한 코드를 그대로 사용한다 ) 세로 방향을 추가하여 테스트해 보았다.",
+        "<em><img class='page-image' alt='가로 세로 방향의 조건을 추가하여 테스트 한 코드' src='projects/images/tileMap/p_step3.jpg' width='515' height='455'>가로 세로 이동에 따른 조건 처리 코드</em>",
+        "결과는 가로, 세로 한 방향만 이동 시 어색함 없지만 가로, 세로가 섞인 즉 대각선 방향으로 이동하면 중간중간에 이빨이 빠진 타일이 보였다. 원인은 각 조건에서 바로 타일 이동처리를 해버린 것 때문이라 생각했다.",
+        "<em><img class='page-image' alt='대각선 이동 시 발생하는 타일 이동 문제' src='projects/images/tileMap/p_step3_1.jpg' width='419' height='310'>대각선 이동 시 틀어지는 타일 위치</em>",
+        "문제 해결을 위해 <b>조건문은 이동해야 할 행렬만 정하고</b> 위치 이동은 한 번만 요청 하기로 정하고, 생각을 아래와 같이 글로 정리해 보았다",
+        "<em><img class='page-image' alt='대각선 이동 문제 발생 해결내용 정리' src='projects/images/tileMap/p_step4.jpg' width='671' height='265'>해결을 위한 생각 정리</em>",
+		"위 내용을 해결하였을 때, 구동에 문제는 더이상 없었고 후에 최적화를 거쳐 1차 마무리를 지었다."
+    ]
+
+}

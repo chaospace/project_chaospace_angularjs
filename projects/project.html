@@ -19,7 +19,7 @@
 
         <div id="link-button">
             <div class="action-bar-label">
-                <a href="http://naver.com" target="_blank"><span>Luanch</span></a>
+                <a ng-href="{{project.luanch}}" target="_blank"><span>Luanch</span></a>
             </div>
             <div class="motion-area mask">
                 <div>
@@ -36,19 +36,21 @@
 
         <h1 style="font-style: normal; 
 			font-variant: normal; font-weight: 500; 
-			font-stretch: normal; font-size: 40px; 
-			line-height: 50px; font-family: 
-			Nanum Gothic, Titillium Web, Verdana, 
-			sans-serif; margin: 5px 0px 85px; width: 100%;">{{project.title}}</h1>
-        <h3 style="font-style: normal; font-variant: normal; font-weight: 300; 
-			font-stretch: normal; font-size: 20px; line-height: 23px; font-family: 
-			Nanum Gothic, Titillium Web, Arial, Verdana, sans-serif;">{{project.subtitle}}</h3>
-        <div style="width: 870px; height: 400px; margin: 35px 0px 40px -32px; overflow: hidden; opacity: 1;">
-            <img src="http://www.alectia.com/wp-content/uploads/2014/07/energi_farma_fabrik_3dScanningModellering_900px.jpg"
-                 style="width: 900px; height: 400px; margin-left: -15px; margin-top: 0px;">
+			font-stretch: normal; font-size: 40px; color:#3C3C3C;
+			line-height: 50px; font-family: Nanum Gothic, Verdana, sans-serif; margin: 5px 0px 85px; width: 100%;">{{project.title}}</h1>
+        <h3 style="font-style: normal; font-variant: normal; font-weight: 300; color:#3C3C3C;
+			font-stretch: normal; font-size: 20px; line-height: 23px; font-family:
+			Nanum Gothic, Arial, Verdana, sans-serif;" ng-bind-html="trustDangerousSnippet(project.subtitle)"></h3>
+        <div class="main-image">
+            <img ng-src="{{project.images.main.src}}">
         </div>
+        <h4>단계별 구현내용</h4>
+        <ul>
+            <li ng-repeat="chapter in project.step" ng-bind-html="trustDangerousSnippet(chapter)"></li>
+        </ul>
 
-        <p ng-repeat="desc in project.descrition" ng-bind-html="trustDangerousSnippet(desc)"></p>
+        <h4>구현 과정 정리</h4>
+        <p ng-repeat="desc in project.descriptions" ng-bind-html="trustDangerousSnippet(desc)"></p>
       
     </div>
 
