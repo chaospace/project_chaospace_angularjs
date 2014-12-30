@@ -23,7 +23,7 @@
 		},
 		"description"   :"AngularJS를 이용한 사이트.<br>초반 학습시간은 길지만<br>고비를 넘기면 신세계!",
 		"infomation"    :[
-			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
+			"Date: 2014.12.09",
 			"Keyword : <br> AngularJS, JavaScript"
 		]
 	},
@@ -44,16 +44,16 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Canvas Copy pixel-4",
+		"title"         :"Poe",
 		"type"			:"default",
 		"category"		:"acs",
 		"image"         :{
-			"src":"projects/images/pic.jpg"
+			"src":"projects/images/poe/p_thumb.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"ByteArray를 이용한 사진 뷰어 생성",
 		"infomation"    :[
-			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
-			"Keyword : html5, CanvasApi"
+			"Date: 2010.09",
+			"Keyword : <br>ActionScript, ByteArray"
 		]
 	},
 	{
@@ -103,11 +103,11 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Canvas Copy pixel-8",
+		"title"         :"DisortImage",
 		"type"			:"default",
 		"category"		:"acs",
 		"image"         :{
-			"src"		:"projects/images/pic.jpg"
+			"src"		:"projects/images/DisortImage/p_thumb.jpg"
 		},
 		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
 		"infomation"    :[

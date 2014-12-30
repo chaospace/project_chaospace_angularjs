@@ -1,0 +1,25 @@
+{
+    
+	"title":"Poe",
+	"subtitle":"ByteArray를 이용한 플래시 이미지 뷰어. SWF파일의 바이트 정보에 사진정보를 추가하여 이를 별도 파일로 출판한다",
+    "images":{
+        "main":{
+            "src":"projects/images/poe/p_poe_main_900px.jpg"
+        }
+    },
+	"luanch":"http://chaospace.cafe24.com/portfolio/source/swf/poe/poe.html",
+    "step":[
+		"ByteArray 개념 이해하기",
+        "코멘트 작성기능( 뷰어에 따라 안보일 수 있음 )",
+        "도큐먼트 사이즈에 따른 이미지 리사이즈",
+        "편집 내용 SWF로 저장",
+        "편집 메뉴를 통해 저장한 SWF 재편집"
+	],
+    "descriptions":[
+        "actionscript ByteArray를 한창 보던 시기에 만들어 본 녀석으로 기존 SWF파일 정보 뒤에 편집한 사진정보와 텍스트 정보를 가진 VO객체를 Searialize로 직렬화 하여 기존SWF정보에 추가하는 것이 핵심이었다",
+        "<em><img class='page-image' alt='기존 swf의 byte정보에 사진 byte정보를 추가하여 새로운 swf byte정보를 저장' src='projects/images/poe/p_step1.jpg' width='550' height='140'>byte정보를 추가하는 것이 핵심</em>",
+        "간편한 수준의 편집과 사진 filter효과를 제공하며, 사용할 수 있는 뷰어는 기존에 작업한 파일을 활용하여 몇 가지 만들어 보았는데 vo부분만 맞추면 손쉽게 적용할 수 있어 좋았다",
+        "actionscript을 이용한 마지막 개인 프로젝트로 기억하는데 아이폰의 등장과 함께 역사의 뒤안길로 사라졌지만 나에게는 프로그래밍의 시작을 가르쳐 준 언어로 기억 될 듯하다"
+    ]
+
+}

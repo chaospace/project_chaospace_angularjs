@@ -2,20 +2,6 @@ var cpProjectAnimations = angular.module( 'cpProjectAnimations', ['ngAnimate', '
 
 cpProjectAnimations.animation( '.renderer-transition', function( appModel ){
 
-    /*function getElementCurrentTransform(el) {
-        var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
-        if(!results) return [0, 0, 0];
-        if(results[1] == '3d') return results.slice(2,5);
-        results.push(0);
-        return results.slice(5, 8);
-    }
-	
-	function convertTransformToArray( transformObj ){
-		var strTransform = transformObj.substring( transformObj.indexOf("(")+1,  transformObj.lastIndexOf(")"));
-		var values = strTransform.split(",");
-		return values;
-	}*/
-		
 	function animationStart( element, done ){
 		var originTransform	=element.scope().transform;
 		element.scope().setTransitionTarget(element);

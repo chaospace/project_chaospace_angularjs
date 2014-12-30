@@ -522,7 +522,7 @@ div#page-body-section .main-image {
 
 div#page-body-section .main-image > img {
   width: 900px;
-  height: 400px;
+  height: auto;
   margin-top: 0;
 }
 
@@ -1017,7 +1017,6 @@ div.loading-text {
 
   div#page-body-section .main-image > img {
     width: 608px;
-    height: 270px;
   }
 }
 @media screen and (max-width: 550px) {
@@ -1076,7 +1075,6 @@ div.loading-text {
 
   div#page-body-section .main-image > img {
     width: 315px;
-    height: 140px;
   }
 }
 

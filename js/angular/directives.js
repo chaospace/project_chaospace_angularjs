@@ -35,13 +35,9 @@ cpProjectDirectives.directive( "projectList", function(){
 			});
             };
 
-            $scope.getPosition =function( index ){
-                console.log("내 위치는", index );
-            };
-
+            
             $scope.popItem = function(){
                 $scope.projects.pop();
-                console.log("remove" , $scope.projects.length );
             };
 			
 			
@@ -138,7 +134,6 @@ cpProjectDirectives.directive( "projectList", function(){
 
                 var deferred	=getDeffered();
                 updatePromiseDelayTime( 10 );
-                console.log("initializeProjectList-DELAY_TIME", DELAY_TIME );
                 setTimeout( function(){
                     _childCtrl      =[];
                     promiseSuccess( deferred, "initializeProjectList-complete");
@@ -159,7 +154,6 @@ cpProjectDirectives.directive( "projectList", function(){
              */
             $scope.$on( REQUEST_PROJECT_LIST_INITIALIZE, function(){
 
-                console.log("REQUEST_PROJECT_LIST_INITIALIZE");
                 $scope.initializeWindowSize();
                 updateRendererLayout();
                 setStateNormal();
@@ -188,12 +182,10 @@ cpProjectDirectives.directive( "projectList", function(){
 
                     case PROJECT_STATE.CHANGE:
 						$scope.category = appModel.projectCategory;
-						//console.log("$scope.category", $scope.category  );
 						appModel.updateProjectState(PROJECT_STATE.INIT);
                         break;
 
                     case PROJECT_STATE.NONE:
-                        console.log("NONE");
                         break;
                 }
 
@@ -229,8 +221,6 @@ cpProjectDirectives.directive( "projectList", function(){
 						
 					Project.query().$promise.then( function( data ){
 						var rData =$filter('filter')( data, $scope.category);
-						console.log("rData", rData.length, $scope.category );
-						//console.log("$scope.category", $scope.category);
 						appendProejctItem( rData );
 						promiseSuccess( deferred, "loadProjectList-complete");
 					});
@@ -357,7 +347,7 @@ cpProjectDirectives.directive( "projectRenderer", function( $compile, $http, $te
 					target = element;
 				}
 			};
-/**
+			/**
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨
              destory
              ▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨▨

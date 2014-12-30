@@ -4,7 +4,7 @@
     "subtitle":"AngularJS는 데이터 중심의 컨텐츠 제어에 탁월하다는데, 백문이불여일타! 직접 만들며 체험하기, 같은 내용을 jQuery로 구현 후 'jQuery를 이용하는 것과는 무엇이 다른지 느껴보자!'는 취지로 과감히 도전해 봤다.",
     "images":{
         "main":{
-            "src":"projects/images/tileMap/p_tilemap_main_900px.jpg"
+            "src":"projects/images/angular/p_angularjs_main_900px.jpg"
         }
     },
     "luanch":"http://chaospace.cafe24.com/html5/tile/tile_map.html",
@@ -19,14 +19,12 @@
         "angular.module을 이용한 js파일 분리"
     ],
     "descriptions":[
+		"jquery를 이용해 작성한 같은 내용의 컨텐츠에 비해 겁나 시간이 오래 걸렸다. 왜!! angular는 뭔가 jquery처럼 쓰면 안될 것 같은 이상한 집착 때문에!! 나도 예제처럼 간단히 속성변화만 binding시키면 뭔가 마법처럼 싹 변하게 하고 싶었다~",
         "webSocket사용 시 angular를 간단히 사용한 적은 있지만 사이트 전체를 angularJS로 제작하는 것은 처음이라 흥미도 있었지만 한 삽질 하기도 많이 했다. ㅎㅎㅎ 일단 angular를 적용하며 가장 큰 고비는 익히 들어왔지만 초반 학습시간 이었다. 한 덩어리의 컨텐츠를 어떤 controller로 다루어야 하는지 부터 directive구조는 어떻게 해야 되는 건지 등등...  Angular적인 사고를 하기 위해 꽤나 시간을 허비한 것 같다. 나만 그런 건지도 모르겠다 ㅠㅠ",
-        "많은 곡절이 있었지만 대표적인 2가지만 꼽자면 <br><b>1. 커스텀 Directive</b><br><b>2. CSS로는 적용하기 애매한 Animation 처리</b><br>인데 꽤 삽질 끝에 익숙해졌고 익숙해지니 Angular의 매력을 알았던 것도 같다.",
-        "<em><img class='page-image' alt='가로 세로 방향의 조건을 추가하여 테스트 한 코드' src='projects/images/tileMap/p_step3.jpg' width='515' height='455'>가로 세로 이동에 따른 조건 처리 코드</em>",
-        "결과는 가로, 세로 한 방향만 이동 시 어색함 없지만 가로, 세로가 섞인 즉 대각선 방향으로 이동하면 중간중간에 이빨이 빠진 타일이 보였다. 원인은 각 조건에서 바로 타일 이동처리를 해버린 것 때문이라 생각했다.",
-        "<em><img class='page-image' alt='대각선 이동 시 발생하는 타일 이동 문제' src='projects/images/tileMap/p_step3_1.jpg' width='419' height='310'>대각선 이동 시 틀어지는 타일 위치</em>",
-        "문제 해결을 위해 <b>조건문은 이동해야 할 행렬만 정하고</b> 위치 이동은 한 번만 요청 하기로 정하고, 생각을 아래와 같이 글로 정리해 보았다",
-        "<em><img class='page-image' alt='대각선 이동 문제 발생 해결내용 정리' src='projects/images/tileMap/p_step4.jpg' width='671' height='265'>해결을 위한 생각 정리</em>",
-        "위 내용을 해결하였을 때, 구동에 문제는 더이상 없었고 후에 최적화를 거쳐 1차 마무리를 지었다."
+        "<em><img class='page-image' alt='프로젝트 리스트에 사용한 projectList와 projetRenderer 커스텀 디렉티브' src='projects/images/angular/p_step1.jpg' width='600' height='320'>사이트 레이아웃</em>",
+		"전체적인 레이아웃은 위와 같고 angular를 이용하며 가장 좋으면서 힘들었던 한 가지를 꼽자면 <br><b>커스텀 Directive</b>인데 아주 사~알~짝 익숙해지니 기존의 javascript로는 느끼지 못한 컴포넌트 형식의 편리함을 느낄 수 있어서 좋았다. 제공되고 있는 기본 directive들이 상당한 만큼 실 적용시 조금의 커스터마이징을 위해서도 안되는 영어문서를 접해야 하는 경우가 많은데 요건 좀 아쉽다. 마이...",
+		"부족한 사용후기 같지만 dom에 directive를 통한 컴포넌트 작성이 강점이며 일반 웹사이트 보다는 어플이나 관리자 모듈에서 더 효율적인 사용이 될듯 하다. 끝으로 데이터 중심으로 생각하는게 angularJS에서는 필수."
+		
     ]
 
 }
