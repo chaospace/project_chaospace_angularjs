@@ -3,7 +3,7 @@ var PROJECT_PATH_CHANGE             ="PROJECT_PATH_CHANGE";
 var PROJECT_STATE_CHANGE            ="PROJECT_STATE_CHANGE";
 var APP_LOADING_CHANGE              ="APP_LOADING_CHANGE";
 
-var PROJECT_PATH    ="/project_chaospace_angularjs/";
+var PROJECT_PATH    ="/projects/";
 var ASSET_PATH      =PROJECT_PATH+"assets/data/";
 var PARTISAL_PATH   =PROJECT_PATH+"partisal/";
 var DETAIL_PATH	  =PROJECT_PATH+"projects/";
