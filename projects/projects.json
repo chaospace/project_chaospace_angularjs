@@ -88,16 +88,16 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Canvas API-7",
+		"title"         :"soil",
 		"type"			:"default",
 		"category"		:"ios",
 		"image"         :{
-			"src"		:"projects/images/pic.jpg"
+			"src"		:"projects/images/soil/p_thumb.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"간단한 hybrid앱 경험만 있던 상태에서 다양한 네이티브API 사용 경험을 준 작업.",
 		"infomation"    :[
-			"Date : 2014.02.20",
-			"Keyword : html5, CanvasApi"
+			"Date : 2012.07.05",
+			"Keyword : objective-c, native"
 		]
 
 	},

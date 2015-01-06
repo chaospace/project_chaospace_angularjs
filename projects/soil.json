@@ -1,0 +1,22 @@
+{
+    
+	"title":"Soil 보너스 카드",
+	"subtitle":"하이브리드와 네이티브 적절히 사용한 프로젝트",
+    "images":{
+        "main":{
+            "src":"projects/images/poe/p_poe_main_900px.jpg"
+        }
+    },
+	"luanch":"http://chaospace.cafe24.com/portfolio/source/swf/poe/poe.html",
+    "step":[
+		"ios sound 파일 재생 원리파악",
+        "webview와 웹페이지 연동처리 익히기",
+        "상속을 통한 커스텀 뷰 제작방법 익히기",
+        "ViewComponent 스킨 및 테마 설정법 익히기",
+        "accelometer를 이용한 shake처리"
+	],
+    "descriptions":[
+        "objective-c의 언어의 편리함은 좋았다. 그런데 오버라이드가 아쉬웠다면 내가 아직 부족해서 그런거겠지."
+    ]
+
+}
