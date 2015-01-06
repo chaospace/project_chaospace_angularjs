@@ -3,7 +3,7 @@ var cpProjectControllers =angular.module('cpProjectControllers', ['cpProjectServ
 cpProjectControllers.controller( "NavigationController",function( $scope, appModel  ){
 
     $scope.onClick_MenuItem =function( $event, data ){
-		console.log("data", data );
+		//console.log("data", data );
 	    appModel.updateProjectCategoryState( data );
     };
 	
@@ -26,13 +26,13 @@ cpProjectControllers.controller( "ProjectDetailController", function( $scope, $s
     
 	if( $routeParams.projectId != null ){
 		Project.get({projectId:$routeParams.projectId}, function( project ){
-			console.log("detail", project );
+			//console.log("detail", project );
 			$scope.project = project;
 		});
 	}
 	
 	$scope.trustDangerousSnippet = function( info ){
-		console.log("info", info );
+		//console.log("info", info );
 		return $sce.trustAsHtml(info);
 	};	
     
