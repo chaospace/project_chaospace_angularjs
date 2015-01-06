@@ -53,7 +53,7 @@ cpProjectDirectives.directive( "projectList", function(){
             }
 
             function promiseSuccess( deferred, results ){
-                console.log("promiseSuccess", results );
+                //console.log("promiseSuccess", results );
                 deferred.resolve( results );
             }
 
