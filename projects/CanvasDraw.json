@@ -15,8 +15,7 @@
         "fillStyle을 이용한 canvas영역 초기화"
     ],
     "descriptions":[
-        "전체적인 구현은 flash 초반에 자주 하던거라 빠르게 진행할 수 있었다. context의 fillStyle에 알파값을 적용하면 화면에 드로잉된 요소에 잔상을 남기며 사라지는데 플래시의 bitmapdata.draw&blur 방식보다 수월하게 다가와서 좋았다. ",
-        "<em><img class='page-image' alt='드래그 시 방향에 따른 타일 재배치 원리1' src='projects/images/canvasDraw/p_step1.jpg' width='622' height='383'>순수 grahpics만 지원하는 관계로 사용 속성을 prototype 객체로 선언.</em>"
+        "context의 fillStyle에 알파값을 적용하면 화면에 드로잉된 요소에 잔상을 남기며 사라지는데 플래시의 bitmapdata.draw&blur 방식보다 수월한 느낌."
     ]
 
 }
