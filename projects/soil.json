@@ -7,7 +7,7 @@
             "src":"projects/images/poe/p_poe_main_900px.jpg"
         }
     },
-	"luanch":"http://chaospace.cafe24.com/portfolio/source/swf/poe/poe.html",
+	"luanch":"https://itunes.apple.com/us/app/s-oil-gudoil/id463703083?l=ko&amp;ls=1&amp;mt=8",
     "step":[
 		"ios sound 파일 재생 원리파악",
         "webview와 웹페이지 연동처리 익히기",
@@ -16,7 +16,7 @@
         "accelometer를 이용한 shake처리"
 	],
     "descriptions":[
-        "objective-c의 언어의 편리함은 좋았다. 그런데 오버라이드가 아쉬웠다면 내가 아직 부족해서 그런거겠지."
+        "objective-c의 언어의 편리함은 좋았다. protected 접근자를 지원해 줬다면 더 좋았을 텐데"
     ]
 
 }
