@@ -1,10 +1,10 @@
 {
     
-	"title":"Soil 보너스 카드",
-	"subtitle":"하이브리드와 네이티브 적절히 사용한 프로젝트",
+	"title":"S-OIL 보너스 카드",
+	"subtitle":"Hybrid & Native API 모두를 경험한 프로젝트",
     "images":{
         "main":{
-            "src":"projects/images/poe/p_poe_main_900px.jpg"
+            "src":"projects/images/soil/p_soil_main_900px.jpg"
         }
     },
 	"luanch":"https://itunes.apple.com/us/app/s-oil-gudoil/id463703083?l=ko&amp;ls=1&amp;mt=8",
