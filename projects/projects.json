@@ -62,7 +62,7 @@
 		"type"			:"default",
 		"category"		:"js",
 		"image"         :{
-			"src":"projects/images/particle/p_thumb.jpg"
+			"src":"projects/images/particle-node/p_thumb.jpg"
 		},
 		"description"   :"canvas를 이용한 particle-effect.",
 		"infomation"    :[
@@ -88,7 +88,7 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Soil BonusCard",
+		"title"         :"soil",
 		"type"			:"default",
 		"category"		:"ios",
 		"image"         :{
@@ -109,10 +109,10 @@
 		"image"         :{
 			"src"		:"projects/images/DisortImage/p_thumb.jpg"
 		},
-		"description"   :"Graphics를 이용한 Free Transform.",
+		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
 		"infomation"    :[
-            "Date : 2012.07.05",
-			"Keyword : <br>ActionScript, graphics"
+			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
+			"Keyword : html5, CanvasApi"
 		]
 	}
 ]
