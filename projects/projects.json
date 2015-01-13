@@ -109,7 +109,7 @@
 		"image"         :{
 			"src"		:"projects/images/DisortImage/p_thumb.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"graphicsAPI를 이용한 freeTransform.",
 		"infomation"    :[
 			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
 			"Keyword : html5, CanvasApi"
