@@ -4,7 +4,7 @@
 	"subtitle":"마우스 움직임에 따른 particle의 생성과 거리에 따른 라인연결로 표현한 움직임",
     "images":{
         "main":{
-            "src":"projects/images/tileMap/p_particle-node_main_900px.jpg"
+            "src":"projects/images/particle-node/p_particle-node_main_900px.jpg"
         }
     },
 	"luanch":"http://chaospace.github.io/particle-node",
