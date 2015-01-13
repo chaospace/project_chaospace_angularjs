@@ -33,7 +33,6 @@ $themeKorFont:'Nanum Gothic';
 }
 
 
-
 @mixin setSize( $width, $height: $width ){
   width: $width;
   height: $height;
@@ -206,7 +205,6 @@ ul.menu .motion-area > div {
   &:hover div {
     @include transform( translate3d(-190px, 0px, 0px) );
   }
-
 }
 
 div#nav-container .logo-motion-area {
@@ -218,10 +216,11 @@ div#nav-container .logo-motion-area {
 
 div#emblem-container {
   position: absolute;
-  @include transform(translate3d(230px, -130px, 0px));
+  @include transform(translate3d(230px, -153px, 0px));
   @include setSize(60px);
   background: $themeSubColor;
 }
+
 
 div#emblem-container:hover .motion-area > div{
   @include transform(translate3d(-58px, 11px, 0px));
@@ -231,7 +230,6 @@ div#emblem-container .motion-area {
   @include setSize(60px);
   display: inline-block;
   margin: 0;
-
 }
 
 div#emblem-container .motion-area > div {
