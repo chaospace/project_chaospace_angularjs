@@ -58,15 +58,15 @@
 	},
 	{
 		"template"      :"default_project_renderer.html",
-		"title"         :"Canvas API-5",
+		"title"         :"particle-node",
 		"type"			:"default",
 		"category"		:"js",
 		"image"         :{
-			"src":"projects/images/pic.jpg"
+			"src":"projects/images/particle/p_thumb.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"canvas를 이용한 particle-effect.",
 		"infomation"    :[
-			"Date : 2014.02.20",
+			"Date : 2015.01.13",
 			"Keyword : html5, CanvasApi"
 		]
 
