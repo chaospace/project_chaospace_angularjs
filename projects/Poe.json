@@ -4,7 +4,7 @@
 	"subtitle":"ByteArray를 이용한 플래시 이미지 뷰어. SWF파일의 바이트 정보에 사진정보를 추가하여 이를 별도 파일로 출판한다",
     "images":{
         "main":{
-            "src":"projects/images/poe/p_poe_main_900px.jpg"
+            "src":"projects/images/poe/p_main_900px.jpg"
         }
     },
 	"luanch":"http://chaospace.cafe24.com/portfolio/source/swf/poe/poe.html",

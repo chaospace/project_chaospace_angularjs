@@ -4,7 +4,7 @@
 	"subtitle":"Canvas의 drawImage를 이용 타일영역에 bitmap을 그려 맵을 구축.<br>뷰 영역보다 가로, 세로 +1 타일영역을 가지고 드래그 방향에 따라 타일의 위치를 제어하며 보여준다.",
     "images":{
         "main":{
-            "src":"projects/images/tileMap/p_tilemap_main_900px.jpg"
+            "src":"projects/images/tileMap/p_main_900px.jpg"
         }
     },
 	"luanch":"http://chaospace.cafe24.com/html5/tile/tile_map.html",

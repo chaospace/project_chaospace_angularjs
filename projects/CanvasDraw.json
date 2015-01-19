@@ -4,7 +4,7 @@
     "subtitle":"Canvas의 drawingAPI를 이용해 마우스 체이서 제작.ActionScript와는 다른 Context2D의 독특함을 알게된 기회",
     "images":{
         "main":{
-            "src":"projects/images/canvasDraw/p_canvasDraw_main_900px.jpg"
+            "src":"projects/images/canvasDraw/p_main_900px.jpg"
         }
     },
     "luanch":"http://chaospace.cafe24.com/html5/particle/drawLine2.html",
