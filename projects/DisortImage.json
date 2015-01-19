@@ -4,7 +4,7 @@
 	"subtitle":"graphics.drawTriangles의 culling값을 이용해 만들어 본 이미지 변형",
     "images":{
         "main":{
-            "src":"projects/images/DisortImage/p_DisortImage_main_900px.jpg"
+            "src":"projects/images/DisortImage/p_main_900px.jpg"
         }
     },
 	"luanch":"http://chaospace.cafe24.com/portfolio/source/swf/disort/disort.html",
