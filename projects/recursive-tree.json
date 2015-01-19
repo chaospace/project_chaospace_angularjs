@@ -1,7 +1,7 @@
 {
     
-	"title":"Canvas를 이용한 Particle효과",
-	"subtitle":"마우스 움직임에 따른 particle의 생성과 거리에 따른 라인연결로 표현한 움직임",
+	"title":"Recursive Tree",
+	"subtitle":"재귀함수를 이용한 나무 그리기",
     "images":{
         "main":{
             "src":"projects/images/recursive-tree/p_main_900px.jpg"
@@ -9,16 +9,16 @@
     },
 	"luanch":"http://chaospace.github.io/particle-node",
     "step":[
-		"particle객체 만들기",
-        "랜덤한 위치에 particle생성하기",
-        "생성된 particle 라인으로 연결하기",
-        "마우스 움직임에 따른 particle생성 조건 결정하기",
-        "랜덤한 요소를 생각에 따라 추가하기",
-        "진행 코드를 별도 js로 분리하여 component로 만들기"
+		"재귀함수 원리 이해",
+        "뎁스에 따른 줄기 만들기",
+        "자연스러운 줄기 연출을 위한 velocity처리",
+        "globalCompositeOperation 이용한 layer옵션 추가",
+        "배경 컬러 변경처리에 따른 opacity조절 추가",
+        "진행 코드를 별도 js로 분리하여 component 작성"
 	],
     "descriptions":[
-        "interactive한 요소를 처음부터 만들어 내기는 나에겐 버겨운 일이다.",
-        "조그만한 생각의 흐름을 정리하며 차분하게 풀어나가면 부족하지만 원하던 그림에 조금씩 가까워져 가는 것 같다."
+        "재귀함수를 이용한 나무 그리기. canvas는 display객체가 제공되지 않아, 초반에 조금 헤맨 기억이다. lineTo를 이용한 줄기는 조금 까칠한 느낌. circle을 이용한 줄기는 뭔가 부드럽다.",
+        "시간이 되면 배경에 무언가를 추가해 보고 싶다"
     ]
 
 }
