@@ -7,7 +7,7 @@
             "src":"projects/images/recursive-tree/p_main_900px.jpg"
         }
     },
-	"luanch":"http://chaospace.github.io/particle-node",
+	"luanch":"http://chaospace.github.io/recursive-tree",
     "step":[
 		"재귀함수 원리 이해",
         "뎁스에 따른 줄기 만들기",
