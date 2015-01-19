@@ -72,18 +72,17 @@
 
 	},
 	{
-		"template"      :"main_project_renderer.html",
-		"title"         :"Canvas Copy pixel-6",
-		"type"			:"main",
-		"category"		:"and",
+		"template"      :"default_project_renderer.html",
+		"title"         :"recursive-tree",
+		"type"			:"default",
+		"category"		:"js",
 		"image"         :{
-			"src"		:"projects/images/main_pic.jpg",
-			"bigsrc"    :"projects/images/main_big.jpg"
+			"src"		:"projects/images/recursive-tree/p_thumb.jpg"
 		},
-		"description"   :"우리가 테스트를 해보는 것입니다. 의미는 두지 마세요.",
+		"description"   :"재귀함수를 통한 나무 그리기. canvas는 flash보다는 drawing에 생각이 조금 더 필요하다",
 		"infomation"    :[
 			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
-			"Keyword : html5, CanvasApi"
+			"Keyword : html5, recursive"
 		]
 	},
 	{
