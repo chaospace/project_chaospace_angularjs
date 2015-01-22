@@ -81,7 +81,7 @@
 		},
 		"description"   :"재귀함수를 통한 나무 그리기. canvas는 flash보다는 drawing에 생각이 조금 더 필요하다",
 		"infomation"    :[
-			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
+			"Date: 2015.01.19",
 			"Keyword : html5, recursive"
 		]
 	},
@@ -110,7 +110,7 @@
 		},
 		"description"   :"graphicsAPI를 이용한 freeTransform.",
 		"infomation"    :[
-			"Date: <a style='font-size: 20px;' href='http://naver.com' target='_blank'>+45 29 382 476</a>",
+			"Date: 2010.06.10",
 			"Keyword : html5, CanvasApi"
 		]
 	}
