@@ -4,7 +4,7 @@
     "subtitle":"데이터 중심의 컨텐츠 제어에 익숙해 지지 않다면 jQuery보다 상당히 번거로운 느낌",
     "images":{
         "main":{
-            "src":"projects/images/angular/p_angularjs_main_900px.jpg"
+            "src":"projects/images/angular/p_main_900px.jpg"
         }
     },
     "luanch":"http://chaospace.github.io/projects/",
