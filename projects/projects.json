@@ -21,7 +21,7 @@
 		"image"         :{
 			"src":"projects/images/angular/p_thumb.jpg"
 		},
-		"description"   :"AngularJS를 이용한 사이트.<br>초반 학습시간은 길지만<br>고비를 넘기면 신세계!",
+		"description"   :"AngularJS를 이용한 사이트.<br>초반 학습시간은 길지만<br>고비를 넘기면 편리.",
 		"infomation"    :[
 			"Date: 2014.12.09",
 			"Keyword : <br> AngularJS, JavaScript"
@@ -35,7 +35,7 @@
 		"image"         :{
 			"src":"projects/images/canvasDraw/p_thumb.jpg"
 		},
-		"description"   :"Canvas를 이용한 드로잉.<br>flash시절 많이 했었는데...",
+		"description"   :"Canvas를 이용한 드로잉",
 		"infomation"    :[
 			"Date : 2014.02.20",
 			"Keyword : html5, CanvasApi"
@@ -79,7 +79,7 @@
 		"image"         :{
 			"src"		:"projects/images/recursive-tree/p_thumb.jpg"
 		},
-		"description"   :"재귀함수를 통한 나무 그리기. canvas는 flash보다는 drawing에 생각이 조금 더 필요하다",
+		"description"   :"재귀함수를 통한 나무 그리기. 재귀도 방식을 다양하게 표현가능",
 		"infomation"    :[
 			"Date: 2015.01.19",
 			"Keyword : html5, recursive"
