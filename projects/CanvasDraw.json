@@ -15,7 +15,7 @@
         "fillStyle을 이용한 canvas영역 초기화"
     ],
     "descriptions":[
-        "context의 fillStyle에 알파값을 적용하면 화면에 드로잉된 요소에 잔상을 남기며 사라지는데 플래시의 bitmapdata.draw&blur 방식보다 수월한 느낌."
+        "context의 fillStyle에 알파값을 이용한 효과는 확실히 플래시의 bitmapdata.draw&blur 방식보다 수월하다."
     ]
 
 }

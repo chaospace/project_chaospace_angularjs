@@ -1,7 +1,7 @@
 {
 
     "title":"AngularJS를 활용한 사이트 제작",
-    "subtitle":"데이터 중심의 컨텐츠 제어에 익숙해 지지 않다면 jQuery보다 상당히 번거로운 느낌",
+    "subtitle":" jQuery보다 상당히 번거로운 느낌이라 투덜대며 데이터 중심의 컨텐츠 제어를 배우다.",
     "images":{
         "main":{
             "src":"projects/images/angular/p_main_900px.jpg"
