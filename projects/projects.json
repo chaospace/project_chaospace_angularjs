@@ -89,7 +89,7 @@
 		"template"      :"default_project_renderer.html",
 		"title"         :"Soil BonusCard",
 		"type"			:"default",
-		"category"		:"ios",
+		"category"		:"app",
 		"image"         :{
 			"src"		:"projects/images/soil/p_thumb.jpg"
 		},
