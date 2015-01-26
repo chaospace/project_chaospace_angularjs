@@ -3,6 +3,21 @@
 		"template"      :"default_project_renderer.html",
 		"type"			:"default",
 		"category"		:"js",
+		"title"         :"pattern-lock",
+		"description"   :"스마트폰 pattern-lock을 js를 <br>이용해 만들어 보기",
+		"image"         :{
+			"src":"projects/images/pattern-lock/p_thumb.jpg"
+		},
+		"infomation"    :[
+			"Date : 2015.01.26",
+            "Keyword : <br>canvas, pattern-lock"
+		]
+	},
+    
+	{
+		"template"      :"default_project_renderer.html",
+		"type"			:"default",
+		"category"		:"js",
 		"title"         :"TileMap",
 		"description"   :"Canvas를 이용한 타일 맵.<br>drawImage를 통한 타일기반 스크롤",
 		"image"         :{

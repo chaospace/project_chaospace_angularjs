@@ -1,0 +1,23 @@
+{
+    
+	"title":"PatternLock",
+	"subtitle":"스마트폰 잠금화면 패턴 생성 후, 저장된 패턴 이미지로 만들어 보여주기",
+    "images":{
+        "main":{
+            "src":"projects/images/pattern-lock/p_main_900px.jpg"
+        }
+    },
+	"luanch":"http://chaospace.github.io/pattern-lock",
+    "step":[
+		"잠금포인트(LockPoint) 만들어 위치 시키기",
+        "터치&드래그 시 터치된 LockPoint 컬러 변경, 변경된 LockPoint 라인으로 연결",
+        "현재 드래그 위치 표현하기",
+        "패턴이 생성되면 다운로드 버튼 보여주기",
+        "구동환경 체크 후 터치 or 마우스 이벤트 등록하기",
+        "진행 코드를 별도 js로 분리하여 component로 만들기"
+	],
+    "descriptions":[
+        "canvas를 이용한 layer기능 구현은 기능에 따라 더 불편함을 초래할 수 있다.<br>기울기에 따른 중간 포인트 연결은 추후에..."
+    ]
+
+}
