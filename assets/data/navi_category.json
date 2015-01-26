@@ -4,6 +4,10 @@
             "label":"All",
             "data" :""
         },
+        {
+            "label":"Application",
+            "data" :"app"
+        },
 		{
             "label":"ActionScript",
             "data" :"acs"
@@ -11,11 +15,6 @@
         {
             "label":"JavaScript",
             "data" :"js"
-        },
-        
-        {
-            "label":"IPhone",
-            "data" :"ios"
         }
     ]
 }
