@@ -12,10 +12,7 @@
             "label":"JavaScript",
             "data" :"js"
         },
-        {
-            "label":"Android",
-            "data" :"and"
-        },
+        
         {
             "label":"IPhone",
             "data" :"ios"
