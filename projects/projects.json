@@ -57,6 +57,22 @@
 		]
 
 	},
+    
+    {
+		"template"      :"default_project_renderer.html",
+		"title"         :"LG H Shop",
+		"type"			:"default",
+		"category"		:"app",
+		"image"         :{
+			"src":"projects/images/hshop/p_thumb.jpg"
+		},
+		"description"   :"ByteArray를 이용한 사진 뷰어 생성",
+		"infomation"    :[
+			"Date: 2014.12.22",
+			"Keyword : <br>Android, Objective-c"
+		]
+	},
+    
 	{
 		"template"      :"default_project_renderer.html",
 		"title"         :"Poe",
