@@ -1,0 +1,21 @@
+{
+    
+	"title":"LG H Shop",
+	"subtitle":"LG Helathcare 하이브리드 앱",
+    "images":{
+        "main":{
+            "src":"projects/images/hshop/p_main_900px.jpg"
+        }
+    },
+	"luanch":"https://play.google.com/store/apps/details?id=com.lgcare.hshopapp",
+    "step":[
+		"webview를 이용한 url및 스키마 처리",
+        "gcm 기능 추가",
+        "결제 시스템 연동 추가",
+        "킷캣버전 intent스키마 처리"
+	],
+    "descriptions":[
+        "android는 버전에 따른 처리가 ios에 비해 지나칠 정도로 많다. 자유로운 만큼 예외처리도 많이 필요한 것이 단점!"
+    ]
+
+}
