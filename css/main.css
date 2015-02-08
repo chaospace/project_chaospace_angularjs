@@ -360,12 +360,12 @@ div#nav-container .logo-motion-area {
 
 div#emblem-container {
   position: absolute;
-  -webkit-transform: translate3d(230px, -153px, 0px);
-  -khtml-transform: translate3d(230px, -153px, 0px);
-  -moz-transform: translate3d(230px, -153px, 0px);
-  -ms-transform: translate3d(230px, -153px, 0px);
-  -o-transform: translate3d(230px, -153px, 0px);
-  transform: translate3d(230px, -153px, 0px);
+  -webkit-transform: translate3d(230px, -130px, 0px);
+  -khtml-transform: translate3d(230px, -130px, 0px);
+  -moz-transform: translate3d(230px, -130px, 0px);
+  -ms-transform: translate3d(230px, -130px, 0px);
+  -o-transform: translate3d(230px, -130px, 0px);
+  transform: translate3d(230px, -130px, 0px);
   width: 60px;
   height: 60px;
   background: #1b409f; }
