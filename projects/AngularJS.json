@@ -1,7 +1,7 @@
 {
 
     "title":"AngularJS를 활용한 사이트 제작",
-    "subtitle":" jQuery보다 상당히 번거로운 느낌이라 투덜대며 데이터 중심의 컨텐츠 제어를 배우다.",
+    "subtitle":"jQuery보다 상당히 번거롭지만 데이터 중심의 컨텐츠 제어에 익숙해지면 편하다.",
     "images":{
         "main":{
             "src":"projects/images/angular/p_main_900px.jpg"
@@ -19,7 +19,7 @@
         "angular.module을 이용한 js파일 분리"
     ],
     "descriptions":[
-		"dom에 directive를 통한 컴포넌트 작성이 강점이며 일반 웹사이트 보다는 어플이나 관리자 모듈에서 더 효율적인 사용이 될듯 하다. 끝으로 데이터 중심으로 생각하는게 angularJS에서는 필수."		
+		"dom에 directive를 통한 컴포넌트 작성이 강점이며 일반 웹사이트 보다는 어플이나 관리자 모듈에서 더 효율적인 사용이 될듯 하다. 끝으로 데이터 중심으로 생각하는게 angularJS에서는 필수."
     ]
 
 }
