@@ -69,14 +69,12 @@
 /* rgb(46, 48, 50);*/
 @-webkit-keyframes rotate-loading {
   0% {
-    -webkit-transform: rotate(0deg);
     -khtml-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
-    -webkit-transform: rotate(360deg);
     -khtml-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
@@ -84,14 +82,12 @@
     transform: rotate(360deg); } }
 @-moz-keyframes rotate-loading {
   0% {
-    -webkit-transform: rotate(0deg);
     -khtml-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
-    -webkit-transform: rotate(360deg);
     -khtml-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
@@ -99,14 +95,12 @@
     transform: rotate(360deg); } }
 @-ms-keyframes rotate-loading {
   0% {
-    -webkit-transform: rotate(0deg);
     -khtml-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
-    -webkit-transform: rotate(360deg);
     -khtml-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
@@ -114,14 +108,12 @@
     transform: rotate(360deg); } }
 @-o-keyframes rotate-loading {
   0% {
-    -webkit-transform: rotate(0deg);
     -khtml-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
-    -webkit-transform: rotate(360deg);
     -khtml-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
@@ -129,14 +121,12 @@
     transform: rotate(360deg); } }
 @keyframes rotate-loading {
   0% {
-    -webkit-transform: rotate(0deg);
     -khtml-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
-    -webkit-transform: rotate(360deg);
     -khtml-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
@@ -207,12 +197,11 @@ a {
   height: 100%; }
 
 div#nav-container .logo-motion-area div, div#footer-layer .logo-motion-area div, .renderer-type1 .image-container img, .renderer-type2 .image-container img {
-  -webkit-transition: all 0.4s ease-in-out 0;
-  -khtml-transition: all 0.4s ease-in-out 0;
-  -moz-transition: all 0.4s ease-in-out 0;
-  -ms-transition: all 0.4s ease-in-out 0;
-  -o-transition: all 0.4s ease-in-out 0;
-  transition: all 0.4s ease-in-out 0; }
+  -khtml-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  -ms-transition: all 0.4s ease-in-out 0s;
+  -o-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s; }
 
 /*
   wrapper layer style
@@ -257,7 +246,6 @@ ul.menu a {
   padding-bottom: 5px; }
 
 ul.menu a:hover .motion-area > div {
-  -webkit-transform: translate3d(0px, 0px, 0px);
   -khtml-transform: translate3d(0px, 0px, 0px);
   -moz-transform: translate3d(0px, 0px, 0px);
   -ms-transform: translate3d(0px, 0px, 0px);
@@ -268,7 +256,6 @@ ul.menu .motion-area {
   position: absolute;
   width: 30px;
   height: 2px;
-  -webkit-transform: translate3d(-40px, -8px, 0px);
   -khtml-transform: translate3d(-40px, -8px, 0px);
   -moz-transform: translate3d(-40px, -8px, 0px);
   -ms-transform: translate3d(-40px, -8px, 0px);
@@ -279,13 +266,11 @@ ul.menu .motion-area > div {
   position: absolute;
   width: 30px;
   height: 2px;
-  -webkit-transition: all 0.1s ease-in-out 0;
-  -khtml-transition: all 0.1s ease-in-out 0;
-  -moz-transition: all 0.1s ease-in-out 0;
-  -ms-transition: all 0.1s ease-in-out 0;
-  -o-transition: all 0.1s ease-in-out 0;
-  transition: all 0.1s ease-in-out 0;
-  -webkit-transform: translate3d(30px, 0px, 0px);
+  -khtml-transition: all 0.1s ease-in-out 0s;
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  -o-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
   -khtml-transform: translate3d(30px, 0px, 0px);
   -moz-transform: translate3d(30px, 0px, 0px);
   -ms-transform: translate3d(30px, 0px, 0px);
@@ -297,14 +282,12 @@ div#link-button .motion-area img, div#back-button .motion-area img {
   position: absolute;
   pointer-events: none; }
   div#link-button .motion-area img:nth-child(1), div#back-button .motion-area img:nth-child(1) {
-    -webkit-transform: translate3d(0px, 0px, 0px);
     -khtml-transform: translate3d(0px, 0px, 0px);
     -moz-transform: translate3d(0px, 0px, 0px);
     -ms-transform: translate3d(0px, 0px, 0px);
     -o-transform: translate3d(0px, 0px, 0px);
     transform: translate3d(0px, 0px, 0px); }
   div#link-button .motion-area img:nth-child(2), div#back-button .motion-area img:nth-child(2) {
-    -webkit-transform: translate3d(60px, 0px, 0px);
     -khtml-transform: translate3d(60px, 0px, 0px);
     -moz-transform: translate3d(60px, 0px, 0px);
     -ms-transform: translate3d(60px, 0px, 0px);
@@ -322,7 +305,6 @@ div#nav-container .logo-motion-area, div#footer-layer .logo-motion-area {
     pointer-events: none;
     width: 190px;
     height: 40px;
-    -webkit-transform: translate3d(0px, 0px, 0px);
     -khtml-transform: translate3d(0px, 0px, 0px);
     -moz-transform: translate3d(0px, 0px, 0px);
     -ms-transform: translate3d(0px, 0px, 0px);
@@ -333,21 +315,18 @@ div#nav-container .logo-motion-area, div#footer-layer .logo-motion-area {
     width: 100%;
     height: 100%; }
     div#nav-container .logo-motion-area img:nth-child(1), div#footer-layer .logo-motion-area img:nth-child(1) {
-      -webkit-transform: translate3d(0px, 0px, 0px);
       -khtml-transform: translate3d(0px, 0px, 0px);
       -moz-transform: translate3d(0px, 0px, 0px);
       -ms-transform: translate3d(0px, 0px, 0px);
       -o-transform: translate3d(0px, 0px, 0px);
       transform: translate3d(0px, 0px, 0px); }
     div#nav-container .logo-motion-area img:nth-child(2), div#footer-layer .logo-motion-area img:nth-child(2) {
-      -webkit-transform: translate3d(190px, 0px, 0px);
       -khtml-transform: translate3d(190px, 0px, 0px);
       -moz-transform: translate3d(190px, 0px, 0px);
       -ms-transform: translate3d(190px, 0px, 0px);
       -o-transform: translate3d(190px, 0px, 0px);
       transform: translate3d(190px, 0px, 0px); }
   div#nav-container .logo-motion-area:hover div, div#footer-layer .logo-motion-area:hover div {
-    -webkit-transform: translate3d(-190px, 0px, 0px);
     -khtml-transform: translate3d(-190px, 0px, 0px);
     -moz-transform: translate3d(-190px, 0px, 0px);
     -ms-transform: translate3d(-190px, 0px, 0px);
@@ -360,7 +339,6 @@ div#nav-container .logo-motion-area {
 
 div#emblem-container {
   position: absolute;
-  -webkit-transform: translate3d(230px, -130px, 0px);
   -khtml-transform: translate3d(230px, -130px, 0px);
   -moz-transform: translate3d(230px, -130px, 0px);
   -ms-transform: translate3d(230px, -130px, 0px);
@@ -371,7 +349,6 @@ div#emblem-container {
   background: #1b409f; }
 
 div#emblem-container:hover .motion-area > div {
-  -webkit-transform: translate3d(-58px, 11px, 0px);
   -khtml-transform: translate3d(-58px, 11px, 0px);
   -moz-transform: translate3d(-58px, 11px, 0px);
   -ms-transform: translate3d(-58px, 11px, 0px);
@@ -388,32 +365,28 @@ div#emblem-container .motion-area > div {
   position: relative;
   width: 38px;
   height: 38px;
-  -webkit-transform: translate3d(8px, 11px, 0px);
   -khtml-transform: translate3d(8px, 11px, 0px);
   -moz-transform: translate3d(8px, 11px, 0px);
   -ms-transform: translate3d(8px, 11px, 0px);
   -o-transform: translate3d(8px, 11px, 0px);
   transform: translate3d(8px, 11px, 0px);
-  -webkit-transition: all 0.2s ease-in-out 0;
-  -khtml-transition: all 0.2s ease-in-out 0;
-  -moz-transition: all 0.2s ease-in-out 0;
-  -ms-transition: all 0.2s ease-in-out 0;
-  -o-transition: all 0.2s ease-in-out 0;
-  transition: all 0.2s ease-in-out 0; }
+  -khtml-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  -o-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s; }
 
 div#emblem-container img {
   position: absolute;
   width: 100%;
   height: 100%; }
   div#emblem-container img:nth-child(1) {
-    -webkit-transform: translate3d(0px, 0px, 0px);
     -khtml-transform: translate3d(0px, 0px, 0px);
     -moz-transform: translate3d(0px, 0px, 0px);
     -ms-transform: translate3d(0px, 0px, 0px);
     -o-transform: translate3d(0px, 0px, 0px);
     transform: translate3d(0px, 0px, 0px); }
   div#emblem-container img:nth-child(2) {
-    -webkit-transform: translate3d(60px, 0px, 0px);
     -khtml-transform: translate3d(60px, 0px, 0px);
     -moz-transform: translate3d(60px, 0px, 0px);
     -ms-transform: translate3d(60px, 0px, 0px);
@@ -464,13 +437,11 @@ div.action-bar {
   width: 260px;
   z-index: 1;
   color: #9c9c9c;
-  -webkit-transition: all 0.2s ease-in-out 0;
-  -khtml-transition: all 0.2s ease-in-out 0;
-  -moz-transition: all 0.2s ease-in-out 0;
-  -ms-transition: all 0.2s ease-in-out 0;
-  -o-transition: all 0.2s ease-in-out 0;
-  transition: all 0.2s ease-in-out 0;
-  -webkit-transform: translate3d(130px, 0px, 0px);
+  -khtml-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  -o-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
   -khtml-transform: translate3d(130px, 0px, 0px);
   -moz-transform: translate3d(130px, 0px, 0px);
   -ms-transform: translate3d(130px, 0px, 0px);
@@ -481,18 +452,16 @@ div#link-button, div#back-button {
   position: relative;
   width: 260px;
   height: 60px;
-  -webkit-transform: translate3d(200px, 0px, 0px);
   -khtml-transform: translate3d(200px, 0px, 0px);
   -moz-transform: translate3d(200px, 0px, 0px);
   -ms-transform: translate3d(200px, 0px, 0px);
   -o-transform: translate3d(200px, 0px, 0px);
   transform: translate3d(200px, 0px, 0px);
-  -webkit-transition: all 0.2s ease-in-out 0;
-  -khtml-transition: all 0.2s ease-in-out 0;
-  -moz-transition: all 0.2s ease-in-out 0;
-  -ms-transition: all 0.2s ease-in-out 0;
-  -o-transition: all 0.2s ease-in-out 0;
-  transition: all 0.2s ease-in-out 0; }
+  -khtml-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  -o-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s; }
   div#link-button a, div#back-button a {
     width: 240px;
     height: 60px;
@@ -507,27 +476,23 @@ div#link-button, div#back-button {
       position: relative;
       width: 60px;
       height: 60px;
-      -webkit-transition: all 0.3s ease-in-out 0.2s;
       -khtml-transition: all 0.3s ease-in-out 0.2s;
       -moz-transition: all 0.3s ease-in-out 0.2s;
       -ms-transition: all 0.3s ease-in-out 0.2s;
       -o-transition: all 0.3s ease-in-out 0.2s;
       transition: all 0.3s ease-in-out 0.2s;
-      -webkit-transform: translate3d(0px, 0px, 0px);
       -khtml-transform: translate3d(0px, 0px, 0px);
       -moz-transform: translate3d(0px, 0px, 0px);
       -ms-transform: translate3d(0px, 0px, 0px);
       -o-transform: translate3d(0px, 0px, 0px);
       transform: translate3d(0px, 0px, 0px); }
   div#link-button:hover, div#back-button:hover {
-    -webkit-transform: translate3d(0px, 0px, 0px);
     -khtml-transform: translate3d(0px, 0px, 0px);
     -moz-transform: translate3d(0px, 0px, 0px);
     -ms-transform: translate3d(0px, 0px, 0px);
     -o-transform: translate3d(0px, 0px, 0px);
     transform: translate3d(0px, 0px, 0px); }
     div#link-button:hover .motion-area div, div#back-button:hover .motion-area div {
-      -webkit-transform: translate3d(-60px, 0px, 0px);
       -khtml-transform: translate3d(-60px, 0px, 0px);
       -moz-transform: translate3d(-60px, 0px, 0px);
       -ms-transform: translate3d(-60px, 0px, 0px);
@@ -568,13 +533,11 @@ div.renderer-transition {
     font-family: "Nanum Gothic";
     font-size: 15px;
     color: white;
-    -webkit-transform: translate3d(30px, 30px, 0px);
     -khtml-transform: translate3d(30px, 30px, 0px);
     -moz-transform: translate3d(30px, 30px, 0px);
     -ms-transform: translate3d(30px, 30px, 0px);
     -o-transform: translate3d(30px, 30px, 0px);
     transform: translate3d(30px, 30px, 0px);
-    -webkit-transition: all 0.4s ease-in-out 0.1s;
     -khtml-transition: all 0.4s ease-in-out 0.1s;
     -moz-transition: all 0.4s ease-in-out 0.1s;
     -ms-transition: all 0.4s ease-in-out 0.1s;
@@ -599,7 +562,6 @@ div.renderer-transition {
         top: -2px;
         right: 0px; }
   .renderer-type1:hover .image-container img, .renderer-type2:hover .image-container img {
-    -webkit-transform: scale(1.05, 1.05);
     -khtml-transform: scale(1.05, 1.05);
     -moz-transform: scale(1.05, 1.05);
     -ms-transform: scale(1.05, 1.05);
@@ -639,13 +601,11 @@ div.renderer-transition {
 .renderer-type1 .deco-description, .renderer-type2 .deco-description {
   position: absolute;
   opacity: 0;
-  -webkit-transform: translate3d(30px, 30px, 0px);
   -khtml-transform: translate3d(30px, 30px, 0px);
   -moz-transform: translate3d(30px, 30px, 0px);
   -ms-transform: translate3d(30px, 30px, 0px);
   -o-transform: translate3d(30px, 30px, 0px);
   transform: translate3d(30px, 30px, 0px);
-  -webkit-transition: all 0.4s ease-in-out 0.1s;
   -khtml-transition: all 0.4s ease-in-out 0.1s;
   -moz-transition: all 0.4s ease-in-out 0.1s;
   -ms-transition: all 0.4s ease-in-out 0.1s;
@@ -669,13 +629,11 @@ div.renderer-transition {
   height: 450px; }
 .renderer-type1 .deco-cover.left {
   pointer-events: none;
-  -webkit-transform: translate3d(370px, -120px, 0px) rotate(-30deg);
   -khtml-transform: translate3d(370px, -120px, 0px) rotate(-30deg);
   -moz-transform: translate3d(370px, -120px, 0px) rotate(-30deg);
   -ms-transform: translate3d(370px, -120px, 0px) rotate(-30deg);
   -o-transform: translate3d(370px, -120px, 0px) rotate(-30deg);
   transform: translate3d(370px, -120px, 0px) rotate(-30deg);
-  -webkit-transition: all 0.3s ease-in-out 0.2s;
   -khtml-transition: all 0.3s ease-in-out 0.2s;
   -moz-transition: all 0.3s ease-in-out 0.2s;
   -ms-transition: all 0.3s ease-in-out 0.2s;
@@ -683,28 +641,24 @@ div.renderer-transition {
   transition: all 0.3s ease-in-out 0.2s; }
 .renderer-type1 .deco-cover.right {
   pointer-events: none;
-  -webkit-transform: translate3d(-360px, 0px, 0px) rotate(-30deg);
   -khtml-transform: translate3d(-360px, 0px, 0px) rotate(-30deg);
   -moz-transform: translate3d(-360px, 0px, 0px) rotate(-30deg);
   -ms-transform: translate3d(-360px, 0px, 0px) rotate(-30deg);
   -o-transform: translate3d(-360px, 0px, 0px) rotate(-30deg);
   transform: translate3d(-360px, 0px, 0px) rotate(-30deg);
-  -webkit-transition: all 0.3s ease-in-out 0;
-  -khtml-transition: all 0.3s ease-in-out 0;
-  -moz-transition: all 0.3s ease-in-out 0;
-  -ms-transition: all 0.3s ease-in-out 0;
-  -o-transition: all 0.3s ease-in-out 0;
-  transition: all 0.3s ease-in-out 0;
+  -khtml-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
   /*-80*/ }
 .renderer-type1:hover .deco-cover.left {
-  -webkit-transform: translate3d(150px, -120px, 0px) rotate(-30deg);
   -khtml-transform: translate3d(150px, -120px, 0px) rotate(-30deg);
   -moz-transform: translate3d(150px, -120px, 0px) rotate(-30deg);
   -ms-transform: translate3d(150px, -120px, 0px) rotate(-30deg);
   -o-transform: translate3d(150px, -120px, 0px) rotate(-30deg);
   transform: translate3d(150px, -120px, 0px) rotate(-30deg); }
 .renderer-type1:hover .deco-cover.right {
-  -webkit-transform: translate3d(-80px, 0px, 0px) rotate(-30deg);
   -khtml-transform: translate3d(-80px, 0px, 0px) rotate(-30deg);
   -moz-transform: translate3d(-80px, 0px, 0px) rotate(-30deg);
   -ms-transform: translate3d(-80px, 0px, 0px) rotate(-30deg);
@@ -779,27 +733,23 @@ div.loading {
   border-radius: 100%;
   border: 3px solid transparent;
   border-color: transparent #1f49b3;
-  -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
   -khtml-animation: rotate-loading 1.5s linear 0s infinite normal;
   -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
   -ms-animation: rotate-loading 1.5s linear 0s infinite normal;
   -o-animation: rotate-loading 1.5s linear 0s infinite normal;
   animation: rotate-loading 1.5s linear 0s infinite normal;
-  -webkit-transform-origin: 50% 50%;
   -khtml-transform-origin: 50% 50%;
   -moz-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
   -o-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
-  -webkit-transition: all 0.5s ease-in-out 0;
-  -khtml-transition: all 0.5s ease-in-out 0;
-  -moz-transition: all 0.5s ease-in-out 0;
-  -ms-transition: all 0.5s ease-in-out 0;
-  -o-transition: all 0.5s ease-in-out 0;
-  transition: all 0.5s ease-in-out 0; }
+  -khtml-transition: all 0.5s ease-in-out 0s;
+  -moz-transition: all 0.5s ease-in-out 0s;
+  -ms-transition: all 0.5s ease-in-out 0s;
+  -o-transition: all 0.5s ease-in-out 0s;
+  transition: all 0.5s ease-in-out 0s; }
 
 div.loading-text {
-  -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
   -khtml-animation: loading-text-opacity 2s linear 0s infinite normal;
   -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
   -ms-animation: loading-text-opacity 2s linear 0s infinite normal;
@@ -835,7 +785,6 @@ div.loading-text {
     margin-left: 80px; }
 
   div#emblem-container {
-    -webkit-transform: translate3d(230px, -130px, 0px);
     -khtml-transform: translate3d(230px, -130px, 0px);
     -moz-transform: translate3d(230px, -130px, 0px);
     -ms-transform: translate3d(230px, -130px, 0px);
@@ -852,7 +801,6 @@ div.loading-text {
     margin-left: 50px; }
 
   div#emblem-container {
-    -webkit-transform: translate3d(0px, -60px, 0px);
     -khtml-transform: translate3d(0px, -60px, 0px);
     -moz-transform: translate3d(0px, -60px, 0px);
     -ms-transform: translate3d(0px, -60px, 0px);
@@ -890,7 +838,6 @@ div.loading-text {
 
   div.action-bar {
     margin-left: 0px;
-    -webkit-transform: translate3d(60px, 0px, 0px);
     -khtml-transform: translate3d(60px, 0px, 0px);
     -moz-transform: translate3d(60px, 0px, 0px);
     -ms-transform: translate3d(60px, 0px, 0px);
@@ -898,7 +845,6 @@ div.loading-text {
     transform: translate3d(60px, 0px, 0px); }
 
   div#link-button, div#back-button {
-    -webkit-transform: translate3d(210px, 0px, 0px);
     -khtml-transform: translate3d(210px, 0px, 0px);
     -moz-transform: translate3d(210px, 0px, 0px);
     -ms-transform: translate3d(210px, 0px, 0px);
@@ -909,7 +855,6 @@ div.loading-text {
     bottom: 70px; }
 
   div#emblem-container {
-    -webkit-transform: translate3d(260px, -60px, 0px);
     -khtml-transform: translate3d(260px, -60px, 0px);
     -moz-transform: translate3d(260px, -60px, 0px);
     -ms-transform: translate3d(260px, -60px, 0px);

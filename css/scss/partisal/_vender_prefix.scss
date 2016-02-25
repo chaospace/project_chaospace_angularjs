@@ -41,7 +41,7 @@
 
 /* ADDS A BROWSER PREFIX TO THE PROPERTY */
 @mixin css3-prefix($property, $value) {
-  -webkit-#{$property}: #{$value};
+  //-webkit-#{$property}: #{$value};
   -khtml-#{$property}: #{$value};
   -moz-#{$property}: #{$value};
   -ms-#{$property}: #{$value};
@@ -219,7 +219,7 @@
 /* transform-origin */
 @mixin transform-origin($params) {
  // @include css3-prefix('transform', $params);
-  -webkit-transform-origin: #{$params};
+ //-webkit-transform-origin: #{$params};
   -khtml-transform-origin: #{$params};
   -moz-transform-origin: #{$params};
   -ms-transform-origin: #{$params};
@@ -233,7 +233,7 @@
 }
 
 /* TRANSITION */
-@mixin transition($what: all, $length: 1s, $easing: ease-in-out, $delay: 0 ) {
+@mixin transition($what: all, $length: 1s, $easing: ease-in-out, $delay: 0s ) {
   @include css3-prefix('transition', $what $length $easing $delay );
 }
 
