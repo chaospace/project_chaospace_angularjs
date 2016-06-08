@@ -7,7 +7,7 @@
             "src":"projects/images/tileMap/p_main_900px.jpg"
         }
     },
-	"luanch":"http://chaospace.cafe24.com/html5/tile/tile_map.html",
+	"luanch":"https://dl.dropboxusercontent.com/u/110505762/portfolio/source/js/tile/tile_map.html",
     "step":[
 		"뷰 영역을 정하고 정해진 사이즈의 타일로 채우기",
         "타일 좌측 상단에 넘버링을 넣어 위치 파악하기 ",

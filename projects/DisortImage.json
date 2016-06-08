@@ -7,7 +7,7 @@
             "src":"projects/images/DisortImage/p_main_900px.jpg"
         }
     },
-	"luanch":"http://chaospace.cafe24.com/portfolio/source/swf/disort/disort.html",
+	"luanch":"https://dl.dropboxusercontent.com/u/110505762/portfolio/source/swf/disort/disort.html",
     "step":[
 		"graphics.drawTriangles 원리 파악",
         "이미지 texture영역 만들기",
